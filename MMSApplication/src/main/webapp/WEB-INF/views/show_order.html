@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+</head>
+<body>
+
+<table th:inline="text">
+    <tr>
+        <td>ID</td>
+        <td>[[${order.id}]]</td>
+    </tr>
+    <tr>
+        <td>Customer</td>
+        <td>[[${order.customer}]]</td>
+    </tr>
+    <tr>
+        <td>Customer Address</td>
+        <td>[[${order.customerAddress}]]</td>
+    </tr>
+</table>
+
+<a href="/orders">BACK</a>
+
+</body>
+</html>
