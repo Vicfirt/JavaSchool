@@ -15,6 +15,8 @@ public class OrderController {
     public OrderService orderService;
 
 
+
+
     @GetMapping("/hello-world")
     public String sayHello(){
 
@@ -28,15 +30,6 @@ public class OrderController {
 
         return "orders_list";
     }
-
-    @GetMapping("/order/{id}")
-    public String getOrderById(@PathVariable("id") int id, Model model){
-
-        model.addAttribute("order", orderService.getOrderById(id));
-        return "show_order";
-    }
-
-
 
 
 }
