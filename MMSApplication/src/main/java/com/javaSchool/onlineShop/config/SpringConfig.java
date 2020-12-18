@@ -1,4 +1,4 @@
-package com.nikitin.javaSchool.config;
+package com.javaSchool.onlineShop.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,7 +13,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
-@ComponentScan(basePackages = "com.nikitin.javaSchool")
+@ComponentScan(basePackages = "com.javaSchool.onlineShop")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 

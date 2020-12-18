@@ -1,7 +1,7 @@
-package com.nikitin.javaSchool.dao.impl;
+package com.javaSchool.onlineShop.dao.impl;
 
-import com.nikitin.javaSchool.dao.OrderDAO;
-import com.nikitin.javaSchool.entity.Order;
+import com.javaSchool.onlineShop.entity.Order;
+import com.javaSchool.onlineShop.dao.OrderDAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

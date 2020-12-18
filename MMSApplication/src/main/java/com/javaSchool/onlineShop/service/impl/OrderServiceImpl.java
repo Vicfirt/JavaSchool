@@ -1,8 +1,8 @@
-package com.nikitin.javaSchool.service.impl;
+package com.javaSchool.onlineShop.service.impl;
 
-import com.nikitin.javaSchool.dao.OrderDAO;
-import com.nikitin.javaSchool.entity.Order;
-import com.nikitin.javaSchool.service.OrderService;
+import com.javaSchool.onlineShop.entity.Order;
+import com.javaSchool.onlineShop.dao.OrderDAO;
+import com.javaSchool.onlineShop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

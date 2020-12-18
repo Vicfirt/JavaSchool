@@ -1,4 +1,4 @@
-package com.nikitin.javaSchool.entity;
+package com.javaSchool.onlineShop.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +11,7 @@ public class Order{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    public int id;
+    private int id;
 
     @Column(name = "customer")
     private String customer;

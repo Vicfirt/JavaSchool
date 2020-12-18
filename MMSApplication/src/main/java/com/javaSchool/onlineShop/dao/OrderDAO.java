@@ -1,6 +1,6 @@
-package com.nikitin.javaSchool.dao;
+package com.javaSchool.onlineShop.dao;
 
-import com.nikitin.javaSchool.entity.Order;
+import com.javaSchool.onlineShop.entity.Order;
 
 import java.util.List;
 

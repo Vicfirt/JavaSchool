@@ -1,4 +1,4 @@
-package com.nikitin.javaSchool.config;
+package com.javaSchool.onlineShop.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

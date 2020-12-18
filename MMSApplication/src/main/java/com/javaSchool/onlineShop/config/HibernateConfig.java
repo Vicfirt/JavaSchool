@@ -1,4 +1,4 @@
-package com.nikitin.javaSchool.config;
+package com.javaSchool.onlineShop.config;
 
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = "com.nikitin.javaSchool")
+@ComponentScan(basePackages = "com.javaSchool.onlineShop")
 @EnableTransactionManagement
 @PropertySource(value = "classpath:database.properties")
 public class HibernateConfig {
