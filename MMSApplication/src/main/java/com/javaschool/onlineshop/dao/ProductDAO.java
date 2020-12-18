@@ -1,6 +1,6 @@
-package com.javaSchool.onlineShop.dao;
+package com.javaschool.onlineshop.dao;
 
-import com.javaSchool.onlineShop.entity.Product;
+import com.javaschool.onlineshop.entity.Product;
 
 import java.util.List;
 
@@ -9,8 +9,5 @@ public interface ProductDAO {
      List<Product> findAll();
 
      Product getProductById(int id);
-
-
-
 
 }

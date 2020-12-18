@@ -1,7 +1,7 @@
-package com.javaSchool.onlineShop.dao.impl;
+package com.javaschool.onlineshop.dao.impl;
 
-import com.javaSchool.onlineShop.entity.Order;
-import com.javaSchool.onlineShop.dao.OrderDAO;
+import com.javaschool.onlineshop.dao.OrderDAO;
+import com.javaschool.onlineshop.entity.Order;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class OrderDAOImpl implements OrderDAO {
     public SessionFactory sessionFactory;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory){
+    public OrderDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

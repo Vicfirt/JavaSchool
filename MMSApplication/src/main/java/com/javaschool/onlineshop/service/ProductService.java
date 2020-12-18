@@ -1,6 +1,6 @@
-package com.javaSchool.onlineShop.service;
+package com.javaschool.onlineshop.service;
 
-import com.javaSchool.onlineShop.entity.Product;
+import com.javaschool.onlineshop.entity.Product;
 
 import java.util.List;
 

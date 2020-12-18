@@ -1,7 +1,11 @@
-package com.javaSchool.onlineShop.entity;
+package com.javaschool.onlineshop.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Column;
 
 
 @Entity

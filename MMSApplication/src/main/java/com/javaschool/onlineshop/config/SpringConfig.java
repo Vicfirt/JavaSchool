@@ -1,4 +1,4 @@
-package com.javaSchool.onlineShop.config;
+package com.javaschool.onlineshop.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -13,7 +13,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 @Configuration
-@ComponentScan(basePackages = "com.javaSchool.onlineShop")
+@ComponentScan(basePackages = "com.javaschool.onlineshop")
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
@@ -43,7 +43,6 @@ public class SpringConfig implements WebMvcConfigurer {
 
 
     public void configureViewResolvers(ViewResolverRegistry registry) {
-
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
