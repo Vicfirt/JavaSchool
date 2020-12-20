@@ -17,7 +17,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = "com.javaschool.onlineshop")
 @EnableTransactionManagement
-@PropertySource(value = "classpath:database.properties")
+@PropertySource(value = "classpath:application.properties")
 public class HibernateConfig {
 
     private Environment environment;
@@ -27,7 +27,7 @@ public class HibernateConfig {
         this.environment = environment;
     }
 
-    private Properties hibernateProperties(){
+    private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
@@ -36,7 +36,7 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
         dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
@@ -46,10 +46,10 @@ public class HibernateConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setPackagesToScan("com.nikitin.javaSchool.entity");
+        sessionFactoryBean.setPackagesToScan("com.javaschool.onlineshop.entity");
         sessionFactoryBean.setHibernateProperties(hibernateProperties());
         return sessionFactoryBean;
     }

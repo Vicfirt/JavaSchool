@@ -9,13 +9,12 @@ import javax.persistence.Column;
 
 
 @Entity
-@Table(name = "order")
-public class Order{
+@Table(name = "purchase")
+public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+    private long purchaseId;
 
     @Column(name = "customer")
     private String customer;
@@ -23,13 +22,13 @@ public class Order{
     @Column(name = "customer_address")
     private String customerAddress;
 
-    public int getId() {
-        return id;
+    public long getId() {
+        return purchaseId;
     }
 
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(long id) {
+        this.purchaseId = id;
     }
 
     public String getCustomer() {
@@ -48,5 +47,7 @@ public class Order{
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
     }
+
+
 }
 

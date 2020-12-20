@@ -1,12 +1,13 @@
 package com.javaschool.onlineshop.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
 import javax.persistence.Column;
+
 
 @Entity
 @Table(name = "product")
@@ -14,7 +15,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long productId;
 
 
     @Column(name = "name")
@@ -23,32 +24,36 @@ public class Product {
     @Column(name = "price")
     private long productPrice;
 
+    @Column(name = "category_id")
+    private int categoryId;
 
-    @Column(name = "category")
-    private String productCategory;
 
+    @Column(name = "brand")
+    private String productBrand;
 
-    @Column(name = "parameters")
-    private String productParameters;
-
+    @Column(name = "model")
+    private String productModel;
 
     @Column(name = "weight")
     private String productWeight;
 
 
     @Column(name = "capacity")
-    private String productCaCapacity;
-
+    private String productCapacity;
 
     @Column(name = "amount_in_stock")
     private String amountInStock;
 
-    public int getId() {
-        return id;
+    @Column(name = "is_active")
+    private boolean isActive;
+
+
+    public long getProductId() {
+        return productId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
@@ -67,20 +72,28 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public String getProductCategory() {
-        return productCategory;
+    public int getCategotrId() {
+        return categoryId;
     }
 
-    public void setProductCategory(String productCategory) {
-        this.productCategory = productCategory;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getProductParameters() {
-        return productParameters;
+    public String getProductBrand() {
+        return productBrand;
     }
 
-    public void setProductParameters(String productParameters) {
-        this.productParameters = productParameters;
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
+    }
+
+    public String getProductModel() {
+        return productModel;
+    }
+
+    public void setProductModel(String productModel) {
+        this.productModel = productModel;
     }
 
     public String getProductWeight() {
@@ -91,12 +104,12 @@ public class Product {
         this.productWeight = productWeight;
     }
 
-    public String getProductCaCapacity() {
-        return productCaCapacity;
+    public String getProductCapacity() {
+        return productCapacity;
     }
 
-    public void setProductCaCapacity(String productCaCapacity) {
-        this.productCaCapacity = productCaCapacity;
+    public void setProductCapacity(String productCapacity) {
+        this.productCapacity = productCapacity;
     }
 
     public String getAmountInStock() {
@@ -105,5 +118,13 @@ public class Product {
 
     public void setAmountInStock(String amountInStock) {
         this.amountInStock = amountInStock;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
