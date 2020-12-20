@@ -1,12 +1,16 @@
 package com.javaschool.onlineshop.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 
 
 @Entity
@@ -17,11 +21,12 @@ public class CartElement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "cartId")
+    private Cart cart;
+
     @OneToOne
     private Product product;
-
-    @Column(name = "cart_id")
-    private long cartId;
 
     @Column(name = "product_count")
     private int productCount;
@@ -32,6 +37,7 @@ public class CartElement {
     private double buyingPrice;
 
     @Column(name = "is_available")
+    @Type(type = "yes_no")
     private boolean isAvailable = true;
 
     public long getId() {
@@ -50,13 +56,6 @@ public class CartElement {
         this.product = product;
     }
 
-    public long getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(long cartId) {
-        this.cartId = cartId;
-    }
 
     public int getProductCount() {
         return productCount;
