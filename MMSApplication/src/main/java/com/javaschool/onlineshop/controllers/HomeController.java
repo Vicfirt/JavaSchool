@@ -6,6 +6,7 @@ import com.javaschool.onlineshop.entity.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import java.util.List;
 
 /**
@@ -26,9 +27,15 @@ public class HomeController {
      */
     @GetMapping("/")
     public String homePage(Model model) {
+        return "home_page";
+    }
+
+    @GetMapping("/catalog")
+    public String catalog(Model model) {
         List<Product> allProducts = productService.findAll();
         model.addAttribute("products", allProducts);
-        return "home_page";
+        return "catalog";
+
     }
 
 }

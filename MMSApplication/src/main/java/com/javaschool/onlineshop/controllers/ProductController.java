@@ -3,7 +3,6 @@ package com.javaschool.onlineshop.controllers;
 
 import com.javaschool.onlineshop.entity.Product;
 import com.javaschool.onlineshop.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

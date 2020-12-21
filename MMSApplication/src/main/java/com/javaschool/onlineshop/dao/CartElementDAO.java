@@ -3,7 +3,6 @@ package com.javaschool.onlineshop.dao;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
 
-
 import java.util.List;
 
 public interface CartElementDAO {
