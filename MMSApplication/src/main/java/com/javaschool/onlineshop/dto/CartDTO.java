@@ -1,53 +1,22 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.dto;
+
+import com.javaschool.onlineshop.entity.Cart;
+import com.javaschool.onlineshop.entity.Product;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+public class CartDTO {
 
-
-@Entity
-@Table(name = "cart_element")
-public class CartElement {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "cartId")
     private Cart cart;
 
-    @OneToOne
     private Product product;
 
-    @Column(name = "product_count")
     private Integer productCount;
 
-    @Column(name = "total_price")
     private Double totalPrice;
 
-    @Column(name = "buying_price")
     private Double buyingPrice;
 
-    @Column(name = "is_available")
     private Boolean isAvailable = true;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Cart getCart() {
         return cart;

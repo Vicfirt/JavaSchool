@@ -1,7 +1,7 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
-import com.javaschool.onlineshop.dao.CartElementDAO;
+import com.javaschool.onlineshop.dao.CartDAO;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
 import org.hibernate.Session;
@@ -9,13 +9,13 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class CartElementDAOImpl implements CartElementDAO {
+public class CartDAOImpl implements CartDAO {
 
     SessionFactory sessionFactory;
 
 
     @Override
-    public CartElement getCart(int id) {
+    public CartElement getCartElement(int id) {
         return sessionFactory.getCurrentSession().get(CartElement.class, id);
     }
 
@@ -41,13 +41,10 @@ public class CartElementDAOImpl implements CartElementDAO {
     }
 
     @Override
-    public List<CartElement> cartList(int cartId) {
+    public List<CartElement> cartList() {
         Session session = sessionFactory.getCurrentSession();
-        String query = "FROM CartElement WHERE cartId = :cartId";
-        return session
-                .createQuery(query, CartElement.class)
-                .setParameter("cartId", cartId)
-                .getResultList();
+        String query = "FROM CartElement";
+        return session.createQuery(query,CartElement.class).list();
     }
 
     @Override

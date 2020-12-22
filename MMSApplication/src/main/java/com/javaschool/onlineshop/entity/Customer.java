@@ -2,11 +2,16 @@ package com.javaschool.onlineshop.entity;
 
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+
+import java.util.List;
 
 
 @Entity
@@ -15,7 +20,10 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long customerId;
+    private Long customerId;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OrderInfo> orderInfos;
 
     @Column(name = "customer_first_name")
     private String customerFirstName;
@@ -32,6 +40,7 @@ public class Customer {
     @Column(name = "customer_password")
     private String customerPassword;
 
+    @Column(name = "customer_role")
     private String role;
 
     public long getCustomerId() {

@@ -23,6 +23,4 @@ public interface ProductDAO {
     List<Product> findAllActiveProductsByBrandOrModel(String brand, String category);
 
     List<Product> findAllActiveProductsByName(String productName);
-
-
 }

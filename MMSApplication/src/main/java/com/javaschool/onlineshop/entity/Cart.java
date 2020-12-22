@@ -9,24 +9,27 @@ import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import javax.persistence.Table;
 
 import java.util.List;
 
 
 @Entity
+@Table(name = "cart")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long cartId;
+    private Long cartId;
 
     @OneToOne
     private Customer customer;
 
     @Column(name = "total_price")
-    private double totalPrice;
+    private Double totalPrice;
+
     @Column(name = "elements_in_cart")
-    private int elementsInCart;
+    private Integer elementsInCart;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CartElement> cartElements;

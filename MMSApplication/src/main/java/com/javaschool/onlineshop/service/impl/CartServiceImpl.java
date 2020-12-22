@@ -1,57 +1,57 @@
 package com.javaschool.onlineshop.service.impl;
 
-import com.javaschool.onlineshop.dao.CartElementDAO;
+import com.javaschool.onlineshop.dao.CartDAO;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
-import com.javaschool.onlineshop.service.CartElementService;
+import com.javaschool.onlineshop.service.CartService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class CartElementServiceImpl implements CartElementService {
+public class CartServiceImpl implements CartService {
 
-    CartElementDAO cartElementDAO;
+    CartDAO cartDAO;
 
-    public CartElementServiceImpl(CartElementDAO cartElementDAO) {
-        this.cartElementDAO = cartElementDAO;
+    public CartServiceImpl(CartDAO cartDAO) {
+        this.cartDAO = cartDAO;
     }
 
     @Override
     @Transactional
-    public CartElement getCart(int id) {
-        return cartElementDAO.getCart(id);
+    public CartElement getCartElement(int id) {
+        return cartDAO.getCartElement(id);
     }
 
     @Override
     @Transactional
     public boolean add(CartElement cartElement) {
-        cartElementDAO.add(cartElement);
+        cartDAO.add(cartElement);
         return true;
     }
 
     @Override
     @Transactional
     public boolean update(CartElement cartElement) {
-        cartElementDAO.update(cartElement);
+        cartDAO.update(cartElement);
         return true;
     }
 
     @Override
     @Transactional
     public boolean delete(CartElement cartElement) {
-        cartElementDAO.delete(cartElement);
+        cartDAO.delete(cartElement);
         return true;
     }
 
     @Override
     @Transactional
-    public List<CartElement> cartList(int cartId) {
-        return cartElementDAO.cartList(cartId);
+    public List<CartElement> cartList() {
+        return cartDAO.cartList();
     }
 
     @Override
     public boolean updateCart(Cart cart) {
-        cartElementDAO.updateCart(cart);
+        cartDAO.updateCart(cart);
         return true;
     }
 }

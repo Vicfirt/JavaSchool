@@ -35,7 +35,5 @@ public class HomeController {
         List<Product> allProducts = productService.findAll();
         model.addAttribute("products", allProducts);
         return "catalog";
-
     }
-
 }

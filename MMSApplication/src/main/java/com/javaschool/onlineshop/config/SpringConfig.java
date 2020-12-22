@@ -1,7 +1,7 @@
 package com.javaschool.onlineshop.config;
 
 
-
+import org.modelmapper.ModelMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -41,5 +41,8 @@ public class SpringConfig implements WebMvcConfigurer {
         return freeMarkerConfigurer;
 
     }
-
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 }
