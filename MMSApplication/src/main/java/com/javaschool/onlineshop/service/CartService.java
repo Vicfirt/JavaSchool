@@ -1,15 +1,15 @@
 package com.javaschool.onlineshop.service;
 
+import com.javaschool.onlineshop.dto.CartElementDTO;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface CartService {
 
-    CartElement getCartElement(int id);
+    CartElementDTO getCartElement(int id);
 
     boolean add(CartElement cartElement);
 
@@ -17,7 +17,7 @@ public interface CartService {
 
     boolean delete(CartElement cartElement);
 
-    public List<CartElement> cartList();
+    List<CartElementDTO> cartList();
 
     boolean updateCart(Cart cart);
 }

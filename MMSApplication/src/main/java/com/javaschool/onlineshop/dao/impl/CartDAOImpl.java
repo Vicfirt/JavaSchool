@@ -6,9 +6,11 @@ import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class CartDAOImpl implements CartDAO {
 
     SessionFactory sessionFactory;
@@ -44,7 +46,7 @@ public class CartDAOImpl implements CartDAO {
     public List<CartElement> cartList() {
         Session session = sessionFactory.getCurrentSession();
         String query = "FROM CartElement";
-        return session.createQuery(query,CartElement.class).list();
+        return session.createQuery(query, CartElement.class).list();
     }
 
     @Override

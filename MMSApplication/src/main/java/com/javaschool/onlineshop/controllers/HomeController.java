@@ -1,6 +1,5 @@
 package com.javaschool.onlineshop.controllers;
 
-
 import com.javaschool.onlineshop.service.ProductService;
 import com.javaschool.onlineshop.entity.Product;
 import org.springframework.stereotype.Controller;

@@ -1,13 +1,19 @@
 package com.javaschool.onlineshop.service.impl;
 
 import com.javaschool.onlineshop.dao.CartDAO;
+import com.javaschool.onlineshop.dto.CartElementDTO;
+import com.javaschool.onlineshop.dto.mapppers.CartElementMapper;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
 import com.javaschool.onlineshop.service.CartService;
+import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CartServiceImpl implements CartService {
 
     CartDAO cartDAO;
@@ -18,8 +24,10 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public CartElement getCartElement(int id) {
-        return cartDAO.getCartElement(id);
+    public CartElementDTO getCartElement(int id) {
+        CartElement cartElement = cartDAO.getCartElement(id);
+        CartElementMapper mapper = Mappers.getMapper(CartElementMapper.class);
+        return mapper.cartElementToCartElementDTO(cartElement);
     }
 
     @Override
@@ -45,8 +53,14 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public List<CartElement> cartList() {
-        return cartDAO.cartList();
+    public List<CartElementDTO> cartList() {
+        CartElementMapper mapper = Mappers.getMapper(CartElementMapper.class);
+        List<CartElementDTO> cartElementDTOList = new ArrayList<>();
+        List<CartElement> cartElementList = cartDAO.cartList();
+        for (CartElement cartElement : cartElementList) {
+            cartElementDTOList.add(mapper.cartElementToCartElementDTO(cartElement));
+        }
+        return cartElementDTOList;
     }
 
     @Override
