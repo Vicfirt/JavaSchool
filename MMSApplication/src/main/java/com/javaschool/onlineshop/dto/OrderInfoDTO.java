@@ -1,7 +1,5 @@
 package com.javaschool.onlineshop.dto;
 
-import com.javaschool.onlineshop.entity.CustomerAddress;
-
 
 public class OrderInfoDTO {
 
@@ -10,4 +8,28 @@ public class OrderInfoDTO {
     private CustomerDTO customerDTO;
 
     private CustomerAddressDTO customerAddressDTO;
+
+    public Long getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(Long purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
+    public CustomerDTO getCustomerDTO() {
+        return customerDTO;
+    }
+
+    public void setCustomerDTO(CustomerDTO customerDTO) {
+        this.customerDTO = customerDTO;
+    }
+
+    public CustomerAddressDTO getCustomerAddressDTO() {
+        return customerAddressDTO;
+    }
+
+    public void setCustomerAddressDTO(CustomerAddressDTO customerAddressDTO) {
+        this.customerAddressDTO = customerAddressDTO;
+    }
 }

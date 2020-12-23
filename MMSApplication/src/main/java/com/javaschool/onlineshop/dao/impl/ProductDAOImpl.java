@@ -14,7 +14,6 @@ public class ProductDAOImpl implements ProductDAO {
 
     public SessionFactory sessionFactory;
 
-
     public ProductDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -25,7 +24,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public Product getProductById(int id) {
+    public Product getProductById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Product.class, id);
     }
@@ -67,13 +66,10 @@ public class ProductDAOImpl implements ProductDAO {
                 .setParameter("active", true)
                 .setParameter("categoryId", categoryId)
                 .getResultList();
-
-
     }
 
     @Override
     public List<Product> findAllActiveProductsByBrandOrModel(String brand, String category) {
-
         return null;
     }
 
@@ -81,5 +77,4 @@ public class ProductDAOImpl implements ProductDAO {
     public List<Product> findAllActiveProductsByName(String productName) {
         return null;
     }
-
 }

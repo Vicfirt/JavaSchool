@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 import java.util.List;
 
-
 @Entity
 @Table(name = "cart")
 public class Cart {
@@ -25,8 +24,8 @@ public class Cart {
     @OneToOne
     private Customer customer;
 
-    @Column(name = "total_price")
-    private Double totalPrice;
+    @Column(name = "cart_total")
+    private Double cartTotal;
 
     @Column(name = "elements_in_cart")
     private Integer elementsInCart;
@@ -50,12 +49,12 @@ public class Cart {
         this.customer = customer;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public Double getCartTotal() {
+        return cartTotal;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setCartTotal(Double cartTotal) {
+        this.cartTotal = cartTotal;
     }
 
     public int getElementsInCart() {

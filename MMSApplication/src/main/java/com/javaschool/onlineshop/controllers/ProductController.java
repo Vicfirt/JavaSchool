@@ -19,7 +19,6 @@ public class ProductController {
 
     public ProductService productService;
 
-
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -29,7 +28,7 @@ public class ProductController {
      * Product according to the specified ID will also be sent for presentation for further use.
      */
     @GetMapping("/{productId}")
-    public String getProductInfoPage(@PathVariable("productId") int productId, Model model) {
+    public String getProductInfoPage(@PathVariable("productId") Long productId, Model model) {
         Product product = productService.getProductById(productId);
         model.addAttribute("product", product);
         return "product_info";

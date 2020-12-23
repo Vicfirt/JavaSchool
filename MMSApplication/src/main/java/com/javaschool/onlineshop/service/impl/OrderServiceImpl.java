@@ -5,15 +5,12 @@ import com.javaschool.onlineshop.service.OrderService;
 import com.javaschool.onlineshop.entity.OrderInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
-
     public OrderDAO orderDAO;
-
 
     public OrderServiceImpl(OrderDAO orderDAO) {
         this.orderDAO = orderDAO;

@@ -13,7 +13,6 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductDAO productDAO;
 
-
     public ProductServiceImpl(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
@@ -26,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Product getProductById(int id) {
+    public Product getProductById(Long id) {
         return productDAO.getProductById(id);
     }
 

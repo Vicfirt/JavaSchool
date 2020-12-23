@@ -1,6 +1,8 @@
 package com.javaschool.onlineshop.entity;
 
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
@@ -11,11 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
-
 @Entity
 @Table(name = "cart_element")
 public class CartElement {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,16 +29,18 @@ public class CartElement {
     private Product product;
 
     @Column(name = "product_count")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer productCount;
 
-    @Column(name = "total_price")
-    private Double totalPrice;
-
-    @Column(name = "buying_price")
-    private Double buyingPrice;
+    @Column(name = "element_price")
+    private Double elementPrice;
 
     @Column(name = "is_available")
+    @Type(type = "yes_no")
     private Boolean isAvailable = true;
+
+    @Column(name = "element_total_price")
+    private Double totalPrice;
 
 
     public Long getId() {
@@ -73,20 +75,12 @@ public class CartElement {
         this.productCount = productCount;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public Double getElementPrice() {
+        return elementPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Double getBuyingPrice() {
-        return buyingPrice;
-    }
-
-    public void setBuyingPrice(Double buyingPrice) {
-        this.buyingPrice = buyingPrice;
+    public void setElementPrice(Double elementPrice) {
+        this.elementPrice = elementPrice;
     }
 
     public Boolean getAvailable() {
@@ -95,6 +89,14 @@ public class CartElement {
 
     public void setAvailable(Boolean available) {
         isAvailable = available;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
 

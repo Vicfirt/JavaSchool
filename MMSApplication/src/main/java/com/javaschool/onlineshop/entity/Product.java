@@ -1,13 +1,14 @@
 package com.javaschool.onlineshop.entity;
 
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "product")
@@ -21,7 +22,7 @@ public class Product {
     private String productName;
 
     @Column(name = "price")
-    private Long productPrice;
+    private Double productPrice;
 
     @Column(name = "category_id")
     private Integer categoryId;
@@ -42,6 +43,7 @@ public class Product {
     private String amountInStock;
 
     @Column(name = "active")
+    @Type(type = "yes_no")
     private Boolean isActive;
 
     public long getProductId() {
@@ -60,11 +62,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public long getProductPrice() {
+    public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(long productPrice) {
+    public void setProductPrice(Double productPrice) {
         this.productPrice = productPrice;
     }
 

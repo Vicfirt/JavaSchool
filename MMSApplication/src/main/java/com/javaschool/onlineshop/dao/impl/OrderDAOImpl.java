@@ -13,7 +13,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     public SessionFactory sessionFactory;
 
-
     public OrderDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

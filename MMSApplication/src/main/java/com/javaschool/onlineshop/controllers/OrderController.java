@@ -18,7 +18,6 @@ public class OrderController {
 
     public OrderService orderService;
 
-
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
@@ -29,8 +28,8 @@ public class OrderController {
      */
     @GetMapping("/orders")
     public String getAllOrders(Model model) {
-        List<OrderInfo> allOrderInfos = orderService.findAll();
-        model.addAttribute("orders", allOrderInfos);
+        List<OrderInfo> ordersInfo = orderService.findAll();
+        model.addAttribute("orders", ordersInfo);
         return "orders_info";
     }
 }

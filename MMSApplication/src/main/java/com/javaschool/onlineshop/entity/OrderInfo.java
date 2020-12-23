@@ -8,15 +8,13 @@ import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
-
 @Entity
 @Table(name = "order_info")
 public class OrderInfo {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long purchaseId;
+    private Long orderId;
 
     @ManyToOne
     @JoinColumn(name = "customerId")
@@ -27,12 +25,12 @@ public class OrderInfo {
     private CustomerAddress customerAddress;
 
 
-    public Long getPurchaseId() {
-        return purchaseId;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setPurchaseId(Long purchaseId) {
-        this.purchaseId = purchaseId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Customer getCustomer() {

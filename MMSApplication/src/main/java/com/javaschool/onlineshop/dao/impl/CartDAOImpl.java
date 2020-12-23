@@ -15,7 +15,6 @@ public class CartDAOImpl implements CartDAO {
 
     SessionFactory sessionFactory;
 
-
     @Override
     public CartElement getCartElement(int id) {
         return sessionFactory.getCurrentSession().get(CartElement.class, id);

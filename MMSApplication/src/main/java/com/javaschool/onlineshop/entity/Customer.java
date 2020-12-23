@@ -10,9 +10,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
-
+import javax.persistence.OneToOne;
 import java.util.List;
-
 
 @Entity
 @Table(name = "customer")
@@ -23,7 +22,7 @@ public class Customer {
     private Long customerId;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<OrderInfo> orderInfos;
+    private List<OrderInfo> orderInfo;
 
     @Column(name = "customer_first_name")
     private String customerFirstName;
@@ -43,12 +42,30 @@ public class Customer {
     @Column(name = "customer_role")
     private String role;
 
-    public long getCustomerId() {
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private Cart cart;
+
+    public Customer() {
+        Cart cart = new Cart();
+        cart.setCustomer(this);
+        this.setCart(cart);
+    }
+
+
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(long customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
+    }
+
+    public List<OrderInfo> getOrderInfos() {
+        return orderInfo;
+    }
+
+    public void setOrderInfos(List<OrderInfo> orderInfos) {
+        this.orderInfo = orderInfos;
     }
 
     public String getCustomerFirstName() {
@@ -97,5 +114,13 @@ public class Customer {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 
 import java.util.List;
 
-
 @Entity
 @Table(name = "customer_address")
 public class CustomerAddress {
