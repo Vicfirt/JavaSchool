@@ -1,6 +1,6 @@
 package com.javaschool.onlineshop.service;
 
-import com.javaschool.onlineshop.dto.CartElementDTO;
+
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
 import com.javaschool.onlineshop.entity.Product;
@@ -11,15 +11,13 @@ public interface CartService {
 
     Cart getCart();
 
-    CartElementDTO getCartElement(int id);
+    void addCartElement(Product product);
 
-    boolean addCartElement(Product product);
+    void update(CartElement cartElement);
 
-    boolean update(CartElement cartElement);
+    void delete(CartElement cartElement);
 
-    boolean delete(CartElement cartElement);
+    List<CartElement> getCartElements();
 
-    List<CartElementDTO> cartList();
-
-    boolean updateCart(Cart cart);
+    Double countTotal();
 }

@@ -1,17 +1,23 @@
 package com.javaschool.onlineshop.dto;
 
 
-import java.util.List;
-
 public class CartDTO {
+
+    private Long cartId;
 
     private CustomerDTO customerDTO;
 
-    private Double totalPrice;
+    private Double cartTotal;
 
     private Integer elementsInCart;
 
-    private List<CartElementDTO> cartElementDTOS;
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
 
     public CustomerDTO getCustomerDTO() {
         return customerDTO;
@@ -21,12 +27,12 @@ public class CartDTO {
         this.customerDTO = customerDTO;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public Double getCartTotal() {
+        return cartTotal;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setCartTotal(Double cartTotal) {
+        this.cartTotal = cartTotal;
     }
 
     public Integer getElementsInCart() {
@@ -35,13 +41,5 @@ public class CartDTO {
 
     public void setElementsInCart(Integer elementsInCart) {
         this.elementsInCart = elementsInCart;
-    }
-
-    public List<CartElementDTO> getCartElementDTOS() {
-        return cartElementDTOS;
-    }
-
-    public void setCartElementDTOS(List<CartElementDTO> cartElementDTOS) {
-        this.cartElementDTOS = cartElementDTOS;
     }
 }

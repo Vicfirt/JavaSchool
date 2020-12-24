@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    public OrderDAO orderDAO;
+    private final OrderDAO orderDAO;
 
     public OrderServiceImpl(OrderDAO orderDAO) {
         this.orderDAO = orderDAO;

@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 public class OrderController {
 
-    public OrderService orderService;
+    private final OrderService orderService;
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;

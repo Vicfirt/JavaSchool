@@ -1,13 +1,16 @@
 package com.javaschool.onlineshop.dto;
 
 
+import com.javaschool.onlineshop.entity.Cart;
+import com.javaschool.onlineshop.entity.CustomerAddress;
+
 import java.util.List;
 
 public class CustomerDTO {
 
     private Long customerId;
 
-    private List<OrderInfoDTO> orderInfoDTOList;
+    private List<CustomerAddress> customerAddresses;
 
     private String customerFirstName;
 
@@ -21,6 +24,12 @@ public class CustomerDTO {
 
     private String role;
 
+    private Boolean active;
+
+    private String phoneNumber;
+
+    private Cart cart;
+
     public Long getCustomerId() {
         return customerId;
     }
@@ -29,12 +38,12 @@ public class CustomerDTO {
         this.customerId = customerId;
     }
 
-    public List<OrderInfoDTO> getOrderInfoDTOList() {
-        return orderInfoDTOList;
+    public List<CustomerAddress> getCustomerAddresses() {
+        return customerAddresses;
     }
 
-    public void setOrderInfoDTOList(List<OrderInfoDTO> orderInfoDTOList) {
-        this.orderInfoDTOList = orderInfoDTOList;
+    public void setCustomerAddresses(List<CustomerAddress> customerAddresses) {
+        this.customerAddresses = customerAddresses;
     }
 
     public String getCustomerFirstName() {
@@ -83,5 +92,29 @@ public class CustomerDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

@@ -1,7 +1,7 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.dto.CartElementDTO;
+import com.javaschool.onlineshop.entity.CartElement;
 import com.javaschool.onlineshop.entity.Product;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.ProductService;
@@ -17,9 +17,9 @@ import java.util.List;
 @RequestMapping("/cart")
 public class CartController {
 
-    CartService cartService;
+    private final CartService cartService;
 
-    ProductService productService;
+    private final ProductService productService;
 
     public CartController(CartService cartService, ProductService productService) {
         this.cartService = cartService;
@@ -28,8 +28,8 @@ public class CartController {
 
     @GetMapping("/showCart")
     public String getAllItemsInCart(Model model) {
-        List<CartElementDTO> cartElementDTOList = cartService.cartList();
-        model.addAttribute("cartitems", cartElementDTOList);
+        List<CartElement> elementList = cartService.getCartElements();
+        model.addAttribute("cartItems", elementList);
         return "cart";
     }
 
@@ -37,6 +37,6 @@ public class CartController {
     public String addCartElement(@PathVariable("id") long id) {
         Product product = productService.getProductById(id);
         cartService.addCartElement(product);
-        return "redirect:/cart/showCart";
+        return "redirect:/catalog";
     }
 }

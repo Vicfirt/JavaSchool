@@ -3,55 +3,47 @@ package com.javaschool.onlineshop.dao.impl;
 
 import com.javaschool.onlineshop.dao.CartDAO;
 import com.javaschool.onlineshop.entity.Cart;
-import com.javaschool.onlineshop.entity.CartElement;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import javax.persistence.Query;
 
 @Repository
 public class CartDAOImpl implements CartDAO {
 
-    SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
-    @Override
-    public CartElement getCartElement(int id) {
-        return sessionFactory.getCurrentSession().get(CartElement.class, id);
+    public CartDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public boolean add(CartElement cartElement) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(cartElement);
-        return true;
-    }
-
-    @Override
-    public boolean update(CartElement cartElement) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(cartElement);
-        return true;
-    }
-
-    @Override
-    public boolean delete(CartElement cartElement) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(cartElement);
-        return true;
-    }
-
-    @Override
-    public List<CartElement> cartList() {
-        Session session = sessionFactory.getCurrentSession();
-        String query = "FROM CartElement";
-        return session.createQuery(query, CartElement.class).list();
+    public Cart getCart(int customerId) {
+        String dbQuery = "FROM Cart WHERE customer = :customerId";
+        Query query = sessionFactory.getCurrentSession().createQuery(dbQuery, Cart.class);
+        query.setParameter("customerId", customerId);
+        return (Cart) query.getSingleResult();
     }
 
     @Override
     public boolean updateCart(Cart cart) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(cart);
-        return true;
+        try {
+            sessionFactory.getCurrentSession().update(cart);
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean addCart(Cart cart){
+        try {
+            sessionFactory.getCurrentSession().persist(cart);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 }

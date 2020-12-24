@@ -37,211 +37,37 @@
         </div>
 
         <div class="col-lg-9">
-                <div class="row wow fadeIn">
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="view overlay">
-                                <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone">
-                                <a href="/">
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <div class="card-body text-center">
-                                <a href="" class="grey-text">
-                                    <h5>Iphone</h5>
-                                </a>
-
-                                <h5>
-                                    <strong>
-                                        <a href="" class="dark-grey-text">Apple Iphone
-                                            <span class="badge badge-pill danger-color">NEW</span></a>
-                                    </strong>
-                                </h5>
-                                <h4 class="font-weight-bold blue-text">
-                                    <strong>699$</strong>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="view overlay">
-                                <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone">
-                                <a href="/">
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <div class="card-body text-center">
-                                <a href="" class="grey-text">
-                                    <h5>Iphone</h5>
-                                </a>
-
-                                <h5>
-                                    <strong>
-                                        <a href="" class="dark-grey-text">Apple Iphone
-                                            <span class="badge badge-pill danger-color">NEW</span></a>
-                                    </strong>
-                                </h5>
-                                <h4 class="font-weight-bold blue-text">
-                                    <strong>699$</strong>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="view overlay">
-                                <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone">
-                                <a href="/">
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <div class="card-body text-center">
-                                <a href="" class="grey-text">
-                                    <h5>Iphone</h5>
-                                </a>
-
-                                <h5>
-                                    <strong>
-                                        <a href="" class="dark-grey-text">Apple Iphone
-                                            <span class="badge badge-pill danger-color">NEW</span></a>
-                                    </strong>
-                                </h5>
-                                <h4 class="font-weight-bold blue-text">
-                                    <strong>699$</strong>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="view overlay">
-                                <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone">
-                                <a href="/">
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <div class="card-body text-center">
-                                <a href="" class="grey-text">
-                                    <h5>Iphone</h5>
-                                </a>
-
-                                <h5>
-                                    <strong>
-                                        <a href="" class="dark-grey-text">Apple Iphone
-                                            <span class="badge badge-pill danger-color">NEW</span></a>
-                                    </strong>
-                                </h5>
-                                <h4 class="font-weight-bold blue-text">
-                                    <strong>699$</strong>
-                                </h4>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             <div class="row wow fadeIn">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="view overlay">
-                            <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone">
-                            <a href="/">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body text-center">
-                            <a href="" class="grey-text">
-                                <h5>Iphone</h5>
-                            </a>
+                    <#list products as product>
+                        <div class="col col-md-4 lg-6 md-4">
+                        <div class="card">
+                            <div class="view overlay">
+                                <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone" height="150px" width="100px">
+                                <a href="/product/${product.productId}">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <div class="card-body text-center">
+                                <a href="/product/${product.productId}" class="grey-text">
+                                    <h5>${product.productBrand}</h5>
+                                </a>
 
-                            <h5>
-                                <strong>
-                                    <a href="" class="dark-grey-text">Apple Iphone
-                                        <span class="badge badge-pill danger-color">NEW</span></a>
-                                </strong>
-                            </h5>
-                            <h4 class="font-weight-bold blue-text">
-                                <strong>699$</strong>
-                            </h4>
+                                <h5>
+                                    <strong>
+                                        <a href="/product/${product.productId}" class="dark-grey-text">${product.productName} ${product.productModel}
+                                            <span class="badge badge-pill danger-color">NEW</span></a>
+                                    </strong>
+                                </h5>
+                                <h4 class="font-weight-bold blue-text">
+                                    <strong>${product.productPrice} $</strong>
+                                </h4>
+                                <a href="cart/add/product/${product.productId}" class="btn btn-primary">Add to Cart</a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="view overlay">
-                            <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone">
-                            <a href="/">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
                         </div>
-                        <div class="card-body text-center">
-                            <a href="" class="grey-text">
-                                <h5>Iphone</h5>
-                            </a>
-
-                            <h5>
-                                <strong>
-                                    <a href="" class="dark-grey-text">Apple Iphone
-                                        <span class="badge badge-pill danger-color">NEW</span></a>
-                                </strong>
-                            </h5>
-                            <h4 class="font-weight-bold blue-text">
-                                <strong>699$</strong>
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="view overlay">
-                            <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone">
-                            <a href="/">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body text-center">
-                            <a href="" class="grey-text">
-                                <h5>Iphone</h5>
-                            </a>
-
-                            <h5>
-                                <strong>
-                                    <a href="" class="dark-grey-text">Apple Iphone
-                                        <span class="badge badge-pill danger-color">NEW</span></a>
-                                </strong>
-                            </h5>
-                            <h3 class="font-weight-bold blue-text">
-                                <strong>699$</strong>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="view overlay">
-                            <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone">
-                            <a href="/">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body text-center">
-                            <a href="" class="grey-text">
-                                <h5>Iphone</h5>
-                            </a>
-
-                            <h5>
-                                <strong>
-                                    <a href="" class="dark-grey-text">Apple Iphone
-                                        <span class="badge badge-pill danger-color">NEW</span></a>
-                                </strong>
-                            </h5>
-                            <h3 class="font-weight-bold blue-text">
-                                <strong>699$</strong>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
+                    </#list>
             </div>
+
         </div>
     </div>
         <nav class=" navbar navbar-expand-lg justify-content-center wow fadeIn">

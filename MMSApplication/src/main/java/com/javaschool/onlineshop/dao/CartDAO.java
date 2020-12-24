@@ -7,15 +7,9 @@ import java.util.List;
 
 public interface CartDAO {
 
-    CartElement getCartElement(int id);
-
-    boolean add(CartElement cartElement);
-
-    boolean update(CartElement cartElement);
-
-    boolean delete(CartElement cartElement);
-
-    List<CartElement> cartList();
+    Cart getCart(int customerId);
 
     boolean updateCart(Cart cart);
+
+    boolean addCart(Cart cart);
 }

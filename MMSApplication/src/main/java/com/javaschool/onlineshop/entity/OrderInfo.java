@@ -4,9 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.persistence.Table;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "order_info")
@@ -16,14 +15,14 @@ public class OrderInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "customerId")
-    private Customer customer;
+    @Column(name = "customer_id")
+    private Integer customerId;
 
-    @ManyToOne
-    @JoinColumn(name = "customerAddressId")
-    private CustomerAddress customerAddress;
+    @Column(name = "order_total")
+    private Double total;
 
+    @Column(name = "order_count")
+    private Integer orderCount;
 
     public Long getOrderId() {
         return orderId;
@@ -33,20 +32,27 @@ public class OrderInfo {
         this.orderId = orderId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
-    public CustomerAddress getCustomerAddress() {
-        return customerAddress;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setCustomerAddress(CustomerAddress customerAddress) {
-        this.customerAddress = customerAddress;
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public Integer getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(Integer orderCount) {
+        this.orderCount = orderCount;
     }
 }
-

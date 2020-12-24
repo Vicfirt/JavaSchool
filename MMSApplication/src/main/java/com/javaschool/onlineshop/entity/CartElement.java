@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "cart_element")
@@ -21,9 +19,8 @@ public class CartElement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "cartId")
-    private Cart cart;
+    @Column(name = "cart_id")
+    private Long cartId;
 
     @OneToOne
     private Product product;
@@ -42,7 +39,6 @@ public class CartElement {
     @Column(name = "element_total_price")
     private Double totalPrice;
 
-
     public Long getId() {
         return id;
     }
@@ -51,12 +47,12 @@ public class CartElement {
         this.id = id;
     }
 
-    public Cart getCart() {
-        return cart;
+    public Long getCartId() {
+        return cartId;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 
     public Product getProduct() {

@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    ProductService productService;
+    private final ProductService productService;
 
     public HomeController(ProductService productService) {
         this.productService = productService;

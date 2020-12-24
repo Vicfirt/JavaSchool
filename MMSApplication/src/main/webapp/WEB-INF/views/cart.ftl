@@ -1,10 +1,10 @@
 <#import "common_home.ftl" as home>
 <@home.home>
 <div>
-    <#list cartitems as cartitem>
+    <#list cartItems as cartItem>
 
         <div>
-            ${cartItem.getProduct().getProductName()}
+            ${cartItem.product.productName}
         </div>
     </#list>
 </div>

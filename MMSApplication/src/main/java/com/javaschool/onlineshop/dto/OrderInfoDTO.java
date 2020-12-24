@@ -3,33 +3,43 @@ package com.javaschool.onlineshop.dto;
 
 public class OrderInfoDTO {
 
-    private Long purchaseId;
+    private Long orderId;
 
-    private CustomerDTO customerDTO;
+    private Integer customerId;
 
-    private CustomerAddressDTO customerAddressDTO;
+    private Double total;
 
-    public Long getPurchaseId() {
-        return purchaseId;
+    private Integer orderCount;
+
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setPurchaseId(Long purchaseId) {
-        this.purchaseId = purchaseId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public CustomerDTO getCustomerDTO() {
-        return customerDTO;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerDTO(CustomerDTO customerDTO) {
-        this.customerDTO = customerDTO;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
-    public CustomerAddressDTO getCustomerAddressDTO() {
-        return customerAddressDTO;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setCustomerAddressDTO(CustomerAddressDTO customerAddressDTO) {
-        this.customerAddressDTO = customerAddressDTO;
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public Integer getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(Integer orderCount) {
+        this.orderCount = orderCount;
     }
 }

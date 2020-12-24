@@ -6,12 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
 import javax.persistence.Table;
-
-import java.util.List;
+import javax.persistence.CascadeType;
 
 @Entity
 @Table(name = "cart")
@@ -21,7 +17,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
     @Column(name = "cart_total")
@@ -30,14 +26,17 @@ public class Cart {
     @Column(name = "elements_in_cart")
     private Integer elementsInCart;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<CartElement> cartElements;
+    public Cart() {
 
-    public long getCartId() {
+        this.cartTotal  = 0.0;
+        this.elementsInCart = 0;
+    }
+
+    public Long getCartId() {
         return cartId;
     }
 
-    public void setCartId(long cartId) {
+    public void setCartId(Long cartId) {
         this.cartId = cartId;
     }
 
@@ -57,19 +56,11 @@ public class Cart {
         this.cartTotal = cartTotal;
     }
 
-    public int getElementsInCart() {
+    public Integer getElementsInCart() {
         return elementsInCart;
     }
 
-    public void setElementsInCart(int elementsInCart) {
+    public void setElementsInCart(Integer elementsInCart) {
         this.elementsInCart = elementsInCart;
-    }
-
-    public List<CartElement> getCartElements() {
-        return cartElements;
-    }
-
-    public void setCartElements(List<CartElement> cartElements) {
-        this.cartElements = cartElements;
     }
 }

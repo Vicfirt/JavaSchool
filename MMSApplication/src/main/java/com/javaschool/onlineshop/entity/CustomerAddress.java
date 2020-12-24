@@ -5,12 +5,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-
-import java.util.List;
 
 @Entity
 @Table(name = "customer_address")
@@ -20,8 +16,8 @@ public class CustomerAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerAddressId;
 
-    @OneToMany(mappedBy = "customerAddress", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<OrderInfo> orderInfos;
+    @ManyToOne
+    private Customer customer;
 
     @Column(name = "country")
     private String country;
@@ -47,6 +43,14 @@ public class CustomerAddress {
 
     public void setCustomerAddressId(Long customerAddressId) {
         this.customerAddressId = customerAddressId;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getCountry() {

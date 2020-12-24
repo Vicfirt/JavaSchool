@@ -2,6 +2,7 @@ package com.javaschool.onlineshop.dao.impl;
 
 import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.entity.Customer;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -22,8 +23,19 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer get(int id) {
-        return null;
+    public Customer get(Long id) {
+
+        String selectQuery = "FROM Customer WHERE customerId = :id";
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            return session.createQuery(selectQuery, Customer.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

@@ -7,17 +7,17 @@ public class CartElementDTO {
 
     private Long id;
 
-    private CartDTO cartDTO;
+    private Long cartId;
 
     private Product product;
 
     private Integer productCount;
 
-    private Double totalPrice;
-
-    private Double buyingPrice;
+    private Double elementPrice;
 
     private Boolean isAvailable = true;
+
+    private Double totalPrice;
 
     public Long getId() {
         return id;
@@ -27,12 +27,12 @@ public class CartElementDTO {
         this.id = id;
     }
 
-    public CartDTO getCartDTO() {
-        return cartDTO;
+    public Long getCartId() {
+        return cartId;
     }
 
-    public void setCartDTO(CartDTO cartDTO) {
-        this.cartDTO = cartDTO;
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 
     public Product getProduct() {
@@ -51,20 +51,12 @@ public class CartElementDTO {
         this.productCount = productCount;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public Double getElementPrice() {
+        return elementPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Double getBuyingPrice() {
-        return buyingPrice;
-    }
-
-    public void setBuyingPrice(Double buyingPrice) {
-        this.buyingPrice = buyingPrice;
+    public void setElementPrice(Double elementPrice) {
+        this.elementPrice = elementPrice;
     }
 
     public Boolean getAvailable() {
@@ -73,6 +65,14 @@ public class CartElementDTO {
 
     public void setAvailable(Boolean available) {
         isAvailable = available;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
 

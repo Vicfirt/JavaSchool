@@ -6,7 +6,7 @@ public interface CustomerDAO {
 
     boolean addCustomer(Customer customer);
 
-    Customer get(int id);
+    Customer get(Long id);
 
     Customer get(String email);
 
