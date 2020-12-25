@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -19,7 +20,7 @@ import java.util.Properties;
 @PropertySource(value = "classpath:application.properties")
 public class HibernateConfig {
 
-    private Environment environment;
+    private final Environment environment;
 
     public HibernateConfig(Environment environment) {
         this.environment = environment;

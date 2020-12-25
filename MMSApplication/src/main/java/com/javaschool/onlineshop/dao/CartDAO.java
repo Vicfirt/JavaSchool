@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface CartDAO {
 
-    Cart getCart(int customerId);
+    Cart getCart(Long customerId);
 
     boolean updateCart(Cart cart);
 
     boolean addCart(Cart cart);
+
+    public Cart getCartById(Long cartId);
 }

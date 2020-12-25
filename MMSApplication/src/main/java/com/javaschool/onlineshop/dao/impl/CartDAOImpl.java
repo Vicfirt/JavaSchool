@@ -18,7 +18,7 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public Cart getCart(int customerId) {
+    public Cart getCart(Long customerId) {
         String dbQuery = "FROM Cart WHERE customer = :customerId";
         Query query = sessionFactory.getCurrentSession().createQuery(dbQuery, Cart.class);
         query.setParameter("customerId", customerId);
@@ -45,5 +45,13 @@ public class CartDAOImpl implements CartDAO {
         catch (Exception e){
             return false;
         }
+    }
+
+    public Cart getCartById(Long cartId){
+        String dbQuery = "FROM Cart WHERE cartId = :cartId";
+        Query query = sessionFactory.getCurrentSession().createQuery(dbQuery, Cart.class);
+        query.setParameter("cartId", cartId);
+        return (Cart) query.getSingleResult();
+
     }
 }

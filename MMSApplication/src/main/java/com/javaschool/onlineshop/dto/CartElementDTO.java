@@ -1,15 +1,13 @@
 package com.javaschool.onlineshop.dto;
 
 
-import com.javaschool.onlineshop.entity.Product;
-
 public class CartElementDTO {
 
     private Long id;
 
     private Long cartId;
 
-    private Product product;
+    private ProductDTO product;
 
     private Integer productCount;
 
@@ -35,11 +33,11 @@ public class CartElementDTO {
         this.cartId = cartId;
     }
 
-    public Product getProduct() {
+    public ProductDTO getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDTO product) {
         this.product = product;
     }
 

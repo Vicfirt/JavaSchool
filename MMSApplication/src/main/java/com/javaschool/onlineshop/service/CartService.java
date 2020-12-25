@@ -1,6 +1,7 @@
 package com.javaschool.onlineshop.service;
 
 
+import com.javaschool.onlineshop.dto.CartElementDTO;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
 import com.javaschool.onlineshop.entity.Product;
@@ -17,7 +18,8 @@ public interface CartService {
 
     void delete(CartElement cartElement);
 
-    List<CartElement> getCartElements();
+    List<CartElementDTO> getCartElements();
 
     Double countTotal();
+
 }

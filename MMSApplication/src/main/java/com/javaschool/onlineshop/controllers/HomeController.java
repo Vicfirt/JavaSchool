@@ -5,6 +5,7 @@ import com.javaschool.onlineshop.entity.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * This class implements the logic for transitions to subpages within the home page.
  */
 @Controller
+@RequestMapping
 public class HomeController {
 
     private final ProductService productService;
@@ -23,7 +25,7 @@ public class HomeController {
     /**
      * This method will display a catalog of all products on the home page.
      */
-    @GetMapping("/")
+    @GetMapping
     public String homePage(Model model) {
         return "home_page";
     }

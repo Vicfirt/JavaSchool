@@ -3,13 +3,17 @@ package com.javaschool.onlineshop.service.impl;
 import com.javaschool.onlineshop.dao.CartDAO;
 import com.javaschool.onlineshop.dao.CartElementDAO;
 import com.javaschool.onlineshop.dao.CustomerDAO;
+import com.javaschool.onlineshop.dto.CartElementDTO;
+import com.javaschool.onlineshop.dto.mapppers.CartElementMapper;
+import com.javaschool.onlineshop.dto.mapppers.CartMapper;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
-import com.javaschool.onlineshop.entity.Customer;
 import com.javaschool.onlineshop.entity.Product;
 import com.javaschool.onlineshop.service.CartService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,26 +25,27 @@ public class CartServiceImpl implements CartService {
 
     private final CartDAO cartDAO;
 
-    public CartServiceImpl(CartElementDAO cartElementDAO, CustomerDAO customerDAO, CartDAO cartDAO) {
+    private final CartMapper cartMapper;
+
+    private final CartElementMapper cartElementMapper;
+
+    public CartServiceImpl(CartElementDAO cartElementDAO, CustomerDAO customerDAO, CartDAO cartDAO, CartMapper cartMapper, CartElementMapper cartElementMapper) {
         this.cartElementDAO = cartElementDAO;
         this.customerDAO = customerDAO;
         this.cartDAO = cartDAO;
+        this.cartMapper = cartMapper;
+        this.cartElementMapper = cartElementMapper;
     }
 
     @Transactional
     public Cart getCart() {
-        Customer customer = customerDAO.get(1L);
-        if (customer.getCart() == null){
-            customer.setCart(new Cart());
-            cartDAO.addCart(customer.getCart());
-        }
-        return customer.getCart();
+        return cartDAO.getCartById(1L);
     }
 
     @Override
     @Transactional
     public void addCartElement(Product product) {
-        Cart cart = this.getCart();
+        Cart cart = cartDAO.getCartById(1L);
         cart.setElementsInCart(cart.getElementsInCart() + 1);
         CartElement cartElement = new CartElement();
         cartElement.setProduct(product);
@@ -72,10 +77,9 @@ public class CartServiceImpl implements CartService {
 
     @Transactional
     public Double countTotal() {
-
-        List<CartElement> cartElements = this.getCartElements();
+        List<CartElementDTO> cartElementsDTOList = this.getCartElements();
         double total = 0;
-        for (CartElement element : cartElements) {
+        for (CartElementDTO element : cartElementsDTOList) {
             double elementTotal = element.getProductCount() * element.getElementPrice();
             total += elementTotal;
         }
@@ -83,9 +87,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Transactional
-    public List<CartElement> getCartElements() {
+    public List<CartElementDTO> getCartElements() {
+        List<CartElementDTO> cartElementDTOList = new ArrayList<>();
         Cart cart = this.getCart();
-        return cartElementDAO.listAll(cart.getCartId());
+        List<CartElement> cartElementList = cartElementDAO.listAll(cart.getCartId());
+        for (CartElement element : cartElementList) {
+            cartElementDTOList.add(cartElementMapper.cartElementToCartElementDTO(element));
+        }
+        return cartElementDTOList;
     }
-
 }

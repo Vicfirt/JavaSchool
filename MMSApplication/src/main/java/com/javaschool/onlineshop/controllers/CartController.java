@@ -1,7 +1,7 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.entity.CartElement;
+import com.javaschool.onlineshop.dto.CartElementDTO;
 import com.javaschool.onlineshop.entity.Product;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.ProductService;
@@ -26,10 +26,10 @@ public class CartController {
         this.productService = productService;
     }
 
-    @GetMapping("/showCart")
+    @GetMapping
     public String getAllItemsInCart(Model model) {
-        List<CartElement> elementList = cartService.getCartElements();
-        model.addAttribute("cartItems", elementList);
+        List<CartElementDTO> cartElementDTOList = cartService.getCartElements();
+        model.addAttribute("cartItems", cartElementDTOList);
         return "cart";
     }
 

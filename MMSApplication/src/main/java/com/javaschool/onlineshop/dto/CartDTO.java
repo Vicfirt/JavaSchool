@@ -5,7 +5,7 @@ public class CartDTO {
 
     private Long cartId;
 
-    private CustomerDTO customerDTO;
+    private CustomerDTO customer;
 
     private Double cartTotal;
 
@@ -19,12 +19,12 @@ public class CartDTO {
         this.cartId = cartId;
     }
 
-    public CustomerDTO getCustomerDTO() {
-        return customerDTO;
+    public CustomerDTO getCustomer() {
+        return customer;
     }
 
-    public void setCustomerDTO(CustomerDTO customerDTO) {
-        this.customerDTO = customerDTO;
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
     }
 
     public Double getCartTotal() {
