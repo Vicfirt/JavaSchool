@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
-    public SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public ProductDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

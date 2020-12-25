@@ -30,7 +30,7 @@ public class OrderController {
      */
     @GetMapping
     public String getAllOrders(Model model) {
-        List<OrderInfo> ordersInfo = orderService.findAll();
+        List<OrderInfo> ordersInfo = orderService.findAllOrders(1L);
         model.addAttribute("orders", ordersInfo);
         return "orders_info";
     }

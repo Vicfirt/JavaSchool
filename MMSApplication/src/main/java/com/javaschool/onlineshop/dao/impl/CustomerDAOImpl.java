@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
 
-    SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public CustomerDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

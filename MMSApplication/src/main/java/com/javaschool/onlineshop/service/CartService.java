@@ -21,5 +21,4 @@ public interface CartService {
     List<CartElementDTO> getCartElements();
 
     Double countTotal();
-
 }

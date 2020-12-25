@@ -16,7 +16,7 @@ public class OrderInfo {
     private Long orderId;
 
     @Column(name = "customer_id")
-    private Integer customerId;
+    private Long customerId;
 
     @Column(name = "order_total")
     private Double total;
@@ -32,11 +32,11 @@ public class OrderInfo {
         this.orderId = orderId;
     }
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
