@@ -1,56 +1,33 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.dto;
 
 
-import org.hibernate.annotations.Type;
+public class ProductDTO {
 
-import javax.persistence.Entity;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "product")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
-    @Column(name = "name")
     private String productName;
 
-    @Column(name = "price")
     private Double productPrice;
 
-    @Column(name = "category_id")
     private Integer categoryId;
 
-    @Column(name = "brand")
     private String productBrand;
 
-    @Column(name = "model")
     private String productModel;
 
-    @Column(name = "weight")
     private String productWeight;
 
-    @Column(name = "capacity")
     private String productCapacity;
 
-    @Column(name = "amount_in_stock")
     private String amountInStock;
 
-    @Column(name = "active")
-    @Type(type = "yes_no")
     private Boolean isActive;
 
-    public long getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(long productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -70,11 +47,11 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -118,11 +95,11 @@ public class Product {
         this.amountInStock = amountInStock;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 }

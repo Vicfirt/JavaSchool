@@ -20,8 +20,7 @@ import java.util.Properties;
 @PropertySource(value = "classpath:application.properties")
 public class HibernateConfig {
 
-    private Environment environment;
-
+    private final Environment environment;
 
     public HibernateConfig(Environment environment) {
         this.environment = environment;
@@ -60,6 +59,4 @@ public class HibernateConfig {
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
-
-
 }

@@ -1,7 +1,6 @@
 package com.javaschool.onlineshop.config;
 
 
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
-
 
 @Configuration
 @ComponentScan(basePackages = "com.javaschool.onlineshop")
@@ -39,7 +37,5 @@ public class SpringConfig implements WebMvcConfigurer {
         FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
         freeMarkerConfigurer.setTemplateLoaderPaths("/", "/WEB-INF/views");
         return freeMarkerConfigurer;
-
     }
-
 }

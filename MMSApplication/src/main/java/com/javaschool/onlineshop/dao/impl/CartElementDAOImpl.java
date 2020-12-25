@@ -1,59 +1,81 @@
 package com.javaschool.onlineshop.dao.impl;
 
-
 import com.javaschool.onlineshop.dao.CartElementDAO;
-import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
-import org.hibernate.Session;
+import com.javaschool.onlineshop.entity.Product;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
 
+@Repository
 public class CartElementDAOImpl implements CartElementDAO {
 
-    SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
+    public CartElementDAOImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-    @Override
-    public CartElement getCart(int id) {
+    public CartElement get(Long id) {
+
         return sessionFactory.getCurrentSession().get(CartElement.class, id);
     }
 
-    @Override
     public boolean add(CartElement cartElement) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(cartElement);
-        return true;
+        try {
+
+            sessionFactory.getCurrentSession().persist(cartElement);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean delete(Long id) {
+        try {
+            CartElement cartElement = sessionFactory.getCurrentSession().get(CartElement.class, id);
+            sessionFactory.getCurrentSession().delete(cartElement);
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean update(CartElement cartElement) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(cartElement);
-        return true;
+        try {
+            sessionFactory.getCurrentSession().update(cartElement);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    @Override
-    public boolean delete(CartElement cartElement) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(cartElement);
-        return true;
+    public List<CartElement> listAll(Long cartId) {
+        try {
+            String elements = "FROM CartElement where cartId = :cartId";
+            Query query = sessionFactory.getCurrentSession().createQuery(elements);
+            query.setParameter("cartId", cartId);
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    @Override
-    public List<CartElement> cartList(int cartId) {
-        Session session = sessionFactory.getCurrentSession();
-        String query = "FROM CartElement WHERE cartId = :cartId";
-        return session
-                .createQuery(query, CartElement.class)
-                .setParameter("cartId", cartId)
-                .getResultList();
+    public List<CartElement> listAvailable(Long cartId) {
+
+        return null;
     }
 
-    @Override
-    public boolean updateCart(Cart cart) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(cart);
-        return true;
+    public CartElement get(Long cartId, Product product) {
+        return null;
     }
 }

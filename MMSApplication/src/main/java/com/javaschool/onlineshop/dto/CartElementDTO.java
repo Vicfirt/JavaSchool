@@ -1,42 +1,20 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.dto;
 
 
-import org.hibernate.annotations.Type;
+public class CartElementDTO {
 
-import javax.persistence.Entity;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "cart_element")
-public class CartElement {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "cart_id")
     private Long cartId;
 
-    @OneToOne
-    private Product product;
+    private ProductDTO product;
 
-    @Column(name = "product_count")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer productCount;
 
-    @Column(name = "element_price")
     private Double elementPrice;
 
-    @Column(name = "is_available")
-    @Type(type = "yes_no")
     private Boolean isAvailable = true;
 
-    @Column(name = "element_total_price")
     private Double totalPrice;
 
     public Long getId() {
@@ -55,11 +33,11 @@ public class CartElement {
         this.cartId = cartId;
     }
 
-    public Product getProduct() {
+    public ProductDTO getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDTO product) {
         this.product = product;
     }
 
