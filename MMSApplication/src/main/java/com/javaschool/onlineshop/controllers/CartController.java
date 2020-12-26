@@ -28,13 +28,13 @@ public class CartController {
 
     @GetMapping
     public String getAllItemsInCart(Model model) {
-        List<CartElementDTO> cartElementDTOList = cartService.getCartElements();
+        List<CartElementDTO> cartElementDTOList = cartService.getCartElementsDTOList();
         model.addAttribute("cartItems", cartElementDTOList);
         return "cart";
     }
 
     @RequestMapping("add/product/{id}")
-    public String addCartElement(@PathVariable("id") long id) {
+    public String addCartElement(@PathVariable("id") Long id) {
         Product product = productService.getProductById(id);
         cartService.addCartElement(product);
         return "redirect:/catalog";

@@ -25,7 +25,6 @@ public class OrderElementDAOImpl implements OrderElementDAO {
     @Override
     public void delete(Long id) {
 
-
     }
 
     @Override

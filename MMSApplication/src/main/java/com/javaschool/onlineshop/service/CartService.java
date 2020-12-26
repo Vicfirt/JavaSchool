@@ -18,7 +18,9 @@ public interface CartService {
 
     void delete(CartElement cartElement);
 
-    List<CartElementDTO> getCartElements();
+    List<CartElementDTO> getCartElementsDTOList();
 
     Double countTotal();
+
+    List<CartElement> getCartElements();
 }

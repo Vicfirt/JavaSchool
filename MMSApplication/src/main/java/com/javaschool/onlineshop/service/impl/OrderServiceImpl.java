@@ -12,6 +12,7 @@ import com.javaschool.onlineshop.entity.Customer;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.service.OrderService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void createOrder(List<CartElement> elementList) {
 
         Customer customer = customerDAO.get(1L);
@@ -55,7 +57,6 @@ public class OrderServiceImpl implements OrderService {
             element.setProductCount(cartElement.getProductCount());
             orderElementDAO.add(element);
             cartElementDAO.delete(cartElement.getId());
-
         }
 
         Cart customerCart = cartDAO.getCartById(1L);
@@ -65,6 +66,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public List<OrderInfo> findAllOrders(Long customerId) {
         return orderDAO.findAllOrders(customerId);
     }
