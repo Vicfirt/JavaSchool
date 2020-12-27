@@ -3,7 +3,7 @@
 
 <@home.home>
     <div class="row">
-        <@header.header></@header.header>
+        <@header.header counter="${counter}"></@header.header>
     </div>
     <div class="row" style="margin-top: 80px;">
         <div class="col-lg-3">
@@ -42,7 +42,7 @@
                         <div class="col col-md-4 lg-6 md-4">
                         <div class="card">
                             <div class="view overlay">
-                                <img class="card-img-top" src="https://appledom24.com/image/cache/catalog/iphone/apple-iphone-11-pro-max-silver-2-1000x1000.jpg" alt="Iphone" height="150px" width="100px">
+                                <img class="card-img-top" src="${product.productImage}" alt="Iphone" height="200px" width="50px">
                                 <a href="/product/${product.productId}">
                                     <div class="mask rgba-white-slight"></div>
                                 </a>
@@ -70,33 +70,5 @@
 
         </div>
     </div>
-        <nav class=" navbar navbar-expand-lg justify-content-center wow fadeIn">
-            <ul class="pagination pg-blue">
-                <li class="page-item ">
-                    <a href="" class="page-link" aria-label="Previos">
-                        <span aria-hidden="true">1</span>
-                    </a>
-                </li>
-                <li class="page-item ">
-                    <a href="" class="page-link" aria-label="Previos">
-                        <span aria-hidden="true">2</span>
-                    </a>
-                </li>
-                <li class="page-item ">
-                    <a href="" class="page-link" aria-label="Previos">
-                        <span aria-hidden="true">3</span>
-                    </a>
-                </li>
-                <li class="page-item ">
-                    <a href="" class="page-link" aria-label="Previos">
-                        <span aria-hidden="true">4</span>
-                    </a>
-                </li>
-                <li class="page-item ">
-                    <a href="" class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <#include "footer.ftl">
 </@home.home>

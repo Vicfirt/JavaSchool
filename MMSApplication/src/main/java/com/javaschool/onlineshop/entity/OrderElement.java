@@ -1,5 +1,6 @@
 package com.javaschool.onlineshop.entity;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class OrderElement {
     private Integer productCount;
 
     @Column(name = "price")
-    private  Double price;
+    private Double price;
 
     public Long getId() {
         return id;

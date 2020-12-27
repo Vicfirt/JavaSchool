@@ -1,7 +1,7 @@
 package com.javaschool.onlineshop.dao;
 
-import com.javaschool.onlineshop.entity.OrderElement;
 
+import com.javaschool.onlineshop.entity.OrderElement;
 import java.util.List;
 
 public interface OrderElementDAO {

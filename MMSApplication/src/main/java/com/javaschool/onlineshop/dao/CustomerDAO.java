@@ -1,5 +1,6 @@
 package com.javaschool.onlineshop.dao;
 
+
 import com.javaschool.onlineshop.entity.Customer;
 
 public interface CustomerDAO {

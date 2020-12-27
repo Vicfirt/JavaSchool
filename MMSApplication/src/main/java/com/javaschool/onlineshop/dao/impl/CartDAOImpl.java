@@ -52,6 +52,5 @@ public class CartDAOImpl implements CartDAO {
         Query query = sessionFactory.getCurrentSession().createQuery(dbQuery, Cart.class);
         query.setParameter("cartId", cartId);
         return (Cart) query.getSingleResult();
-
     }
 }

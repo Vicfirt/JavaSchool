@@ -1,7 +1,6 @@
 package com.javaschool.onlineshop.dto;
 
 
-
 public class CustomerAddressDTO {
 
     private Long customerAddressId;

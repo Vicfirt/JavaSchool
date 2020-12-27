@@ -1,5 +1,6 @@
 package com.javaschool.onlineshop.dao.impl;
 
+
 import com.javaschool.onlineshop.dao.OrderDAO;
 import com.javaschool.onlineshop.entity.OrderInfo;
 import org.hibernate.Session;
@@ -23,7 +24,7 @@ public class OrderDAOImpl implements OrderDAO {
         Session session = sessionFactory.getCurrentSession();
         String myQuery = "FROM OrderInfo where customerId = :id";
         Query query = session.createQuery(myQuery);
-        query.setParameter("id", customerId );
+        query.setParameter("id", customerId);
         return query.getResultList();
     }
 
@@ -50,7 +51,7 @@ public class OrderDAOImpl implements OrderDAO {
         String myQuery = "from OrderInfo WHERE id = :id";
         Query query = sessionFactory.getCurrentSession().createQuery(myQuery);
         query.setParameter("id", id);
-        return (OrderInfo)query.getSingleResult();
+        return (OrderInfo) query.getSingleResult();
     }
 
     @Override

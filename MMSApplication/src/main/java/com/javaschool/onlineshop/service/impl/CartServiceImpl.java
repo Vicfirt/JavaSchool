@@ -1,11 +1,14 @@
 package com.javaschool.onlineshop.service.impl;
 
+
 import com.javaschool.onlineshop.dao.CartDAO;
 import com.javaschool.onlineshop.dao.CartElementDAO;
 import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.dto.CartElementDTO;
+import com.javaschool.onlineshop.dto.ProductDTO;
 import com.javaschool.onlineshop.dto.mapppers.CartElementMapper;
 import com.javaschool.onlineshop.dto.mapppers.CartMapper;
+import com.javaschool.onlineshop.dto.mapppers.ProductMapper;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
 import com.javaschool.onlineshop.entity.Product;
@@ -29,12 +32,15 @@ public class CartServiceImpl implements CartService {
 
     private final CartElementMapper cartElementMapper;
 
-    public CartServiceImpl(CartElementDAO cartElementDAO, CustomerDAO customerDAO, CartDAO cartDAO, CartMapper cartMapper, CartElementMapper cartElementMapper) {
+    private final ProductMapper productMapper;
+
+    public CartServiceImpl(CartElementDAO cartElementDAO, CustomerDAO customerDAO, CartDAO cartDAO, CartMapper cartMapper, CartElementMapper cartElementMapper, ProductMapper productMapper) {
         this.cartElementDAO = cartElementDAO;
         this.customerDAO = customerDAO;
         this.cartDAO = cartDAO;
         this.cartMapper = cartMapper;
         this.cartElementMapper = cartElementMapper;
+        this.productMapper = productMapper;
     }
 
     @Transactional
@@ -44,12 +50,13 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public void addCartElement(Product product) {
+    public void addCartElement(ProductDTO productDTO) {
+        Product product = productMapper.productDTOToProduct(productDTO);
         Cart cart = cartDAO.getCartById(1L);
         cart.setElementsInCart(cart.getElementsInCart() + 1);
         CartElement cartElement = new CartElement();
         cartElement.setProduct(product);
-        cartElement.setAvailable(product.isActive());
+        cartElement.setAvailable(product.getActive());
         cartElement.setCartId(cart.getCartId());
         cartElement.setProductCount(1);
         cartElement.setElementPrice(product.getProductPrice());
@@ -67,17 +74,17 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public void delete(CartElement cartElement) {
+    public void delete(Long cartElementId) {
         Cart cart = this.getCart();
         cart.setElementsInCart(cart.getElementsInCart() - 1);
-        cartElementDAO.delete(cartElement.getId());
+        cartElementDAO.delete(cartElementId);
         cart.setCartTotal(this.countTotal());
         cartDAO.updateCart(cart);
     }
 
     @Transactional
     public Double countTotal() {
-        List<CartElementDTO> cartElementsDTOList = this.getCartElementsDTOList();
+        List<CartElementDTO> cartElementsDTOList = this.getCartElements();
         double total = 0;
         for (CartElementDTO element : cartElementsDTOList) {
             double elementTotal = element.getProductCount() * element.getElementPrice();
@@ -87,7 +94,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Transactional
-    public List<CartElementDTO> getCartElementsDTOList() {
+    public List<CartElementDTO> getCartElements() {
         List<CartElementDTO> cartElementDTOList = new ArrayList<>();
         Cart cart = this.getCart();
         List<CartElement> cartElementList = cartElementDAO.listAll(cart.getCartId());
@@ -97,9 +104,20 @@ public class CartServiceImpl implements CartService {
         return cartElementDTOList;
     }
 
+
     @Transactional
-    public List<CartElement> getCartElements(){
+    public CartElement getCartElementById(Long id) {
+        return cartElementDAO.get(id);
+    }
+
+    @Transactional
+    public void updateCartElement(Long cartElementId, Integer quantity) {
+        CartElement cartElement = cartElementDAO.get(cartElementId);
         Cart cart = this.getCart();
-        return cartElementDAO.listAll(cart.getCartId());
+        cartElement.setProductCount(quantity);
+        cartElement.setTotalPrice(cartElement.getElementPrice() * quantity);
+        cartElementDAO.update(cartElement);
+        cart.setCartTotal(this.countTotal());
+        cartDAO.updateCart(cart);
     }
 }

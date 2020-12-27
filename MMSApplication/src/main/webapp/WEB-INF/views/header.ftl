@@ -1,4 +1,4 @@
-<#macro header>
+<#macro header counter>
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
         <div class="container">
@@ -18,6 +18,9 @@
                     <li class="nav-item">
                         <a href="/login" class="nav-link waves-effect">Log in</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/signup" class="nav-link waves-effect">Sign up</a>
+                    </li>
 
                 </ul>
                 <form class="form-inline" style="margin-right: 150px">
@@ -30,7 +33,7 @@
                 <ul class="navbar-nav nav-flex-icons">
                     <li class="nav-item">
                         <a href="/cart" class="nav-link waves-effect">
-                            <span class="badge red z-depth-1 mr-1">1</span>
+                            <span class="badge red z-depth-1 mr-1">${counter}</span>
                             <i class="fa fa-shopping-cart"></i>
                             <span class="clearfix d-none d-sm-inline-block">Cart</span>
                         </a>

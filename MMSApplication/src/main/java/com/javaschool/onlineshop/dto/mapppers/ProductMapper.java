@@ -1,5 +1,6 @@
 package com.javaschool.onlineshop.dto.mapppers;
 
+
 import com.javaschool.onlineshop.dto.ProductDTO;
 import com.javaschool.onlineshop.entity.Product;
 import org.mapstruct.Mapper;

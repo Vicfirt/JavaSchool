@@ -1,9 +1,7 @@
 package com.javaschool.onlineshop.dao;
 
-import com.javaschool.onlineshop.entity.Cart;
-import com.javaschool.onlineshop.entity.CartElement;
 
-import java.util.List;
+import com.javaschool.onlineshop.entity.Cart;
 
 public interface CartDAO {
 

@@ -15,13 +15,17 @@ public class ProductDTO {
 
     private String productModel;
 
-    private String productWeight;
+    private Integer productWeight;
 
-    private String productCapacity;
+    private Integer productCapacity;
 
-    private String amountInStock;
+    private Integer amountInStock;
+
+    private String productDescription;
 
     private Boolean isActive;
+
+    private String productImage;
 
     public Long getProductId() {
         return productId;
@@ -71,27 +75,27 @@ public class ProductDTO {
         this.productModel = productModel;
     }
 
-    public String getProductWeight() {
+    public Integer getProductWeight() {
         return productWeight;
     }
 
-    public void setProductWeight(String productWeight) {
+    public void setProductWeight(Integer productWeight) {
         this.productWeight = productWeight;
     }
 
-    public String getProductCapacity() {
+    public Integer getProductCapacity() {
         return productCapacity;
     }
 
-    public void setProductCapacity(String productCapacity) {
+    public void setProductCapacity(Integer productCapacity) {
         this.productCapacity = productCapacity;
     }
 
-    public String getAmountInStock() {
+    public Integer getAmountInStock() {
         return amountInStock;
     }
 
-    public void setAmountInStock(String amountInStock) {
+    public void setAmountInStock(Integer amountInStock) {
         this.amountInStock = amountInStock;
     }
 
@@ -101,5 +105,21 @@ public class ProductDTO {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 }

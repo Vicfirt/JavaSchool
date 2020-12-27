@@ -2,14 +2,12 @@ package com.javaschool.onlineshop.controllers;
 
 
 import com.javaschool.onlineshop.dto.CartElementDTO;
-import com.javaschool.onlineshop.entity.Product;
+import com.javaschool.onlineshop.dto.ProductDTO;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,15 +26,29 @@ public class CartController {
 
     @GetMapping
     public String getAllItemsInCart(Model model) {
-        List<CartElementDTO> cartElementDTOList = cartService.getCartElementsDTOList();
+        List<CartElementDTO> cartElementDTOList = cartService.getCartElements();
         model.addAttribute("cartItems", cartElementDTOList);
+        model.addAttribute("counter", cartService.getCart().getElementsInCart());
+        model.addAttribute("total", cartService.getCart().getCartTotal());
         return "cart";
     }
 
-    @RequestMapping("add/product/{id}")
+    @GetMapping("add/product/{id}")
     public String addCartElement(@PathVariable("id") Long id) {
-        Product product = productService.getProductById(id);
+        ProductDTO product = productService.getProductById(id);
         cartService.addCartElement(product);
         return "redirect:/catalog";
+    }
+
+    @GetMapping("/remove")
+    public String remove(@RequestParam("element_Id") Long id) {
+        cartService.delete(id);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/change")
+    public String plus(@RequestParam("element_Id") Long id, @RequestParam("quantity") Integer quantity) {
+        cartService.updateCartElement(id, quantity);
+        return "redirect:/cart";
     }
 }
