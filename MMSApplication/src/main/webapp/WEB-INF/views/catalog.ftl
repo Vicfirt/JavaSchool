@@ -1,9 +1,12 @@
 <#import "common_home.ftl" as home>
-<#import "header.ftl" as header>
+
 
 <@home.home>
+
+    <#include "header.ftl">
+
     <div class="row">
-        <@header.header counter="${counter}"></@header.header>
+
     </div>
     <div class="row" style="margin-top: 80px;">
         <div class="col-lg-3">

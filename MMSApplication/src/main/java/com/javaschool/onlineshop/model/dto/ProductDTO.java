@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.dto;
+package com.javaschool.onlineshop.model.dto;
 
 
 public class ProductDTO {

@@ -2,7 +2,7 @@
     <#import "header.ftl" as header>
 <@home.home>
 
-    <@header.header counter="${counter}"></@header.header>
+
     <body>
 <div class="container ">
 
@@ -34,7 +34,7 @@
             <div>
                 <input type="checkbox" id="remember_me" name="remember-me">
                 <label for="remember_me" class="inline">Remember me</label>
-                <a class="float-right" href="/register">Sign Up</a>
+                <a class="float-right" href="/">Sign Up</a>
             </div>
         </div>
 

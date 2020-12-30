@@ -1,8 +1,8 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.dto.CartElementDTO;
-import com.javaschool.onlineshop.dto.OrderInfoDTO;
+import com.javaschool.onlineshop.model.dto.CartElementDTO;
+import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.OrderService;
 import org.springframework.stereotype.Controller;
@@ -34,7 +34,7 @@ public class OrderController {
      * If the url address points to an order, then a list of orders for
      * further work will be transferred to the display page.
      */
-    @GetMapping("/all")
+    @GetMapping("/customer/all")
     public String getAllOrders(Model model) {
         List<OrderInfoDTO> orderInfoList = orderService.findAllOrders(1L);
         model.addAttribute("orders", orderInfoList);
@@ -43,7 +43,7 @@ public class OrderController {
     }
 
     //It`s temporary solution while we don`t have authorized customer
-    @GetMapping("/order")
+    @GetMapping("/customer/order")
     public String createOrder() {
         List<CartElementDTO> cartElementList = cartService.getCartElements();
         orderService.createOrder(cartElementList);

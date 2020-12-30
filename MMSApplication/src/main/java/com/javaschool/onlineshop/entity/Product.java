@@ -3,8 +3,9 @@ package com.javaschool.onlineshop.entity;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
     @Column(name = "name")

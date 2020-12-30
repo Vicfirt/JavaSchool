@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.dao;
+package com.javaschool.onlineshop.model.dao;
 
 
 import com.javaschool.onlineshop.entity.OrderElement;

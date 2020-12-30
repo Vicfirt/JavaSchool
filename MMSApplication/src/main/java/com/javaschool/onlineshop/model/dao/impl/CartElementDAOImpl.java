@@ -1,7 +1,7 @@
-package com.javaschool.onlineshop.dao.impl;
+package com.javaschool.onlineshop.model.dao.impl;
 
 
-import com.javaschool.onlineshop.dao.CartElementDAO;
+import com.javaschool.onlineshop.model.dao.CartElementDAO;
 import com.javaschool.onlineshop.entity.CartElement;
 import com.javaschool.onlineshop.entity.Product;
 import org.hibernate.SessionFactory;
@@ -58,7 +58,7 @@ public class CartElementDAOImpl implements CartElementDAO {
         }
     }
 
-    public List<CartElement> listAll(Long cartId) {
+    public List<CartElement> findAll(Long cartId) {
         try {
             String elements = "FROM CartElement where cartId = :cartId";
             Query query = sessionFactory.getCurrentSession().createQuery(elements);

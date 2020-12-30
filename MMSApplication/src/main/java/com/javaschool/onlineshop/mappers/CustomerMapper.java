@@ -1,9 +1,9 @@
-package com.javaschool.onlineshop.dto.mapppers;
+package com.javaschool.onlineshop.mappers;
 
 
-import com.javaschool.onlineshop.dto.CartDTO;
-import com.javaschool.onlineshop.dto.CustomerAddressDTO;
-import com.javaschool.onlineshop.dto.CustomerDTO;
+import com.javaschool.onlineshop.model.dto.CartDTO;
+import com.javaschool.onlineshop.model.dto.CustomerAddressDTO;
+import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.Customer;
 import com.javaschool.onlineshop.entity.CustomerAddress;
@@ -25,4 +25,6 @@ public interface CustomerMapper {
     List<CustomerAddressDTO> addressListToAddressDTOList(List<CustomerAddress> customerAddressList);
 
     List<CustomerAddress> addressDTOListToAddressList(List<CustomerAddressDTO> customerAddressDTOList);
+
+
 }

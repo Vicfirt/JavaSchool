@@ -1,8 +1,8 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.dto.CartElementDTO;
-import com.javaschool.onlineshop.dto.ProductDTO;
+import com.javaschool.onlineshop.model.dto.CartElementDTO;
+import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.ProductService;
 import org.springframework.stereotype.Controller;
@@ -40,13 +40,13 @@ public class CartController {
         return "redirect:/catalog";
     }
 
-    @GetMapping("/remove")
+    @DeleteMapping("/remove")
     public String remove(@RequestParam("element_Id") Long id) {
         cartService.delete(id);
         return "redirect:/cart";
     }
 
-    @GetMapping("/change")
+    @PutMapping("/change")
     public String plus(@RequestParam("element_Id") Long id, @RequestParam("quantity") Integer quantity) {
         cartService.updateCartElement(id, quantity);
         return "redirect:/cart";

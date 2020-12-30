@@ -1,10 +1,12 @@
-package com.javaschool.onlineshop.dao.impl;
+package com.javaschool.onlineshop.model.dao.impl;
 
 
-import com.javaschool.onlineshop.dao.CustomerDAO;
+import com.javaschool.onlineshop.model.dao.CustomerDAO;
 import com.javaschool.onlineshop.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -12,13 +14,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     private final SessionFactory sessionFactory;
 
-    public CustomerDAOImpl(SessionFactory sessionFactory) {
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public CustomerDAOImpl(SessionFactory sessionFactory, BCryptPasswordEncoder passwordEncoder) {
         this.sessionFactory = sessionFactory;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public boolean addCustomer(Customer customer) {
-        customer.setCustomerPassword("password");
+        customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
         sessionFactory.getCurrentSession().persist(customer);
         return true;
     }
@@ -40,8 +45,15 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer get(String email) {
-        return null;
+    public Customer getByEmail(String email) {
+
+        String query = "FROM Customer WHERE customerEmailAddress = : email";
+        try {
+            return sessionFactory.getCurrentSession().createQuery(query, Customer.class)
+                    .setParameter("email", email).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

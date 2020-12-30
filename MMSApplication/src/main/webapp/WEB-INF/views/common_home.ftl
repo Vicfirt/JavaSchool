@@ -1,4 +1,4 @@
-<#import "header.ftl" as header>
+
 <#macro home>
 <!DOCTYPE html>
 <html lang="en" >

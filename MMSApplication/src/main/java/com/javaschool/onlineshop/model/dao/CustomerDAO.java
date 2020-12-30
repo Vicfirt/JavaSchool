@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.dao;
+package com.javaschool.onlineshop.model.dao;
 
 
 import com.javaschool.onlineshop.entity.Customer;
@@ -9,7 +9,7 @@ public interface CustomerDAO {
 
     Customer get(Long id);
 
-    Customer get(String email);
+    Customer getByEmail(String email);
 
     boolean delete(Customer customer);
 

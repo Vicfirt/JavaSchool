@@ -1,8 +1,8 @@
 package com.javaschool.onlineshop.service;
 
 
-import com.javaschool.onlineshop.dto.CartElementDTO;
-import com.javaschool.onlineshop.dto.OrderInfoDTO;
+import com.javaschool.onlineshop.model.dto.CartElementDTO;
+import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
 
 import java.util.List;
 

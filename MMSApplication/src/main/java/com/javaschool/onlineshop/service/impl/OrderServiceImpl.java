@@ -1,20 +1,22 @@
 package com.javaschool.onlineshop.service.impl;
 
-import com.javaschool.onlineshop.dao.OrderDAO;
-import com.javaschool.onlineshop.dao.CustomerDAO;
-import com.javaschool.onlineshop.dao.CartElementDAO;
-import com.javaschool.onlineshop.dao.OrderElementDAO;
-import com.javaschool.onlineshop.dao.CartDAO;
-import com.javaschool.onlineshop.dto.CartElementDTO;
-import com.javaschool.onlineshop.dto.OrderInfoDTO;
-import com.javaschool.onlineshop.dto.mapppers.CartElementMapper;
-import com.javaschool.onlineshop.dto.mapppers.OrderInfoMapper;
+import com.javaschool.onlineshop.model.dao.OrderDAO;
+import com.javaschool.onlineshop.model.dao.CustomerDAO;
+import com.javaschool.onlineshop.model.dao.CartElementDAO;
+import com.javaschool.onlineshop.model.dao.OrderElementDAO;
+import com.javaschool.onlineshop.model.dao.CartDAO;
+import com.javaschool.onlineshop.model.dto.CartElementDTO;
+import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
+import com.javaschool.onlineshop.mappers.CartElementMapper;
+import com.javaschool.onlineshop.mappers.OrderInfoMapper;
 import com.javaschool.onlineshop.entity.CartElement;
 import com.javaschool.onlineshop.entity.OrderInfo;
 import com.javaschool.onlineshop.entity.OrderElement;
 import com.javaschool.onlineshop.entity.Customer;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.service.OrderService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,8 +53,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void createOrder(List<CartElementDTO> elementList) {
-
-        Customer customer = customerDAO.get(1L);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerDAO.getByEmail(authentication.getName());
         OrderInfo order = new OrderInfo();
         order.setCustomerId(customer.getCustomerId());
         order.setTotal(customer.getCart().getCartTotal());
@@ -71,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
             cartElementDAO.delete(cartElement.getId());
         }
 
-        Cart customerCart = cartDAO.getCartById(1L);
+        Cart customerCart = customer.getCart();
         customerCart.setElementsInCart(0);
         customerCart.setCartTotal(0.0);
         cartDAO.updateCart(customerCart);

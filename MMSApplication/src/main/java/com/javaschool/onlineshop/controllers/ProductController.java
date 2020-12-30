@@ -1,7 +1,7 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.dto.ProductDTO;
+import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.ProductService;
 import org.springframework.stereotype.Controller;
@@ -46,8 +46,8 @@ public class ProductController {
         return "product_info";
     }
 
-    @PostMapping("/new")
-    public String create(
+    @PostMapping("/employee/new")
+    public String createProduct(
             @RequestParam("categoryId") Integer categoryId,
             @RequestParam("status") Boolean productStatus,
             @Valid @ModelAttribute("product") ProductDTO product,
@@ -67,7 +67,7 @@ public class ProductController {
         return "redirect:/catalog";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/employee/new")
     public String createForm(ProductDTO product, Model model) {
         model.addAttribute("product", product);
         model.addAttribute("counter", cartService.getCart().getElementsInCart());

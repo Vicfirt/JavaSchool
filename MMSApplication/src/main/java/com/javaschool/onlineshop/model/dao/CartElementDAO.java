@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.dao;
+package com.javaschool.onlineshop.model.dao;
 
 
 import com.javaschool.onlineshop.entity.CartElement;
@@ -16,7 +16,7 @@ public interface CartElementDAO {
 
     boolean delete(Long id);
 
-    List<CartElement> listAll(Long cartId);
+    List<CartElement> findAll(Long cartId);
 
     List<CartElement> listAvailable(Long cartId);
 

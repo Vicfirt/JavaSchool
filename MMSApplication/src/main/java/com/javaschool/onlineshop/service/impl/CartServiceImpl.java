@@ -1,18 +1,21 @@
 package com.javaschool.onlineshop.service.impl;
 
 
-import com.javaschool.onlineshop.dao.CartDAO;
-import com.javaschool.onlineshop.dao.CartElementDAO;
-import com.javaschool.onlineshop.dao.CustomerDAO;
-import com.javaschool.onlineshop.dto.CartElementDTO;
-import com.javaschool.onlineshop.dto.ProductDTO;
-import com.javaschool.onlineshop.dto.mapppers.CartElementMapper;
-import com.javaschool.onlineshop.dto.mapppers.CartMapper;
-import com.javaschool.onlineshop.dto.mapppers.ProductMapper;
+import com.javaschool.onlineshop.entity.Customer;
+import com.javaschool.onlineshop.model.dao.CartDAO;
+import com.javaschool.onlineshop.model.dao.CartElementDAO;
+import com.javaschool.onlineshop.model.dao.CustomerDAO;
+import com.javaschool.onlineshop.model.dto.CartElementDTO;
+import com.javaschool.onlineshop.model.dto.ProductDTO;
+import com.javaschool.onlineshop.mappers.CartElementMapper;
+import com.javaschool.onlineshop.mappers.CartMapper;
+import com.javaschool.onlineshop.mappers.ProductMapper;
 import com.javaschool.onlineshop.entity.Cart;
 import com.javaschool.onlineshop.entity.CartElement;
 import com.javaschool.onlineshop.entity.Product;
 import com.javaschool.onlineshop.service.CartService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,14 +48,16 @@ public class CartServiceImpl implements CartService {
 
     @Transactional
     public Cart getCart() {
-        return cartDAO.getCartById(1L);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerDAO.getByEmail(authentication.getName());
+        return customer.getCart();
     }
 
     @Override
     @Transactional
     public void addCartElement(ProductDTO productDTO) {
         Product product = productMapper.productDTOToProduct(productDTO);
-        Cart cart = cartDAO.getCartById(1L);
+        Cart cart = this.getCart();
         cart.setElementsInCart(cart.getElementsInCart() + 1);
         CartElement cartElement = new CartElement();
         cartElement.setProduct(product);
@@ -97,13 +102,12 @@ public class CartServiceImpl implements CartService {
     public List<CartElementDTO> getCartElements() {
         List<CartElementDTO> cartElementDTOList = new ArrayList<>();
         Cart cart = this.getCart();
-        List<CartElement> cartElementList = cartElementDAO.listAll(cart.getCartId());
+        List<CartElement> cartElementList = cartElementDAO.findAll(cart.getCartId());
         for (CartElement element : cartElementList) {
             cartElementDTOList.add(cartElementMapper.cartElementToCartElementDTO(element));
         }
         return cartElementDTOList;
     }
-
 
     @Transactional
     public CartElement getCartElementById(Long id) {

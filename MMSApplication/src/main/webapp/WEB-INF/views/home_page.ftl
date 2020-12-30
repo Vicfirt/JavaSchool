@@ -3,7 +3,7 @@
 
 <@home.home>
     <div class="row">
-        <@header.header counter="${counter}"></@header.header>
+       <#include "header.ftl">
     </div>
     <div class="row" style="margin-top: 100px">
         ADVERTISEMENT

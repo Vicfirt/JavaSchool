@@ -10,35 +10,28 @@
         <div style="width:40%; margin: 25px auto">
             <form action="/product/new" method="post">
                 <@spring.bind "product"/>
-                <#--Id-->
-                <div class="form-group">
-                    <label>Code</label>
-                    <@spring.bind "product.productId"/>
-                    <input  value="${product.productId!}" placeholder="Required" type="text" class="form-control form-control-lg"
-                            id="productId" name="productId" required="true">
-                    <span class="text-danger"><@spring.showErrors ""/></span>
-                </div>
+
                 <#--Photo-->
                 <div class="form-group">
                     <label>Photo Link</label>
                     <@spring.bind "product.productImage"/>
-                    <input value="${product.productImage!}" placeholder="Optional" type="text" class="form-control form-control-lg" id="productImage"
+                    <input value="${product.productImage!}"  type="text" class="form-control form-control-lg" id="productImage"
                            name="productImage">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <#--Name-->
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>Name *</label>
                     <@spring.bind "product.productName"/>
-                    <input value="${product.productName!}"  placeholder="Required" type="text" class="form-control form-control-lg" id="productName"
+                    <input value="${product.productName!}" type="text" class="form-control form-control-lg" id="productName"
                            name="productName" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <#--Category-->
                 <div class="form-group">
-                    <label>Category</label>
+                    <label>Category *</label>
                     <select class="custom-select custom-select-lg " id="categoryId" name="categoryId"
                             required="true">
                         <option value="0">Books</option>
@@ -50,27 +43,27 @@
 
                 <#--Model-->
                 <div class="form-group">
-                    <label>Model</label>
+                    <label>Model *</label>
                     <@spring.bind "product.productModel"/>
-                    <input value="${product.productModel!}"  placeholder="Required" type="text" class="form-control form-control-lg" id="productModel"
+                    <input value="${product.productModel!}"  type="text" class="form-control form-control-lg" id="productModel"
                            name="productModel" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <#--Brand-->
                 <div class="form-group">
-                    <label>Brand</label>
+                    <label>Brand *</label>
                     <@spring.bind "product.productBrand"/>
-                    <input value="${product.productBrand!}"  placeholder="Required" type="text" class="form-control form-control-lg" id="productBrand"
+                    <input value="${product.productBrand!}" type="text" class="form-control form-control-lg" id="productBrand"
                            name="productBrand" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <#--Weight-->
                 <div class="form-group">
-                    <label>Weight</label>
+                    <label>Weight *</label>
                     <@spring.bind "product.productWeight"/>
-                    <input value="${product.productWeight!}"  placeholder="Required" type="text" class="form-control form-control-lg" id="productWeight"
+                    <input value="${product.productWeight!}" type="text" class="form-control form-control-lg" id="productWeight"
                            name="productWeight" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
@@ -79,7 +72,7 @@
                 <div class="form-group">
                     <label>Capacity</label>
                     <@spring.bind "product.productCapacity"/>
-                    <input value="${product.productCapacity!}"  placeholder="Optional" type="text" class="form-control form-control-lg" id="productCapacity"
+                    <input value="${product.productCapacity!}"  type="text" class="form-control form-control-lg" id="productCapacity"
                            name="productCapacity">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
@@ -90,7 +83,7 @@
                     <@spring.bind "product.productDescription"/>
                     <textarea class="form-control form-control-lg text-left"
                               id="productDescription" name="productDescription"
-                              placeholder="Optional">${product.productDescription!}</textarea>
+                    >${product.productDescription!}</textarea>
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
                 <#--Price-->

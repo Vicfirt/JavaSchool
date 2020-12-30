@@ -1,7 +1,7 @@
-package com.javaschool.onlineshop.dao.impl;
+package com.javaschool.onlineshop.model.dao.impl;
 
 
-import com.javaschool.onlineshop.dao.OrderDAO;
+import com.javaschool.onlineshop.model.dao.OrderDAO;
 import com.javaschool.onlineshop.entity.OrderInfo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
