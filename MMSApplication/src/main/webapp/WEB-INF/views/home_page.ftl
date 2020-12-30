@@ -3,11 +3,12 @@
 
 <@home.home>
     <div class="row">
-        <@header.header></@header.header>
+       <#include "header.ftl">
     </div>
     <div class="row" style="margin-top: 100px">
         ADVERTISEMENT
     </div>
+    <#include "footer.ftl">
 </@home.home>
 
 

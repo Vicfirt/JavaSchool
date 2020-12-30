@@ -1,28 +1,14 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.model.dto;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.Table;
+public class OrderInfoDTO {
 
-@Entity
-@Table(name = "order_info")
-public class OrderInfo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @Column(name = "customer_id")
-    private Long customerId;
+    private Integer customerId;
 
-    @Column(name = "order_total")
     private Double total;
 
-    @Column(name = "order_count")
     private Integer orderCount;
 
     public Long getOrderId() {
@@ -33,11 +19,11 @@ public class OrderInfo {
         this.orderId = orderId;
     }
 
-    public Long getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 

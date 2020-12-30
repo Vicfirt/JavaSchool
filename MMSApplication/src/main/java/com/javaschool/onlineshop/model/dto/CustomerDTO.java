@@ -1,58 +1,31 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.model.dto;
 
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Entity
-@Table(name = "customer")
-public class Customer {
+public class CustomerDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CustomerAddress> customerAddresses;
+    private List<CustomerAddressDTO> customerAddresses;
 
-    @Column(name = "customer_first_name")
-    @NotEmpty
     private String customerFirstName;
 
-    @Column(name = "customer_last_name")
-    @NotEmpty
     private String customerLastName;
 
-    @Column(name = "customer_date_of_birth")
     private String customerDateOfBirth;
 
-    @Column(name = "customer_email_address")
-    @NotEmpty
     private String customerEmailAddress;
 
-    @Column(name = "customer_password")
-    @NotEmpty
     private String customerPassword;
 
-    @Column(name = "customer_role")
-    @NotEmpty
     private String role;
 
-    @Column(name = "active")
-    @Type(type = "yes_no")
-    @ColumnDefault("0")
     private Boolean active;
 
-    @Column(name = "customer_phoneNumber")
-    @NotEmpty
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    private Cart cart;
+    private CartDTO cart;
 
     public Long getCustomerId() {
         return customerId;
@@ -62,11 +35,11 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public List<CustomerAddress> getCustomerAddresses() {
+    public List<CustomerAddressDTO> getCustomerAddresses() {
         return customerAddresses;
     }
 
-    public void setCustomerAddresses(List<CustomerAddress> customerAddresses) {
+    public void setCustomerAddresses(List<CustomerAddressDTO> customerAddresses) {
         this.customerAddresses = customerAddresses;
     }
 
@@ -134,11 +107,11 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public Cart getCart() {
+    public CartDTO getCart() {
         return cart;
     }
 
-    public void setCart(Cart cart) {
+    public void setCart(CartDTO cart) {
         this.cart = cart;
     }
 }

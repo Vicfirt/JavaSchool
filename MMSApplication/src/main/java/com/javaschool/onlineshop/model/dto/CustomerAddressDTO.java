@@ -1,41 +1,22 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.model.dto;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+public class CustomerAddressDTO {
 
-@Entity
-@Table(name = "customer_address")
-public class CustomerAddress {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerAddressId;
 
-    @ManyToOne
-    private Customer customer;
+    private CustomerDTO customer;
 
-    @Column(name = "country")
     private String country;
 
-    @Column(name = "city")
     private String city;
 
-    @Column(name = "postcode")
     private String postcode;
 
-    @Column(name = "street")
     private String street;
 
-    @Column(name = "building")
     private String building;
 
-    @Column(name = "room")
     private String room;
 
     public Long getCustomerAddressId() {
@@ -46,11 +27,11 @@ public class CustomerAddress {
         this.customerAddressId = customerAddressId;
     }
 
-    public Customer getCustomer() {
+    public CustomerDTO getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
 

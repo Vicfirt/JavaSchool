@@ -1,11 +1,15 @@
 package com.javaschool.onlineshop.service.impl;
 
-import com.javaschool.onlineshop.dao.ProductDAO;
+
+import com.javaschool.onlineshop.model.dao.ProductDAO;
+import com.javaschool.onlineshop.model.dto.ProductDTO;
+import com.javaschool.onlineshop.mappers.ProductMapper;
 import com.javaschool.onlineshop.entity.Product;
 import com.javaschool.onlineshop.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,26 +17,36 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductDAO productDAO;
 
-    public ProductServiceImpl(ProductDAO productDAO) {
+    private final ProductMapper productMapper;
+
+    public ProductServiceImpl(ProductDAO productDAO, ProductMapper productMapper) {
         this.productDAO = productDAO;
+        this.productMapper = productMapper;
     }
 
     @Override
     @Transactional
-    public List<Product> findAll() {
-        return productDAO.findAll();
+    public List<ProductDTO> findAll() {
+        List<Product> productList = productDAO.findAll();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Product product : productList) {
+            productDTOList.add(productMapper.productToProductDTO(product));
+        }
+        return productDTOList;
     }
 
     @Override
     @Transactional
-    public Product getProductById(Long id) {
-        return productDAO.getProductById(id);
+    public ProductDTO getProductById(Long id) {
+        Product product = productDAO.getProductById(id);
+        return productMapper.productToProductDTO(product);
     }
 
     @Override
     @Transactional
-    public void addProduct(Product product) {
-        productDAO.addProduct(product);
+    public void addProduct(ProductDTO product) {
+        Product mappedProduct = productMapper.productDTOToProduct(product);
+        productDAO.addProduct(mappedProduct);
 
     }
 
@@ -52,14 +66,24 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<Product> findAllActiveProducts() {
-        return productDAO.findAllActiveProducts();
+    public List<ProductDTO> findAllActiveProducts() {
+        List<Product> productList = productDAO.findAllActiveProducts();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Product product : productList) {
+            productDTOList.add(productMapper.productToProductDTO(product));
+        }
+        return productDTOList;
     }
 
     @Override
     @Transactional
-    public List<Product> findAllActiveProductsByCategory(int categoryId) {
-        return productDAO.findAllActiveProductsByCategory(categoryId);
+    public List<ProductDTO> findAllActiveProductsByCategory(int categoryId) {
+        List<Product> productList = productDAO.findAllActiveProductsByCategory(categoryId);
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Product product : productList) {
+            productDTOList.add(productMapper.productToProductDTO(product));
+        }
+        return productDTOList;
     }
 
     @Override

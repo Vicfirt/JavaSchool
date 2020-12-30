@@ -1,13 +1,14 @@
 package com.javaschool.onlineshop.service;
 
-import com.javaschool.onlineshop.entity.CartElement;
-import com.javaschool.onlineshop.entity.OrderInfo;
+
+import com.javaschool.onlineshop.model.dto.CartElementDTO;
+import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
 
 import java.util.List;
 
 public interface OrderService {
 
-    void createOrder(List<CartElement> elementList);
+    void createOrder(List<CartElementDTO> elementList);
 
-    List<OrderInfo> findAllOrders(Long customerId);
+    List<OrderInfoDTO> findAllOrders(Long customerId);
 }
