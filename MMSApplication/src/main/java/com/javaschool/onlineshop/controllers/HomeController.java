@@ -1,7 +1,6 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.model.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.service.CartService;
@@ -21,7 +20,7 @@ import java.util.List;
  * This class implements the logic for transitions to subpages within the home page.
  */
 @Controller
-@RequestMapping("/home")
+@RequestMapping
 public class HomeController {
 
     private final ProductService productService;
@@ -30,40 +29,39 @@ public class HomeController {
 
     private final CustomerService customerService;
 
-    private final CustomerDAO customerDAO;
-
-    public HomeController(ProductService productService, CartService cartService, CustomerService customerService, CustomerDAO customerDAO) {
+    public HomeController(ProductService productService, CartService cartService, CustomerService customerService) {
         this.productService = productService;
         this.cartService = cartService;
         this.customerService = customerService;
-        this.customerDAO = customerDAO;
     }
 
     /**
      * This method will display a catalog of all products on the home page.
      */
-    @GetMapping
+    @GetMapping("/home")
     public String homePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null)
             return "home_page";
 
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
-            CustomerDTO customer = customerService.getCustomer();
+            CustomerDTO customer = customerService.getByEmail(authentication.getName());
             model.addAttribute("customer", customer);
         }
         return "home_page";
     }
 
     @GetMapping("/catalog")
-    public String catalog(Model model, Authentication authentication) {
+    public String catalog(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<ProductDTO> allProducts = productService.findAll();
         model.addAttribute("products", allProducts);
         if (authentication == null)
             return "catalog";
 
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
-            model.addAttribute("cart", cartService.getCart());
+            CustomerDTO customer = customerService.getByEmail(authentication.getName());
+            model.addAttribute("customer", customer);
         }
         return "catalog";
     }

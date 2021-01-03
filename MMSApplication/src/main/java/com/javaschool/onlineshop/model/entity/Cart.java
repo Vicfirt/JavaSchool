@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.model.entity;
 
 
 import javax.persistence.Entity;
@@ -6,9 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Column;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
 
 @Entity
 @Table(name = "cart")
@@ -20,9 +18,11 @@ public class Cart {
 
     @Column(name = "cart_total")
     private Double cartTotal;
-
+/*
     @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
+
+ */
 
     @Column(name = "elements_in_cart")
     private Integer elementsInCart;
@@ -49,13 +49,5 @@ public class Cart {
 
     public void setElementsInCart(Integer elementsInCart) {
         this.elementsInCart = elementsInCart;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 }

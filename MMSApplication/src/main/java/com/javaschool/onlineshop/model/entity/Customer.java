@@ -1,12 +1,16 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.model.entity;
 
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 @Table(name = "customer")
@@ -16,8 +20,8 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CustomerAddress> customerAddresses;
+    @OneToOne
+    private CustomerAddress customerAddress;
 
     @Column(name = "customer_first_name")
     @NotEmpty
@@ -51,7 +55,7 @@ public class Customer {
     @NotEmpty
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToOne
     private Cart cart;
 
     public Long getCustomerId() {
@@ -62,12 +66,12 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public List<CustomerAddress> getCustomerAddresses() {
-        return customerAddresses;
+    public CustomerAddress getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setCustomerAddresses(List<CustomerAddress> customerAddresses) {
-        this.customerAddresses = customerAddresses;
+    public void setCustomerAddress(CustomerAddress customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
     public String getCustomerFirstName() {

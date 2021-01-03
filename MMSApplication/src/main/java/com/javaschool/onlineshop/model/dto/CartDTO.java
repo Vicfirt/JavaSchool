@@ -6,9 +6,10 @@ public class CartDTO {
     private Long cartId;
 
     private Double cartTotal;
-
+/*
     private CustomerDTO customer;
 
+ */
     private Integer elementsInCart;
 
     public Long getCartId() {
@@ -33,13 +34,5 @@ public class CartDTO {
 
     public void setElementsInCart(Integer elementsInCart) {
         this.elementsInCart = elementsInCart;
-    }
-
-    public CustomerDTO getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
     }
 }

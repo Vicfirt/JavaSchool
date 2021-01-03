@@ -3,8 +3,8 @@ package com.javaschool.onlineshop.mappers;
 
 import com.javaschool.onlineshop.model.dto.CustomerAddressDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
-import com.javaschool.onlineshop.entity.Customer;
-import com.javaschool.onlineshop.entity.CustomerAddress;
+import com.javaschool.onlineshop.model.entity.Customer;
+import com.javaschool.onlineshop.model.entity.CustomerAddress;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
@@ -14,7 +14,4 @@ public interface CustomerAddressMapper {
 
     CustomerAddress customerAddressDTOToCustomerAddress(CustomerAddressDTO customerAddressDTO);
 
-    CustomerDTO customerToCustomerDTO(Customer customer);
-
-    Customer customerDTOToCustomer(CustomerDTO customerDTO);
 }

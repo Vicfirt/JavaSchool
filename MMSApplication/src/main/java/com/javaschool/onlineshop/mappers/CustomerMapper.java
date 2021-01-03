@@ -4,12 +4,11 @@ package com.javaschool.onlineshop.mappers;
 import com.javaschool.onlineshop.model.dto.CartDTO;
 import com.javaschool.onlineshop.model.dto.CustomerAddressDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
-import com.javaschool.onlineshop.entity.Cart;
-import com.javaschool.onlineshop.entity.Customer;
-import com.javaschool.onlineshop.entity.CustomerAddress;
+import com.javaschool.onlineshop.model.entity.Cart;
+import com.javaschool.onlineshop.model.entity.Customer;
+import com.javaschool.onlineshop.model.entity.CustomerAddress;
 import org.mapstruct.Mapper;
 
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
@@ -22,9 +21,7 @@ public interface CustomerMapper {
 
     Cart cartDTOToCart(CartDTO cartDTO);
 
-    List<CustomerAddressDTO> addressListToAddressDTOList(List<CustomerAddress> customerAddressList);
+    CustomerAddressDTO customerAddressToCustomerAddressDTO(CustomerAddress customerAddress);
 
-    List<CustomerAddress> addressDTOListToAddressList(List<CustomerAddressDTO> customerAddressDTOList);
-
-
+    CustomerAddress customerAddressDTOToCustomerAddress(CustomerAddressDTO customerAddressDTO);
 }

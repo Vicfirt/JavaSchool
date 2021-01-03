@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.model.entity;
 
 
 import org.hibernate.annotations.ColumnDefault;

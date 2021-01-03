@@ -1,10 +1,11 @@
 <#import "common_home.ftl" as home>
-    <#import "header.ftl" as header>
+
 <@home.home>
 
+    <#include "header.ftl">
 
     <body>
-<div class="container ">
+<div class="container">
 
     <h1 align="center" class="display-4 mb-5">Sign In</h1>
     <div style="width:40%; margin: 25px auto" >

@@ -1,18 +1,18 @@
 package com.javaschool.onlineshop.service.impl;
 
 
-import com.javaschool.onlineshop.entity.Customer;
-import com.javaschool.onlineshop.model.dao.CartDAO;
-import com.javaschool.onlineshop.model.dao.CartElementDAO;
-import com.javaschool.onlineshop.model.dao.CustomerDAO;
+import com.javaschool.onlineshop.model.entity.Customer;
+import com.javaschool.onlineshop.dao.CartDAO;
+import com.javaschool.onlineshop.dao.CartElementDAO;
+import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.dto.CartElementDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.mappers.CartElementMapper;
 import com.javaschool.onlineshop.mappers.CartMapper;
 import com.javaschool.onlineshop.mappers.ProductMapper;
-import com.javaschool.onlineshop.entity.Cart;
-import com.javaschool.onlineshop.entity.CartElement;
-import com.javaschool.onlineshop.entity.Product;
+import com.javaschool.onlineshop.model.entity.Cart;
+import com.javaschool.onlineshop.model.entity.CartElement;
+import com.javaschool.onlineshop.model.entity.Product;
 import com.javaschool.onlineshop.service.CartService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

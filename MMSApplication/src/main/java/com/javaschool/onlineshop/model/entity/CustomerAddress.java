@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.entity;
+package com.javaschool.onlineshop.model.entity;
 
 
 import javax.persistence.Entity;
@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Column;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,9 +15,6 @@ public class CustomerAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerAddressId;
-
-    @ManyToOne
-    private Customer customer;
 
     @Column(name = "country")
     private String country;
@@ -44,14 +40,6 @@ public class CustomerAddress {
 
     public void setCustomerAddressId(Long customerAddressId) {
         this.customerAddressId = customerAddressId;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public String getCountry() {

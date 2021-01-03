@@ -48,7 +48,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setPackagesToScan("com.javaschool.onlineshop.entity");
+        sessionFactoryBean.setPackagesToScan("com.javaschool.onlineshop.model.entity");
         sessionFactoryBean.setHibernateProperties(hibernateProperties());
         return sessionFactoryBean;
     }

@@ -1,7 +1,7 @@
-package com.javaschool.onlineshop.model.dao;
+package com.javaschool.onlineshop.dao;
 
 
-import com.javaschool.onlineshop.entity.OrderInfo;
+import com.javaschool.onlineshop.model.entity.OrderInfo;
 
 import java.util.List;
 

@@ -1,14 +1,16 @@
 <#import "common_home.ftl" as home>
-<#import "header.ftl" as header>
+
     <#import "spring.ftl" as spring>
 <@home.home>
-    <@header.header counter="${counter}"></@header.header>
+
+    <#include "header.ftl">
+
     <div class="container ">
 
         <h1 align="center" class="display-4 mb-5">Edit Product</h1>
         <#--<div class="text-center justify-content-center">-->
         <div style="width:40%; margin: 25px auto">
-            <form action="/product/new" method="post">
+            <form action="/product/employee/new" method="post">
                 <@spring.bind "product"/>
 
                 <#--Photo-->

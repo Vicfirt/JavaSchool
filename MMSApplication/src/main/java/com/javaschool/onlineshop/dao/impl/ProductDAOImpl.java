@@ -1,8 +1,8 @@
-package com.javaschool.onlineshop.model.dao.impl;
+package com.javaschool.onlineshop.dao.impl;
 
 
-import com.javaschool.onlineshop.model.dao.ProductDAO;
-import com.javaschool.onlineshop.entity.Product;
+import com.javaschool.onlineshop.dao.ProductDAO;
+import com.javaschool.onlineshop.model.entity.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;

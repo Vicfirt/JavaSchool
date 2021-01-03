@@ -1,7 +1,7 @@
-package com.javaschool.onlineshop.model.dao;
+package com.javaschool.onlineshop.dao;
 
 
-import com.javaschool.onlineshop.entity.Customer;
+import com.javaschool.onlineshop.model.entity.Customer;
 
 public interface CustomerDAO {
 

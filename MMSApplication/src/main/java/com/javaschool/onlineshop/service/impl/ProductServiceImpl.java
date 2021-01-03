@@ -1,10 +1,10 @@
 package com.javaschool.onlineshop.service.impl;
 
 
-import com.javaschool.onlineshop.model.dao.ProductDAO;
+import com.javaschool.onlineshop.dao.ProductDAO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.mappers.ProductMapper;
-import com.javaschool.onlineshop.entity.Product;
+import com.javaschool.onlineshop.model.entity.Product;
 import com.javaschool.onlineshop.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

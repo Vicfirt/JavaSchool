@@ -42,9 +42,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/", "/home").permitAll()
                 .antMatchers("/catalog", "/cart/**").permitAll().antMatchers("/product/employee/**")
                 .hasAuthority("EMPLOYEE").antMatchers("/login", "/signup").permitAll()
+                .antMatchers("/profile").hasAnyAuthority("CUSTOMER")
                 .antMatchers("/orders/customer/**").permitAll().and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/").loginProcessingUrl("/login").failureUrl("/login/error")
-                .usernameParameter("email").passwordParameter("password").and().logout().permitAll()
+                .usernameParameter("email").passwordParameter("password").and().logout()
+                .logoutUrl("/logout").logoutSuccessUrl("/")
                 .and().exceptionHandling().accessDeniedPage("/access_denied");
     }
 }

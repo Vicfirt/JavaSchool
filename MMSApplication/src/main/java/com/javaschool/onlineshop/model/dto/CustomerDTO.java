@@ -1,13 +1,11 @@
 package com.javaschool.onlineshop.model.dto;
 
 
-import java.util.List;
-
 public class CustomerDTO {
 
     private Long customerId;
 
-    private List<CustomerAddressDTO> customerAddresses;
+    private CustomerAddressDTO customerAddress;
 
     private String customerFirstName;
 
@@ -33,14 +31,6 @@ public class CustomerDTO {
 
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
-    }
-
-    public List<CustomerAddressDTO> getCustomerAddresses() {
-        return customerAddresses;
-    }
-
-    public void setCustomerAddresses(List<CustomerAddressDTO> customerAddresses) {
-        this.customerAddresses = customerAddresses;
     }
 
     public String getCustomerFirstName() {
@@ -113,5 +103,13 @@ public class CustomerDTO {
 
     public void setCart(CartDTO cart) {
         this.cart = cart;
+    }
+
+    public CustomerAddressDTO getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(CustomerAddressDTO customerAddress) {
+        this.customerAddress = customerAddress;
     }
 }

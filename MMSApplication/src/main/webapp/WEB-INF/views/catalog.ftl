@@ -3,7 +3,11 @@
 
 <@home.home>
 
+    <div class="row">
+
     <#include "header.ftl">
+
+    </div>
 
     <div class="row">
 
@@ -43,6 +47,7 @@
             <div class="row wow fadeIn">
                     <#list products as product>
                         <div class="col col-md-4 lg-6 md-4">
+
                         <div class="card">
                             <div class="view overlay">
                                 <img class="card-img-top" src="${product.productImage}" alt="Iphone" height="200px" width="50px">
@@ -64,7 +69,9 @@
                                 <h4 class="font-weight-bold blue-text">
                                     <strong>${product.productPrice} $</strong>
                                 </h4>
+                                <#if customer??>
                                 <a href="cart/add/product/${product.productId}" class="btn btn-primary">Add to Cart</a>
+                            </#if>
                             </div>
                         </div>
                         </div>

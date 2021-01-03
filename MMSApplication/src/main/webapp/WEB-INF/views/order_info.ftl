@@ -2,7 +2,7 @@
 <#import "header.ftl" as header>
 <@home.home>
 
-        <@header.header counter="${counter}"></@header.header>
+       <#include "header.ftl">
 
     <div class="container" style="margin-top: 100px">
 
@@ -15,7 +15,6 @@
                 <th scope="col">Customer Name</th>
                 <th scope="col">Customer Email</th>
                 <th scope="col">Customer phone</th>
-                <th scope="col">Shipping Address</th>
                 <th scope="col">Total</th>
                 <th scope="col">Order Data</th>
                 <th scope="col">Status</th>
@@ -28,10 +27,10 @@
                     <th class="align-middle" scope="row">
 
                     </th>
-                    <td class="align-middle">Name</td>
-                    <td class="align-middle">Email</td>
-                    <td class="align-middle">Phone</td>
-                    <td class="align-middle">Address}</td>
+                    <td class="align-middle">${order.getOrderId()}</td>
+                    <td class="align-middle">${customer.getCustomerEmailAddress()}</td>
+                    <td class="align-middle">${customer.getPhoneNumber()}</td>
+                    <td class="align-middle"></td>
                     <td class="align-middle">OrderTotal}</td>
                     <td class="align-middle">Status</td>
                     <td class="align-middle">

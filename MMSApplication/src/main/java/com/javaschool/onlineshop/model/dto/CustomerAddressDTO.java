@@ -5,8 +5,6 @@ public class CustomerAddressDTO {
 
     private Long customerAddressId;
 
-    private CustomerDTO customer;
-
     private String country;
 
     private String city;
@@ -25,14 +23,6 @@ public class CustomerAddressDTO {
 
     public void setCustomerAddressId(Long customerAddressId) {
         this.customerAddressId = customerAddressId;
-    }
-
-    public CustomerDTO getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
     }
 
     public String getCountry() {

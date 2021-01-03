@@ -1,9 +1,14 @@
 package com.javaschool.onlineshop.controllers;
 
 
+import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.service.CartService;
+import com.javaschool.onlineshop.service.CustomerService;
 import com.javaschool.onlineshop.service.ProductService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,9 +34,12 @@ public class ProductController {
 
     private final CartService cartService;
 
-    public ProductController(ProductService productService, CartService cartService) {
+    private final CustomerService customerService;
+
+    public ProductController(ProductService productService, CartService cartService, CustomerService customerService) {
         this.productService = productService;
         this.cartService = cartService;
+        this.customerService = customerService;
     }
 
     /**
@@ -40,9 +48,14 @@ public class ProductController {
      */
     @GetMapping("/{productId}")
     public String getProductInfoPage(@PathVariable("productId") Long productId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ProductDTO product = productService.getProductById(productId);
         model.addAttribute("product", product);
-        model.addAttribute("counter", cartService.getCart().getElementsInCart());
+
+        if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
+            CustomerDTO customer = customerService.getByEmail(authentication.getName());
+            model.addAttribute("customer", customer);
+        }
         return "product_info";
     }
 
@@ -70,7 +83,7 @@ public class ProductController {
     @GetMapping("/employee/new")
     public String createForm(ProductDTO product, Model model) {
         model.addAttribute("product", product);
-        model.addAttribute("counter", cartService.getCart().getElementsInCart());
+        model.addAttribute("customer", customerService.getCustomer());
         return "product_createform";
     }
 }

@@ -3,11 +3,17 @@ package com.javaschool.onlineshop.service;
 
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 
+import java.security.Principal;
+
 public interface CustomerService {
 
     CustomerDTO getCustomer();
 
-    void addCustomer(CustomerDTO customerDTO);
+    void addCustomer(CustomerDTO customer);
 
     CustomerDTO getByEmail(String email);
+
+    void update(CustomerDTO customerDTO, Principal principal);
+
+    void delete(CustomerDTO customerDTO);
 }

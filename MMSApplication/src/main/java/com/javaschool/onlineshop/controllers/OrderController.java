@@ -2,8 +2,10 @@ package com.javaschool.onlineshop.controllers;
 
 
 import com.javaschool.onlineshop.model.dto.CartElementDTO;
+import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
 import com.javaschool.onlineshop.service.CartService;
+import com.javaschool.onlineshop.service.CustomerService;
 import com.javaschool.onlineshop.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +26,13 @@ public class OrderController {
 
     private final CartService cartService;
 
+    private final CustomerService customerService;
 
-    public OrderController(OrderService orderService, CartService cartService) {
+
+    public OrderController(OrderService orderService, CartService cartService, CustomerService customerService) {
         this.orderService = orderService;
         this.cartService = cartService;
+        this.customerService = customerService;
     }
 
     /**
@@ -36,17 +41,18 @@ public class OrderController {
      */
     @GetMapping("/customer/all")
     public String getAllOrders(Model model) {
-        List<OrderInfoDTO> orderInfoList = orderService.findAllOrders(1L);
+        CustomerDTO customer = customerService.getCustomer();
+        List<OrderInfoDTO> orderInfoList = orderService.findAllOrders(customer.getCustomerId());
         model.addAttribute("orders", orderInfoList);
-        model.addAttribute("counter", cartService.getCart().getCartTotal());
+        model.addAttribute("customer", customer);
         return "order_info";
     }
 
-    //It`s temporary solution while we don`t have authorized customer
-    @GetMapping("/customer/order")
+
+    @GetMapping("/customer/new")
     public String createOrder() {
         List<CartElementDTO> cartElementList = cartService.getCartElements();
         orderService.createOrder(cartElementList);
-        return "redirect:/all";
+        return "redirect: orders/customer/all";
     }
 }

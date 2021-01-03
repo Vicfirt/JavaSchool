@@ -2,13 +2,14 @@
 <#import "header.ftl" as header>
     <#import "footer.ftl" as footer>
 <@home.home>
-<@header.header counter="${counter}">
-</@header.header>
+
+    <#include "header.ftl">
 
     <div class="mt-5 pt-4">
 
         <div class="container dark-grey-text mt-5">
             <div class="row wow fadeIn">
+                <#if !customer??>
 
                 <div class="col-md-6 mb-4 ">
                     <img src="${product.productImage}" alt="Iphone" class="img-fluid">
@@ -34,12 +35,14 @@
                         </p>
                         <p class="lead font-weight-bold">Description</p>
                         <p>${product.productDescription}</p>
+                        <#else >
                         <form action="../cart/add/product/${product.productId}" class="d-flex justify-content-left">
                             <button type="submit" class="btn btn-primary btn-md my-0 p">
                                 Add to cart <i class="fa fa-shopping-cart ml-1"></i> </button>
                         </form>
                     </div>
-                </div>
+
+                    </#if>
             </div>
         </div>
     </div>

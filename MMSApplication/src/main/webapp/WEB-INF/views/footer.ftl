@@ -1,16 +1,9 @@
-<div class="container">
-    <br>
-    <br>
-    <hr>
-    <div class="text-center">
-        <a style="color: grey" href="https://github.com/vicfirt" ><i class="fab fa-github fa-3x"></i></a>
-    </div>
-
-
+<div class="container static-bottom container-fluid" >
 
     <div class="footer-copyright py-3 text-center">
         2021
-        <a href="https://github.com/vicfirt"> Ivan Nikitin</a>
+        <a href="https://github.com/Vicfirt">Ivan Nikitin</a>
+        <a style="color: inherit" href="https://github.com/zhulinn" ><i class="fab fa-github "></i></a>
     </div>
-    <!--/.Copyright-->
+
 </div>

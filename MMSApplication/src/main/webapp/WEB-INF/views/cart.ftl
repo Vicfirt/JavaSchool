@@ -1,8 +1,8 @@
 <#import "common_home.ftl" as home>
     <#import "header.ftl" as header>
 <@home.home>
-<div>
-    <@header.header counter="${counter}"></@header.header>
+
+    <#include "header.ftl">
 
 
 <div class="container" style="margin-top: 100px">
@@ -26,12 +26,12 @@
                     <img height="100px" src="">
                 </th>
                 <td class="align-middle">${item.getProduct().getProductName()}</td>
-                <td class="align-middle">${item.getElementPrice()?string.currency}</td>
+                <td class="align-middle">$${item.getElementPrice()}</td>
                 <td class="align-middle">
                     <a href="/cart/change?element_Id=${item.getId()}&quantity=${item.getProductCount()-1}"><i
                                 class="fas fa-minus"></i></a>
                     <input min="1" id="${item.getProduct().getProductId()}"
-                           max="${item.getProduct().getProductId()!"1"}" type="text" size="5" value="${item.getProductCount()}"
+                           max="${item.getProduct().getAmountInStock()!"1"}" type="text" size="5" value="${item.getProductCount()}"
                            name='count' onkeyup="change(this)">
                     <a href="/cart/change?element_Id=${item.getId()}&quantity=${item.getProductCount()+1}">
                         <i class="fas fa-plus"></i></a>
@@ -39,7 +39,7 @@
                 <td class="align-middle">Price</td>
                 <td class="align-middle">
 
-                    <a href="/cart/remove?element_Id=${item.getId()}" style="color: red">Remove</a>
+                    <a href="/cart/remove?element_Id=${item.getId()}" style="color: red" >Remove</a>
 
                 </td>
 
@@ -49,8 +49,8 @@
     </table>
     <#if cartItems?has_content >
         <div>
-            <h5 style="display: inline;">Total: $${total}</h5>
-            <form action ="/orders/all" method="get">
+            <h5 style="display: inline;">Total: $${customer.getCart().getCartTotal()}</h5>
+            <form action ="/orders/customer/new" method="get">
                 <button type="submit" class="btn btn-primary float-right">Checkout</button>
             </form>
         </div>

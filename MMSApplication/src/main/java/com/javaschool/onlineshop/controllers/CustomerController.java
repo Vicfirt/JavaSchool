@@ -1,8 +1,11 @@
 package com.javaschool.onlineshop.controllers;
 
 
+import com.javaschool.onlineshop.dao.CustomerDAO;
+import com.javaschool.onlineshop.model.dto.CustomerAddressDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.service.CartService;
+import com.javaschool.onlineshop.service.CustomerAddressService;
 import com.javaschool.onlineshop.service.CustomerService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class CustomerController {
@@ -23,9 +27,15 @@ public class CustomerController {
 
     CustomerService customerService;
 
-    public CustomerController(CartService cartService, CustomerService customerService) {
+    CustomerDAO customerDAO;
+
+    CustomerAddressService customerAddressService;
+
+    public CustomerController(CartService cartService, CustomerService customerService, CustomerDAO customerDAO, CustomerAddressService customerAddressService) {
         this.cartService = cartService;
         this.customerService = customerService;
+        this.customerDAO = customerDAO;
+        this.customerAddressService = customerAddressService;
     }
 
     @GetMapping("/")
@@ -33,7 +43,7 @@ public class CustomerController {
         if (authentication == null || authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
             return "forward:/home";
         } else {
-            return "forward:/employee";
+            return "forward:/product/employee/new";
         }
     }
 
@@ -43,8 +53,7 @@ public class CustomerController {
     }
 
     @GetMapping("/signup")
-    public String createSignupForm(Model model, CustomerDTO customer) {
-
+    public String createSignupForm(CustomerDTO customer, Model model) {
         model.addAttribute("customer", customer);
         return "/signup";
     }
@@ -54,7 +63,7 @@ public class CustomerController {
                          BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         CustomerDTO customerExists = customerService.getByEmail(customer.getCustomerEmailAddress());
         if (customerExists != null) {
-            bindingResult.rejectValue("email", "This email is already in use");
+            bindingResult.rejectValue("customerEmailAddress", "", "This email is already in use");
         }
 
         if (bindingResult.hasErrors()) {
@@ -75,5 +84,51 @@ public class CustomerController {
     public String loginError(Model model) {
         model.addAttribute("messge", "Not found");
         return "/myerror";
+    }
+
+    @GetMapping("/profile")
+    public String showProfile(Model model) {
+        CustomerDTO customer = customerService.getCustomer();
+        model.addAttribute("customer", customer);
+        model.addAttribute("address", customer.getCustomerAddress());
+        return "/profile_info";
+    }
+    @GetMapping("/profile/edit")
+    public String showEditForm(Model model) {
+        CustomerDTO customer = customerService.getCustomer();
+        model.addAttribute("customer", customer);
+        return "/edit_profile";
+    }
+
+    @PostMapping("/profile/edit")
+    public String editProfile(@Valid @ModelAttribute("customer") CustomerDTO customer, BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes, Principal principal){
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("customer", customer);
+            return "/edit_profile";
+        }
+        customerService.update(customer, principal);
+        return "redirect:/";
+    }
+
+    @GetMapping("/profile/address/new")
+    public String showAddAddressForm(Model model, CustomerAddressDTO customerAddress){
+        CustomerDTO customer = customerService.getCustomer();
+        model.addAttribute("customer", customer);
+        model.addAttribute("address", customerAddress);
+        return "add_address";
+    }
+
+    @PostMapping("/profile/address/new")
+    public String addAddress(@Valid @ModelAttribute("address") CustomerAddressDTO customerAddress,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes){
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("address", customerAddress);
+            return "/add_address";
+        }
+        CustomerDTO customer = customerService.getCustomer();
+        customerAddressService.addCustomerAddress(customerAddress,customer);
+        return "redirect:/profile";
     }
 }

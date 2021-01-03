@@ -3,8 +3,8 @@ package com.javaschool.onlineshop.mappers;
 
 import com.javaschool.onlineshop.model.dto.CartElementDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
-import com.javaschool.onlineshop.entity.CartElement;
-import com.javaschool.onlineshop.entity.Product;
+import com.javaschool.onlineshop.model.entity.CartElement;
+import com.javaschool.onlineshop.model.entity.Product;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

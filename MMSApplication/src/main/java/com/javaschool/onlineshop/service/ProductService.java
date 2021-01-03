@@ -1,7 +1,7 @@
 package com.javaschool.onlineshop.service;
 
 import com.javaschool.onlineshop.model.dto.ProductDTO;
-import com.javaschool.onlineshop.entity.Product;
+import com.javaschool.onlineshop.model.entity.Product;
 
 import java.util.List;
 

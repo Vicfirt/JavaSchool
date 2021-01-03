@@ -1,8 +1,8 @@
-package com.javaschool.onlineshop.model.dao;
+package com.javaschool.onlineshop.dao;
 
 
-import com.javaschool.onlineshop.entity.CartElement;
-import com.javaschool.onlineshop.entity.Product;
+import com.javaschool.onlineshop.model.entity.CartElement;
+import com.javaschool.onlineshop.model.entity.Product;
 
 import java.util.List;
 
