@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "order_element")
 public class OrderElement {

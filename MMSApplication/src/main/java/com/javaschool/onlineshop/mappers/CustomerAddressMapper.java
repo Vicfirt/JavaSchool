@@ -13,5 +13,4 @@ public interface CustomerAddressMapper {
     CustomerAddressDTO customerAddressToCustomerAddressDTO(CustomerAddress customerAddress);
 
     CustomerAddress customerAddressDTOToCustomerAddress(CustomerAddressDTO customerAddressDTO);
-
 }

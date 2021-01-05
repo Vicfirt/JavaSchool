@@ -52,35 +52,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void createOrder(List<CartElementDTO> elementList) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerDAO.getByEmail(authentication.getName());
-        OrderInfo order = new OrderInfo();
-        order.setCustomerId(customer.getCustomerId());
-        order.setTotal(customer.getCart().getCartTotal());
-        order.setOrderCount(elementList.size());
-        orderDAO.add(order);
-
-        for (CartElementDTO cartElementDTO : elementList) {
-            CartElement cartElement = cartElementMapper.cartElementDTOToCartElement(cartElementDTO);
-            OrderElement element = new OrderElement();
-            element.setOrderId(order.getOrderId());
-            element.setPrice(cartElement.getElementPrice());
-            element.setProduct(cartElement.getProduct());
-            element.setTotalPrice(cartElement.getTotalPrice());
-            element.setProductCount(cartElement.getProductCount());
-            orderElementDAO.add(element);
-            cartElementDAO.delete(cartElement.getId());
-        }
-
-        Cart customerCart = customer.getCart();
-        customerCart.setElementsInCart(0);
-        customerCart.setCartTotal(0.0);
-        cartDAO.updateCart(customerCart);
-    }
-
-    @Override
-    @Transactional
     public List<OrderInfoDTO> findAllOrders(Long customerId) {
         List<OrderInfo> orders = orderDAO.findAllOrders(customerId);
         List<OrderInfoDTO> ordersDTOList = new ArrayList<>();
@@ -88,5 +59,29 @@ public class OrderServiceImpl implements OrderService {
             ordersDTOList.add(orderInfoMapper.orderInfoToOrderInfoDTO(orderInfo));
         }
         return ordersDTOList;
+    }
+
+    @Override
+    @Transactional
+    public void addOrder(OrderInfoDTO orderInfoDTO, List<CartElementDTO> elementList) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        OrderInfo orderInfo = orderInfoMapper.orderInfoDTOToOrderInfo(orderInfoDTO);
+        orderDAO.add(orderInfo);
+        Customer customer = customerDAO.getByEmail(authentication.getName());
+        for (CartElementDTO cartElementDTO : elementList) {
+            CartElement cartElement = cartElementMapper.cartElementDTOToCartElement(cartElementDTO);
+            OrderElement element = new OrderElement();
+            element.setOrderId(orderInfo.getOrderId());
+            element.setPrice(cartElement.getElementPrice());
+            element.setProduct(cartElement.getProduct());
+            element.setTotalPrice(cartElement.getTotalPrice());
+            element.setProductCount(cartElement.getProductCount());
+            orderElementDAO.add(element);
+            cartElementDAO.delete(cartElement.getId());
+        }
+        Cart customerCart = customer.getCart();
+        customerCart.setElementsInCart(0);
+        customerCart.setCartTotal(0.0);
+        cartDAO.updateCart(customerCart);
     }
 }

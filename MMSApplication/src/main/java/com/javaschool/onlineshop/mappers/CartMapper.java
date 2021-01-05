@@ -11,5 +11,4 @@ public interface CartMapper {
     CartDTO cartToDTO(Cart cart);
 
     Cart cartDTOToCart(CartDTO cartDTO);
-
 }

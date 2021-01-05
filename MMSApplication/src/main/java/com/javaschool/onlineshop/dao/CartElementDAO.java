@@ -21,5 +21,4 @@ public interface CartElementDAO {
     List<CartElement> listAvailable(Long cartId);
 
     CartElement get(Long cartId, Product product);
-
 }

@@ -3,6 +3,7 @@ package com.javaschool.onlineshop.controllers;
 
 import com.javaschool.onlineshop.model.dto.CartElementDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
+import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.CustomerService;
@@ -11,8 +12,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -25,10 +32,13 @@ public class CartController {
 
     private final CustomerService customerService;
 
-    public CartController(CartService cartService, ProductService productService, CustomerService customerService) {
+    private final HttpSession session;
+
+    public CartController(CartService cartService, ProductService productService, CustomerService customerService, HttpSession session) {
         this.cartService = cartService;
         this.productService = productService;
         this.customerService = customerService;
+        this.session = session;
     }
 
     @GetMapping
@@ -58,5 +68,16 @@ public class CartController {
     public String plus(@RequestParam("element_Id") Long id, @RequestParam("quantity") Integer quantity) {
         cartService.updateCartElement(id, quantity);
         return "redirect:/cart";
+    }
+
+    @PostMapping("/confirmation")
+    public String confirmCart(Model model, OrderInfoDTO orderInfo){
+        CustomerDTO customer = customerService.getCustomer();
+        model.addAttribute("address", customer.getCustomerAddress());
+        model.addAttribute("customer", customer);
+        model.addAttribute("cart", customer.getCart());
+        model.addAttribute("cartElements", cartService.getCartElements());
+        model.addAttribute("order", orderInfo);
+        return "checkout";
     }
 }

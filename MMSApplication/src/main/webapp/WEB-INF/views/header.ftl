@@ -72,7 +72,7 @@
                                 <a href="/catalog" class="nav-link waves-effect">Catalog</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/catalog" class="nav-link waves-effect">My Orders</a>
+                                <a href="/orders/customer/all" class="nav-link waves-effect">My Orders</a>
                             </li>
                         </ul>
                         <form class="form-inline" style="margin-right: 150px">

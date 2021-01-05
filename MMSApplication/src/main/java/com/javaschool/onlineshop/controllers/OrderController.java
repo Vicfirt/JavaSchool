@@ -10,8 +10,11 @@ import com.javaschool.onlineshop.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -49,10 +52,12 @@ public class OrderController {
     }
 
 
-    @GetMapping("/customer/new")
-    public String createOrder() {
+    @PostMapping("/order/new")
+    public String createOrder(@RequestParam("paymentMethodId") Integer paymentMethodId,
+                              @Valid @ModelAttribute("order") OrderInfoDTO orderInfo) {
+        orderInfo.setPaymentMethodId(paymentMethodId);
         List<CartElementDTO> cartElementList = cartService.getCartElements();
-        orderService.createOrder(cartElementList);
-        return "redirect: orders/customer/all";
+        orderService.addOrder(orderInfo, cartElementList);
+        return "redirect:/orders/customer/all";
     }
 }

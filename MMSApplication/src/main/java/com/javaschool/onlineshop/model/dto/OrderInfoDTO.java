@@ -11,6 +11,10 @@ public class OrderInfoDTO {
 
     private Integer orderCount;
 
+    private Integer paymentMethodId;
+
+    private Integer shippingId;
+
     public Long getOrderId() {
         return orderId;
     }
@@ -41,5 +45,21 @@ public class OrderInfoDTO {
 
     public void setOrderCount(Integer orderCount) {
         this.orderCount = orderCount;
+    }
+
+    public Integer getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    public void setPaymentMethodId(Integer paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
+    }
+
+    public Integer getShippingId() {
+        return shippingId;
+    }
+
+    public void setShippingId(Integer shippingId) {
+        this.shippingId = shippingId;
     }
 }

@@ -13,7 +13,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     private final SessionFactory sessionFactory;
 
-    private BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public CustomerDAOImpl(SessionFactory sessionFactory, BCryptPasswordEncoder passwordEncoder) {
         this.sessionFactory = sessionFactory;
@@ -50,8 +50,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
             return sessionFactory.getCurrentSession().createQuery(query, Customer.class)
                     .setParameter("email", email).getSingleResult();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -62,8 +61,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         try {
             sessionFactory.getCurrentSession().delete(customer);
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -75,8 +73,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
             sessionFactory.getCurrentSession().update(customer);
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

@@ -8,7 +8,7 @@
     <div class="container ">
 
         <h1 align="center" class="display-4 mb-5">Edit Product</h1>
-        <#--<div class="text-center justify-content-center">-->
+
         <div style="width:40%; margin: 25px auto">
             <form action="/product/employee/new" method="post">
                 <@spring.bind "product"/>
@@ -122,11 +122,12 @@
                         <option value="false">Unavailable</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"/>
                 </div>
             </form>
-            <#--</div>-->
+
 
         </div>
     </div>

@@ -23,13 +23,13 @@ import java.security.Principal;
 @Controller
 public class CustomerController {
 
-    CartService cartService;
+    private final CartService cartService;
 
-    CustomerService customerService;
+    private final CustomerService customerService;
 
-    CustomerDAO customerDAO;
+    private final CustomerDAO customerDAO;
 
-    CustomerAddressService customerAddressService;
+    private final CustomerAddressService customerAddressService;
 
     public CustomerController(CartService cartService, CustomerService customerService, CustomerDAO customerDAO, CustomerAddressService customerAddressService) {
         this.cartService = cartService;
@@ -93,6 +93,7 @@ public class CustomerController {
         model.addAttribute("address", customer.getCustomerAddress());
         return "/profile_info";
     }
+
     @GetMapping("/profile/edit")
     public String showEditForm(Model model) {
         CustomerDTO customer = customerService.getCustomer();
@@ -102,8 +103,8 @@ public class CustomerController {
 
     @PostMapping("/profile/edit")
     public String editProfile(@Valid @ModelAttribute("customer") CustomerDTO customer, BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes, Principal principal){
-        if (bindingResult.hasErrors()){
+                              RedirectAttributes redirectAttributes, Principal principal) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("customer", customer);
             return "/edit_profile";
         }
@@ -112,7 +113,7 @@ public class CustomerController {
     }
 
     @GetMapping("/profile/address/new")
-    public String showAddAddressForm(Model model, CustomerAddressDTO customerAddress){
+    public String showAddAddressForm(Model model, CustomerAddressDTO customerAddress) {
         CustomerDTO customer = customerService.getCustomer();
         model.addAttribute("customer", customer);
         model.addAttribute("address", customerAddress);
@@ -122,13 +123,13 @@ public class CustomerController {
     @PostMapping("/profile/address/new")
     public String addAddress(@Valid @ModelAttribute("address") CustomerAddressDTO customerAddress,
                              BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes){
+                             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("address", customerAddress);
             return "/add_address";
         }
         CustomerDTO customer = customerService.getCustomer();
-        customerAddressService.addCustomerAddress(customerAddress,customer);
+        customerAddressService.addCustomerAddress(customerAddress, customer);
         return "redirect:/profile";
     }
 }

@@ -55,7 +55,6 @@ public class ProductDAOImpl implements ProductDAO {
         return session.createQuery(query, Product.class)
                 .setParameter("active", true)
                 .getResultList();
-
     }
 
     @Override

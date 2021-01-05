@@ -52,7 +52,7 @@ public class ProductController {
         ProductDTO product = productService.getProductById(productId);
         model.addAttribute("product", product);
 
-        if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
             CustomerDTO customer = customerService.getByEmail(authentication.getName());
             model.addAttribute("customer", customer);
         }

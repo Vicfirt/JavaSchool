@@ -3,6 +3,7 @@ package com.javaschool.onlineshop.model.entity;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
+
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;

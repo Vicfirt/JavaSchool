@@ -11,15 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CustomerAddressServiceImpl implements CustomerAddressService {
 
-    CustomerAddressDAO customerAddressDAO;
+    private final CustomerAddressDAO customerAddressDAO;
 
-    CustomerAddressMapper customerAddressMapper;
+    private final CustomerAddressMapper customerAddressMapper;
 
     public CustomerAddressServiceImpl(CustomerAddressDAO customerAddressDAO, CustomerAddressMapper customerAddressMapper) {
         this.customerAddressDAO = customerAddressDAO;
         this.customerAddressMapper = customerAddressMapper;
     }
-
 
     @Override
     @Transactional

@@ -25,6 +25,13 @@ public class OrderInfo {
     @Column(name = "order_count")
     private Integer orderCount;
 
+    @Column(name = "payment_method_id")
+    private Integer paymentMethodId;
+
+    @Column(name = "shipping_id")
+    private Integer shippingId;
+
+
     public Long getOrderId() {
         return orderId;
     }
@@ -55,5 +62,21 @@ public class OrderInfo {
 
     public void setOrderCount(Integer orderCount) {
         this.orderCount = orderCount;
+    }
+
+    public Integer getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    public void setPaymentMethodId(Integer paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
+    }
+
+    public Integer getShippingId() {
+        return shippingId;
+    }
+
+    public void setShippingId(Integer shippingId) {
+        this.shippingId = shippingId;
     }
 }

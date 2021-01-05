@@ -42,6 +42,15 @@
             </#list>
             </tbody>
         </table>
+        <#if orders?has_content>
+            <#else>
+                <div>
+                    <h4 class="text-muted text-center">You don't have any orders yet. </h4>
+                </div>
+
+        </#if>
+
+    </div>
 
 
 </@home.home>

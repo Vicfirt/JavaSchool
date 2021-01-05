@@ -15,7 +15,7 @@
     <div class="row" style="margin-top: 80px;">
         <div class="col-lg-3">
             <div class="row">
-            <strong>Filter By</strong>
+            <h2>Filter By</h2>
             </div>
             <div class="row">
 
@@ -41,36 +41,48 @@
                     </div>
                 </div>
             </div>
+            <div data-role="page">
+                <div data-role="header">
+                    <h3>Range by price</h3>
+                </div>
+
+                <div data-role="main" class="ui-content">
+                    <form method="post" action="/action_page_post.php">
+                        <div data-role="rangeslider">
+                            <label for="price-min">0</label>
+                            <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+                            <label for="price-max">5000$</label>
+                        </div>
+                        <input type="submit" data-inline="true" value="Set">
+
+                    </form>
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-9">
             <div class="row wow fadeIn">
                     <#list products as product>
-                        <div class="col col-md-4 lg-6 md-4">
+                        <div class="col col-md-2 lg-4 md-4">
 
-                        <div class="card">
+                        <div class="card" style="width: 160px">
                             <div class="view overlay">
-                                <img class="card-img-top" src="${product.productImage}" alt="Iphone" height="200px" width="50px">
+                                <img class="card-img-top" src="${product.productImage}" alt="Iphone" >
                                 <a href="/product/${product.productId}">
                                     <div class="mask rgba-white-slight"></div>
                                 </a>
                             </div>
                             <div class="card-body text-center">
                                 <a href="/product/${product.productId}" class="grey-text">
-                                    <h5>${product.productBrand}</h5>
+                                    <h6>${product.productBrand} ${product.productName}</h6>
                                 </a>
 
-                                <h5>
-                                    <strong>
-                                        <a href="/product/${product.productId}" class="dark-grey-text">${product.productName} ${product.productModel}
-                                            <span class="badge badge-pill danger-color">NEW</span></a>
-                                    </strong>
-                                </h5>
-                                <h4 class="font-weight-bold blue-text">
+                                <h5 class="font-weight-bold blue-text">
                                     <strong>${product.productPrice} $</strong>
-                                </h4>
+                                </h5>
                                 <#if customer??>
-                                <a href="cart/add/product/${product.productId}" class="btn btn-primary">Add to Cart</a>
+                                <a href="cart/add/product/${product.productId}" class="card-link btn btn-primary" >
+                                    <i class="fa fa-shopping-cart ml-1"></i></a>
                             </#if>
                             </div>
                         </div>

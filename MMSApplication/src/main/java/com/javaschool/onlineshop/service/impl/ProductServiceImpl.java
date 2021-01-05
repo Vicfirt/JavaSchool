@@ -47,14 +47,12 @@ public class ProductServiceImpl implements ProductService {
     public void addProduct(ProductDTO product) {
         Product mappedProduct = productMapper.productDTOToProduct(product);
         productDAO.addProduct(mappedProduct);
-
     }
 
     @Override
     @Transactional
     public void updateProduct(Product product) {
         productDAO.updateProduct(product);
-
     }
 
     @Override

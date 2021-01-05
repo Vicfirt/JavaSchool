@@ -50,8 +50,8 @@
     <#if cartItems?has_content >
         <div>
             <h5 style="display: inline;">Total: $${customer.getCart().getCartTotal()}</h5>
-            <form action ="/orders/customer/new" method="get">
-                <button type="submit" class="btn btn-primary float-right">Checkout</button>
+            <form action ="/cart/confirmation" method="post">
+                <button type="submit" class="btn btn-primary float-right">Confirm</button>
             </form>
         </div>
     <#else>

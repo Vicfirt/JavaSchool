@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    void createOrder(List<CartElementDTO> elementList);
-
     List<OrderInfoDTO> findAllOrders(Long customerId);
+
+    void addOrder(OrderInfoDTO orderInfoDTO, List<CartElementDTO> elementList);
 }
