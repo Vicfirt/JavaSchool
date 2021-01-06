@@ -32,13 +32,10 @@ public class ProductController {
 
     private final ProductService productService;
 
-    private final CartService cartService;
-
     private final CustomerService customerService;
 
-    public ProductController(ProductService productService, CartService cartService, CustomerService customerService) {
+    public ProductController(ProductService productService, CustomerService customerService) {
         this.productService = productService;
-        this.cartService = cartService;
         this.customerService = customerService;
     }
 
@@ -53,7 +50,7 @@ public class ProductController {
         model.addAttribute("product", product);
 
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
-            CustomerDTO customer = customerService.getByEmail(authentication.getName());
+            CustomerDTO customer = customerService.getByUsername(authentication.getName());
             model.addAttribute("customer", customer);
         }
         return "product_info";

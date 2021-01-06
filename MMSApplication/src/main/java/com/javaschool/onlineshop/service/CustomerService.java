@@ -11,7 +11,7 @@ public interface CustomerService {
 
     void addCustomer(CustomerDTO customer);
 
-    CustomerDTO getByEmail(String email);
+    CustomerDTO getByUsername(String username);
 
     void update(CustomerDTO customerDTO, Principal principal);
 

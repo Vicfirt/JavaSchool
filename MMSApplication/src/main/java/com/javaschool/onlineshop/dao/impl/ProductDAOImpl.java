@@ -58,18 +58,31 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public List<Product> findAllActiveProductsByCategory(int categoryId) {
+    public List<Product> findAllActiveProductsByCategory(Integer categoryId) {
         Session session = sessionFactory.getCurrentSession();
-        String query = "FROM Product WHERE isActive = :active AND categoryId = :categoryId";
+        String query = "FROM Product WHERE  categoryId = :categoryId";
         return session.createQuery(query, Product.class)
-                .setParameter("active", true)
                 .setParameter("categoryId", categoryId)
                 .getResultList();
     }
 
     @Override
-    public List<Product> findAllActiveProductsByBrandOrModel(String brand, String category) {
-        return null;
+    public List<Product> findAllActiveProductsByBrand(String brandName) {
+        Session session = sessionFactory.getCurrentSession();
+        String query = "FROM Product WHERE productBrand = :brandName";
+        return session.createQuery(query,Product.class)
+                .setParameter("brandName", brandName)
+                .getResultList();
+    }
+
+    @Override
+    public List<Product> findAllActiveProductsByBrandOrCategory(String brandName, Integer categoryId) {
+        Session session = sessionFactory.getCurrentSession();
+        String query = "FROM Product WHERE productBrand =:brandName and categoryId =:categoryId";
+        return session.createQuery(query,Product.class)
+                .setParameter("brandName", brandName)
+                .setParameter("categoryId", categoryId)
+                .getResultList();
     }
 
     @Override

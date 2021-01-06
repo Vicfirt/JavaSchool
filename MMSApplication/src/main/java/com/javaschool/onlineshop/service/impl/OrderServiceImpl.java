@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OrderInfo orderInfo = orderInfoMapper.orderInfoDTOToOrderInfo(orderInfoDTO);
         orderDAO.add(orderInfo);
-        Customer customer = customerDAO.getByEmail(authentication.getName());
+        Customer customer = customerDAO.getByUsername(authentication.getName());
         for (CartElementDTO cartElementDTO : elementList) {
             CartElement cartElement = cartElementMapper.cartElementDTOToCartElement(cartElementDTO);
             OrderElement element = new OrderElement();

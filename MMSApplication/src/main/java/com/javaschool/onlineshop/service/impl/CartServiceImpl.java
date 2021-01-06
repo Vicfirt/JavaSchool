@@ -49,7 +49,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public Cart getCart() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerDAO.getByEmail(authentication.getName());
+        Customer customer = customerDAO.getByUsername(authentication.getName());
         return customer.getCart();
     }
 
@@ -57,7 +57,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void addCartElement(ProductDTO productDTO) {
         Product product = productMapper.productDTOToProduct(productDTO);
-        Cart cart = this.getCart();
+        Cart cart = getCart();
         cart.setElementsInCart(cart.getElementsInCart() + 1);
         CartElement cartElement = new CartElement();
         cartElement.setProduct(product);
@@ -67,7 +67,7 @@ public class CartServiceImpl implements CartService {
         cartElement.setElementPrice(product.getProductPrice());
         cartElement.setTotalPrice(cartElement.getProductCount() * product.getProductPrice());
         cartElementDAO.add(cartElement);
-        cart.setCartTotal(this.countTotal());
+        cart.setCartTotal(countTotal());
         cartDAO.updateCart(cart);
     }
 
@@ -80,16 +80,16 @@ public class CartServiceImpl implements CartService {
     @Override
     @Transactional
     public void delete(Long cartElementId) {
-        Cart cart = this.getCart();
+        Cart cart = getCart();
         cart.setElementsInCart(cart.getElementsInCart() - 1);
         cartElementDAO.delete(cartElementId);
-        cart.setCartTotal(this.countTotal());
+        cart.setCartTotal(countTotal());
         cartDAO.updateCart(cart);
     }
 
     @Transactional
     public Double countTotal() {
-        List<CartElementDTO> cartElementsDTOList = this.getCartElements();
+        List<CartElementDTO> cartElementsDTOList = getCartElements();
         double total = 0;
         for (CartElementDTO element : cartElementsDTOList) {
             double elementTotal = element.getProductCount() * element.getElementPrice();
@@ -101,7 +101,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public List<CartElementDTO> getCartElements() {
         List<CartElementDTO> cartElementDTOList = new ArrayList<>();
-        Cart cart = this.getCart();
+        Cart cart = getCart();
         List<CartElement> cartElementList = cartElementDAO.findAll(cart.getCartId());
         for (CartElement element : cartElementList) {
             cartElementDTOList.add(cartElementMapper.cartElementToCartElementDTO(element));
@@ -117,11 +117,11 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void updateCartElement(Long cartElementId, Integer quantity) {
         CartElement cartElement = cartElementDAO.get(cartElementId);
-        Cart cart = this.getCart();
+        Cart cart = getCart();
         cartElement.setProductCount(quantity);
         cartElement.setTotalPrice(cartElement.getElementPrice() * quantity);
         cartElementDAO.update(cartElement);
-        cart.setCartTotal(this.countTotal());
+        cart.setCartTotal(countTotal());
         cartDAO.updateCart(cart);
     }
 }

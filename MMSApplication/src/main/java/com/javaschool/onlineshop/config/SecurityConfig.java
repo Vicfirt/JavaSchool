@@ -1,25 +1,22 @@
 package com.javaschool.onlineshop.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
-@ComponentScan("com.javaschool.onlineshop")
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    DataSource dataSource;
+   private final MyUserDetailsService userDetailsService;
 
-    public SpringSecurityConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SecurityConfig(MyUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean(name = "passwordEncoder")
@@ -28,12 +25,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("select customer_email_address, customer_password, active " +
-                        "from customer where customer_email_address=?")
-                .authoritiesByUsernameQuery("select customer_email_address, customer_role from customer" +
-                        " where customer_email_address = ? ");
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider
+                = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     @Override

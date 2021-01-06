@@ -25,8 +25,9 @@
                         Category
                     </button>
                     <div class="dropdown-menu">
-                        <a href="#">Somelink</a>
-                        <a href="#">Somelink</a>
+                        <a href="/catalog/1">Electronics</a>
+                        <a href="/catalog/0">Books</a>
+                        <a href="/catalog/2">Clothes</a>
                     </div>
                 </div>
 
@@ -36,8 +37,13 @@
                         Brand
                     </button>
                     <div class="dropdown-menu">
-                        <a href="#">Somelink</a>
-                        <a href="#">Somelink</a>
+                        <form class="form-inline" action="/catalog/text">
+
+                            <div class="md-form my-0">
+                                <input type="text" class="form-control mr-sm-2" placeholder="Search"
+                                       aria-label="Search">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -62,6 +68,7 @@
 
         <div class="col-lg-9">
             <div class="row wow fadeIn">
+                <#if !productsByCategory?has_content>
                     <#list products as product>
                         <div class="col col-md-2 lg-4 md-4">
 
@@ -88,6 +95,35 @@
                         </div>
                         </div>
                     </#list>
+                    <#elseif productsByCategory?has_content>
+                        <#list productsByCategory as product>
+                            <div class="col col-md-2 lg-4 md-4">
+
+                                <div class="card" style="width: 160px">
+                                    <div class="view overlay">
+                                        <img class="card-img-top" src="${product.productImage}" alt="Iphone" >
+                                        <a href="/product/${product.productId}">
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <a href="/product/${product.productId}" class="grey-text">
+                                            <h6>${product.productBrand} ${product.productName}</h6>
+                                        </a>
+
+                                        <h5 class="font-weight-bold blue-text">
+                                            <strong>${product.productPrice} $</strong>
+                                        </h5>
+                                        <#if customer??>
+                                            <a href="cart/add/product/${product.productId}" class="card-link btn btn-primary" >
+                                                <i class="fa fa-shopping-cart ml-1"></i></a>
+                                        </#if>
+                                    </div>
+                                </div>
+                            </div>
+                        </#list>
+
+                </#if>
             </div>
 
         </div>

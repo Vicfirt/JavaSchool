@@ -9,7 +9,7 @@ public interface CustomerDAO {
 
     Customer get(Long id);
 
-    Customer getByEmail(String email);
+    Customer getByUsername(String username);
 
     boolean delete(Customer customer);
 

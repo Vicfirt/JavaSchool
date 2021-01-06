@@ -16,13 +16,6 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @EnableWebMvc
 public class SpringConfig implements WebMvcConfigurer {
 
-    private final ApplicationContext applicationContext;
-
-
-    public SpringConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
     @Bean
     public ViewResolver getViewResolver() {
         FreeMarkerViewResolver freeMarkerViewResolver = new FreeMarkerViewResolver();

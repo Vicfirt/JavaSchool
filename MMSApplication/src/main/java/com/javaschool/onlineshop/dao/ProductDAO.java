@@ -19,9 +19,11 @@ public interface ProductDAO {
 
     List<Product> findAllActiveProducts();
 
-    List<Product> findAllActiveProductsByCategory(int categoryId);
+    List<Product> findAllActiveProductsByCategory(Integer categoryId);
 
-    List<Product> findAllActiveProductsByBrandOrModel(String brand, String category);
+    List<Product> findAllActiveProductsByBrand(String brandName);
+
+    List<Product> findAllActiveProductsByBrandOrCategory(String brandName, Integer categoryId);
 
     List<Product> findAllActiveProductsByName(String productName);
 }

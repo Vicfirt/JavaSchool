@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<ProductDTO> findAllActiveProductsByCategory(int categoryId) {
+    public List<ProductDTO> findAllActiveProductsByCategory(Integer categoryId) {
         List<Product> productList = productDAO.findAllActiveProductsByCategory(categoryId);
         List<ProductDTO> productDTOList = new ArrayList<>();
         for (Product product : productList) {
@@ -85,9 +85,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllActiveProductsByBrandOrModel(String brand, String category) {
-        //TO DO
-        return null;
+    public List<ProductDTO> findAllActiveProductByBrand(String brandName) {
+        List<Product> productList = productDAO.findAllActiveProductsByBrand(brandName);
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Product product : productList){
+            productDTOList.add(productMapper.productToProductDTO(product));
+        }
+        return productDTOList;
+    }
+
+    @Override
+    public List<ProductDTO> findAllActiveProductsByBrandOrCategory(Integer categoryId, String brandName) {
+      List<Product> productList = productDAO.findAllActiveProductsByBrandOrCategory(brandName, categoryId);
+      List<ProductDTO> productDTOList = new ArrayList<>();
+      for (Product product : productList){
+          productDTOList.add(productMapper.productToProductDTO(product));
+      }
+      return productDTOList;
     }
 
     @Override

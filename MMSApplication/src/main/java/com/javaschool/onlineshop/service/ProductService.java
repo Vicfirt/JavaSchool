@@ -20,9 +20,11 @@ public interface ProductService {
 
     List<ProductDTO> findAllActiveProducts();
 
-    List<ProductDTO> findAllActiveProductsByCategory(int categoryId);
+    List<ProductDTO> findAllActiveProductsByCategory(Integer categoryId);
 
-    List<Product> findAllActiveProductsByBrandOrModel(String brand, String category);
+    List<ProductDTO> findAllActiveProductByBrand(String brandName);
+
+    List<ProductDTO> findAllActiveProductsByBrandOrCategory(Integer categoryId, String brandName);
 
     List<Product> findAllActiveProductsByName(String productName);
 }

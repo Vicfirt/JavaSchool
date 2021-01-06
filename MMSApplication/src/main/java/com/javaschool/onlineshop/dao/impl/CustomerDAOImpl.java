@@ -44,12 +44,12 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer getByEmail(String email) {
+    public Customer getByUsername(String username) {
         try {
-            String query = "FROM Customer WHERE customerEmailAddress = :email";
+            String query = "FROM Customer WHERE customerEmailAddress = :username";
 
             return sessionFactory.getCurrentSession().createQuery(query, Customer.class)
-                    .setParameter("email", email).getSingleResult();
+                    .setParameter("username", username).getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

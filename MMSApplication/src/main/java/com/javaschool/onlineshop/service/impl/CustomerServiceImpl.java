@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public CustomerDTO getCustomer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerDAO.getByEmail(authentication.getName());
+        Customer customer = customerDAO.getByUsername(authentication.getName());
         return customerMapper.customerToCustomerDTO(customer);
     }
 
@@ -63,8 +63,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public CustomerDTO getByEmail(String email) {
-        Customer customer = customerDAO.getByEmail(email);
+    public CustomerDTO getByUsername(String username) {
+        Customer customer = customerDAO.getByUsername(username);
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
         return customerDTO;
     }
@@ -72,7 +72,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public void update(CustomerDTO customerDTO, Principal principal) {
-        Customer oldCustomer = customerDAO.getByEmail(principal.getName());
+        Customer oldCustomer = customerDAO.getByUsername(principal.getName());
         oldCustomer.setCustomerFirstName(customerDTO.getCustomerFirstName());
         oldCustomer.setCustomerLastName(customerDTO.getCustomerLastName());
         oldCustomer.setCustomerEmailAddress(customerDTO.getCustomerEmailAddress());

@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -32,19 +30,16 @@ public class CartController {
 
     private final CustomerService customerService;
 
-    private final HttpSession session;
-
-    public CartController(CartService cartService, ProductService productService, CustomerService customerService, HttpSession session) {
+    public CartController(CartService cartService, ProductService productService, CustomerService customerService) {
         this.cartService = cartService;
         this.productService = productService;
         this.customerService = customerService;
-        this.session = session;
     }
 
     @GetMapping
     public String getAllItemsInCart(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomerDTO customer = customerService.getByEmail(authentication.getName());
+        CustomerDTO customer = customerService.getByUsername(authentication.getName());
         List<CartElementDTO> cartElementDTOList = cartService.getCartElements();
         model.addAttribute("cartItems", cartElementDTOList);
         model.addAttribute("customer", customer);
@@ -59,13 +54,13 @@ public class CartController {
     }
 
     @GetMapping("/remove")
-    public String remove(@RequestParam("element_Id") Long id) {
+    public String removeCartElement(@RequestParam("element_Id") Long id) {
         cartService.delete(id);
         return "redirect:/cart";
     }
 
     @GetMapping("/change")
-    public String plus(@RequestParam("element_Id") Long id, @RequestParam("quantity") Integer quantity) {
+    public String increaseCartElementsAmount(@RequestParam("element_Id") Long id, @RequestParam("quantity") Integer quantity) {
         cartService.updateCartElement(id, quantity);
         return "redirect:/cart";
     }

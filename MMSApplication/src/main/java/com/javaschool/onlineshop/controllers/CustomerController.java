@@ -23,18 +23,12 @@ import java.security.Principal;
 @Controller
 public class CustomerController {
 
-    private final CartService cartService;
-
     private final CustomerService customerService;
-
-    private final CustomerDAO customerDAO;
 
     private final CustomerAddressService customerAddressService;
 
-    public CustomerController(CartService cartService, CustomerService customerService, CustomerDAO customerDAO, CustomerAddressService customerAddressService) {
-        this.cartService = cartService;
+    public CustomerController(CustomerService customerService, CustomerAddressService customerAddressService) {
         this.customerService = customerService;
-        this.customerDAO = customerDAO;
         this.customerAddressService = customerAddressService;
     }
 
@@ -61,7 +55,7 @@ public class CustomerController {
     @PostMapping("/signup")
     public String signup(@Valid @ModelAttribute("customer") CustomerDTO customer,
                          BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        CustomerDTO customerExists = customerService.getByEmail(customer.getCustomerEmailAddress());
+        CustomerDTO customerExists = customerService.getByUsername(customer.getCustomerEmailAddress());
         if (customerExists != null) {
             bindingResult.rejectValue("customerEmailAddress", "", "This email is already in use");
         }

@@ -31,7 +31,6 @@ public class OrderInfo {
     @Column(name = "shipping_id")
     private Integer shippingId;
 
-
     public Long getOrderId() {
         return orderId;
     }
