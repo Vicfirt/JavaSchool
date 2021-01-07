@@ -5,13 +5,13 @@ import com.javaschool.onlineshop.model.entity.Customer;
 
 public interface CustomerDAO {
 
-    boolean addCustomer(Customer customer);
+    void addCustomer(Customer customer);
 
     Customer get(Long id);
 
     Customer getByUsername(String username);
 
-    boolean delete(Customer customer);
+    void delete(Customer customer);
 
-    boolean update(Customer customer);
+    void update(Customer customer);
 }

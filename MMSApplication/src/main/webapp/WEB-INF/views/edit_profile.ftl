@@ -9,7 +9,7 @@
 
         <h1 align="center" class="display-4 mb-5">Edit Profile</h1>
         <div style="width:40%; margin: 25px auto" >
-            <form action="/profile/edit"  method="post">
+            <form action="/profile/edition"  method="post">
                 <@spring.bind "customer"/>
                 <div class="form-group">
                     <label>Email address *</label>

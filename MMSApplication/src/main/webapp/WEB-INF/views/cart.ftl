@@ -33,13 +33,13 @@
                     <input min="1" id="${item.getProduct().getProductId()}"
                            max="${item.getProduct().getAmountInStock()!"1"}" type="text" size="5" value="${item.getProductCount()}"
                            name='count' onkeyup="change(this)">
-                    <a href="/cart/change?element_Id=${item.getId()}&quantity=${item.getProductCount()+1}">
+                    <a href="/cart/modification?element_Id=${item.getId()}&quantity=${item.getProductCount()+1}">
                         <i class="fas fa-plus"></i></a>
                 </td>
                 <td class="align-middle">Price</td>
                 <td class="align-middle">
 
-                    <a href="/cart/remove?element_Id=${item.getId()}" style="color: red" >Remove</a>
+                    <a href="/cart/deletion?element_Id=${item.getId()}" style="color: red" >Remove</a>
 
                 </td>
 

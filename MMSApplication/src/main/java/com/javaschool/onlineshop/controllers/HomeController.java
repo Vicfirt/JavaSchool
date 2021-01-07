@@ -3,7 +3,6 @@ package com.javaschool.onlineshop.controllers;
 
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
-import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.CustomerService;
 import com.javaschool.onlineshop.service.ProductService;
 import org.springframework.security.core.Authentication;
@@ -67,13 +66,13 @@ public class HomeController {
     @GetMapping(value = {"/catalog/{categoryId}", "/catalog/{brandName}"})
     public String catalogByCategory(@PathVariable(value = "categoryId", required = false) Integer categoryId,
                                     @PathVariable(value = "brandName", required = false) String brandName,
-                                    Model model){
+                                    Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
             CustomerDTO customer = customerService.getCustomer();
             model.addAttribute("customer", customer);
         }
-        if (categoryId != null && brandName!=null){
+        if (categoryId != null && brandName != null) {
             List<ProductDTO> productDTOList = productService.findAllActiveProductsByBrandOrCategory(categoryId, brandName);
             model.addAttribute("filtredProducts", productDTOList);
             return "catalog";
@@ -85,7 +84,7 @@ public class HomeController {
             return "catalog";
         }
 
-        if (brandName != null){
+        if (brandName != null) {
             List<ProductDTO> productDTOList = productService.findAllActiveProductByBrand(brandName);
             model.addAttribute("filtredProducts", productDTOList);
             return "catalog";

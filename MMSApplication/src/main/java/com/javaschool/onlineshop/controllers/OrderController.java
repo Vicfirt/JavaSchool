@@ -1,10 +1,8 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.model.dto.CartElementDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
-import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.CustomerService;
 import com.javaschool.onlineshop.service.OrderService;
 import org.springframework.stereotype.Controller;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -27,14 +26,10 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    private final CartService cartService;
-
     private final CustomerService customerService;
 
-
-    public OrderController(OrderService orderService, CartService cartService, CustomerService customerService) {
+    public OrderController(OrderService orderService, CustomerService customerService) {
         this.orderService = orderService;
-        this.cartService = cartService;
         this.customerService = customerService;
     }
 
@@ -42,10 +37,10 @@ public class OrderController {
      * If the url address points to an order, then a list of orders for
      * further work will be transferred to the display page.
      */
-    @GetMapping("/customer/all")
+    @GetMapping("/all") //Еще добавятся методы для управления заказами, поэтому имена понадобятся
     public String getAllOrders(Model model) {
-        CustomerDTO customer = customerService.getCustomer();
-        List<OrderInfoDTO> orderInfoList = orderService.findAllOrders(customer.getCustomerId());
+        CustomerDTO customer = customerService.getCustomer();//Не убрал так как требутеся отдельный кастомер для отрисовки хэдыра
+        List<OrderInfoDTO> orderInfoList = orderService.findAllOrders();//Тут спрятал вызов кастомера в сервис
         model.addAttribute("orders", orderInfoList);
         model.addAttribute("customer", customer);
         return "order_info";
@@ -56,8 +51,7 @@ public class OrderController {
     public String createOrder(@RequestParam("paymentMethodId") Integer paymentMethodId,
                               @Valid @ModelAttribute("order") OrderInfoDTO orderInfo) {
         orderInfo.setPaymentMethodId(paymentMethodId);
-        List<CartElementDTO> cartElementList = cartService.getCartElements();
-        orderService.addOrder(orderInfo, cartElementList);
-        return "redirect:/orders/customer/all";
+        orderService.addOrder(orderInfo);
+        return "redirect:/orders/all";
     }
 }

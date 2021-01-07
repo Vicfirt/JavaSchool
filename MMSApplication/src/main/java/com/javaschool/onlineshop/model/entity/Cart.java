@@ -18,11 +18,6 @@ public class Cart {
 
     @Column(name = "cart_total")
     private Double cartTotal;
-/*
-    @OneToOne(cascade = CascadeType.ALL)
-    private Customer customer;
-
- */
 
     @Column(name = "elements_in_cart")
     private Integer elementsInCart;

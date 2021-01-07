@@ -3,7 +3,6 @@ package com.javaschool.onlineshop.controllers;
 
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
-import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.CustomerService;
 import com.javaschool.onlineshop.service.ProductService;
 import org.springframework.security.core.Authentication;
@@ -11,14 +10,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -60,17 +57,7 @@ public class ProductController {
     public String createProduct(
             @RequestParam("categoryId") Integer categoryId,
             @RequestParam("status") Boolean productStatus,
-            @Valid @ModelAttribute("product") ProductDTO product,
-            RedirectAttributes redirectAttributes,
-            BindingResult bindingResult, Model model) {
-        ProductDTO productIdExists = productService.getProductById(product.getProductId());
-        if (productIdExists != null) {
-            bindingResult.rejectValue("productId", "Provided code is already in use");
-        }
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("product", product);
-            return "product_createform";
-        }
+            @Valid @ModelAttribute("product") ProductDTO product) {
         product.setActive(productStatus);
         product.setCategoryId(categoryId);
         productService.addProduct(product);

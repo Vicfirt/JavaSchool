@@ -46,20 +46,20 @@ public class CartController {
         return "cart";
     }
 
-    @GetMapping("add/product/{id}")
+    @GetMapping("/product/{id}")
     public String addCartElement(@PathVariable("id") Long id) {
         ProductDTO product = productService.getProductById(id);
         cartService.addCartElement(product);
         return "redirect:/catalog";
     }
 
-    @GetMapping("/remove")
+    @GetMapping("/deletion")
     public String removeCartElement(@RequestParam("element_Id") Long id) {
         cartService.delete(id);
         return "redirect:/cart";
     }
 
-    @GetMapping("/change")
+    @GetMapping("/modification")
     public String increaseCartElementsAmount(@RequestParam("element_Id") Long id, @RequestParam("quantity") Integer quantity) {
         cartService.updateCartElement(id, quantity);
         return "redirect:/cart";

@@ -8,7 +8,6 @@ import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.dto.CartElementDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.mappers.CartElementMapper;
-import com.javaschool.onlineshop.mappers.CartMapper;
 import com.javaschool.onlineshop.mappers.ProductMapper;
 import com.javaschool.onlineshop.model.entity.Cart;
 import com.javaschool.onlineshop.model.entity.CartElement;
@@ -31,17 +30,14 @@ public class CartServiceImpl implements CartService {
 
     private final CartDAO cartDAO;
 
-    private final CartMapper cartMapper;
-
     private final CartElementMapper cartElementMapper;
 
     private final ProductMapper productMapper;
 
-    public CartServiceImpl(CartElementDAO cartElementDAO, CustomerDAO customerDAO, CartDAO cartDAO, CartMapper cartMapper, CartElementMapper cartElementMapper, ProductMapper productMapper) {
+    public CartServiceImpl(CartElementDAO cartElementDAO, CustomerDAO customerDAO, CartDAO cartDAO, CartElementMapper cartElementMapper, ProductMapper productMapper) {
         this.cartElementDAO = cartElementDAO;
         this.customerDAO = customerDAO;
         this.cartDAO = cartDAO;
-        this.cartMapper = cartMapper;
         this.cartElementMapper = cartElementMapper;
         this.productMapper = productMapper;
     }
@@ -59,13 +55,8 @@ public class CartServiceImpl implements CartService {
         Product product = productMapper.productDTOToProduct(productDTO);
         Cart cart = getCart();
         cart.setElementsInCart(cart.getElementsInCart() + 1);
-        CartElement cartElement = new CartElement();
-        cartElement.setProduct(product);
-        cartElement.setAvailable(product.getActive());
+        CartElement cartElement = createByProduct(productDTO);
         cartElement.setCartId(cart.getCartId());
-        cartElement.setProductCount(1);
-        cartElement.setElementPrice(product.getProductPrice());
-        cartElement.setTotalPrice(cartElement.getProductCount() * product.getProductPrice());
         cartElementDAO.add(cartElement);
         cart.setCartTotal(countTotal());
         cartDAO.updateCart(cart);
@@ -110,11 +101,6 @@ public class CartServiceImpl implements CartService {
     }
 
     @Transactional
-    public CartElement getCartElementById(Long id) {
-        return cartElementDAO.get(id);
-    }
-
-    @Transactional
     public void updateCartElement(Long cartElementId, Integer quantity) {
         CartElement cartElement = cartElementDAO.get(cartElementId);
         Cart cart = getCart();
@@ -123,5 +109,17 @@ public class CartServiceImpl implements CartService {
         cartElementDAO.update(cartElement);
         cart.setCartTotal(countTotal());
         cartDAO.updateCart(cart);
+    }
+
+    @Transactional
+    public CartElement createByProduct(ProductDTO productDTO){
+        Product product = productMapper.productDTOToProduct(productDTO);
+        CartElement cartElement = new CartElement();
+        cartElement.setProduct(product);
+        cartElement.setAvailable(product.getActive());
+        cartElement.setProductCount(1);
+        cartElement.setElementPrice(product.getProductPrice());
+        cartElement.setTotalPrice(cartElement.getProductCount() * product.getProductPrice());
+        return cartElement;
     }
 }

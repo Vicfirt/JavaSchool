@@ -21,10 +21,9 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean addCustomer(Customer customer) {
+    public void addCustomer(Customer customer) {
         customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
         sessionFactory.getCurrentSession().persist(customer);
-        return true;
     }
 
     @Override
@@ -57,25 +56,13 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean delete(Customer customer) {
-        try {
+    public void delete(Customer customer) {
             sessionFactory.getCurrentSession().delete(customer);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     @Override
-    public boolean update(Customer customer) {
-        try {
+    public void update(Customer customer) {
             customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
             sessionFactory.getCurrentSession().update(customer);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 }

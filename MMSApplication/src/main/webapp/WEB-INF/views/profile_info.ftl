@@ -9,7 +9,7 @@
                         <p><strong>Email address</strong> ${customer.getCustomerEmailAddress()}</p>
                         <p><strong>Phone number</strong> ${customer.getPhoneNumber()}</p>
 
-                        <form action="/profile/edit" method="get">
+                        <form action="/profile/edition" method="get">
                             <button type="submit" class="btn btn-primary btn-block">Edit profile</button>
                         </form>
                         </div>

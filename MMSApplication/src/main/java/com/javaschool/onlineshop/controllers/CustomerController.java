@@ -1,10 +1,8 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.dto.CustomerAddressDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
-import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.CustomerAddressService;
 import com.javaschool.onlineshop.service.CustomerService;
 import org.springframework.security.core.Authentication;
@@ -68,7 +66,7 @@ public class CustomerController {
         return "redirect:/login";
     }
 
-    @GetMapping("/access_denied")
+    @GetMapping("/denied")
     public String accessDeny(Model model) {
         model.addAttribute("message", "Access denied!");
         return "/myerror";
@@ -88,14 +86,14 @@ public class CustomerController {
         return "/profile_info";
     }
 
-    @GetMapping("/profile/edit")
+    @GetMapping("/profile/edition")
     public String showEditForm(Model model) {
         CustomerDTO customer = customerService.getCustomer();
         model.addAttribute("customer", customer);
         return "/edit_profile";
     }
 
-    @PostMapping("/profile/edit")
+    @PostMapping("/profile/edition")
     public String editProfile(@Valid @ModelAttribute("customer") CustomerDTO customer, BindingResult bindingResult,
                               RedirectAttributes redirectAttributes, Principal principal) {
         if (bindingResult.hasErrors()) {

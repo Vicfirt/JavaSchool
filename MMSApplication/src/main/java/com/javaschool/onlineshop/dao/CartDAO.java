@@ -5,11 +5,7 @@ import com.javaschool.onlineshop.model.entity.Cart;
 
 public interface CartDAO {
 
-    Cart getCart(Long customerId);
+    void updateCart(Cart cart);
 
-    boolean updateCart(Cart cart);
-
-    boolean addCart(Cart cart);
-
-    public Cart getCartById(Long cartId);
+    void addCart(Cart cart);
 }

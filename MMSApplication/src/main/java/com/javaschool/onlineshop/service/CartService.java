@@ -22,7 +22,5 @@ public interface CartService {
 
     Double countTotal();
 
-    CartElement getCartElementById(Long id);
-
     void updateCartElement(Long cartElementId, Integer quantity);
 }

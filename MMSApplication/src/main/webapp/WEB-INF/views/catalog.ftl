@@ -88,7 +88,7 @@
                                     <strong>${product.productPrice} $</strong>
                                 </h5>
                                 <#if customer??>
-                                <a href="cart/add/product/${product.productId}" class="card-link btn btn-primary" >
+                                <a href="cart/product/${product.productId}" class="card-link btn btn-primary" >
                                     <i class="fa fa-shopping-cart ml-1"></i></a>
                             </#if>
                             </div>
