@@ -1,10 +1,9 @@
 package com.javaschool.onlineshop.service.impl;
 
 import com.javaschool.onlineshop.dao.OrderDAO;
-import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.dao.CartElementDAO;
 import com.javaschool.onlineshop.dao.OrderElementDAO;
-import com.javaschool.onlineshop.dao.CartDAO;
+import com.javaschool.onlineshop.mappers.CustomerMapper;
 import com.javaschool.onlineshop.model.dto.CartElementDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
@@ -31,13 +30,9 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderDAO orderDAO;
 
-    private final CustomerDAO customerDAO;
-
     private final CartElementDAO cartElementDAO;
 
     private final OrderElementDAO orderElementDAO;
-
-    private final CartDAO cartDAO;
 
     private final OrderInfoMapper orderInfoMapper;
 
@@ -47,16 +42,17 @@ public class OrderServiceImpl implements OrderService {
 
     private final CustomerService customerService;
 
-    public OrderServiceImpl(OrderDAO orderDAO, CustomerDAO customerDAO, CartElementDAO cartElementDAO, OrderElementDAO orderElementDAO, CartDAO cartDAO, OrderInfoMapper orderInfoMapper, CartElementMapper cartElementMapper, CartService cartService, CustomerService customerService) {
+    private final CustomerMapper customerMapper;
+
+    public OrderServiceImpl(OrderDAO orderDAO, CartElementDAO cartElementDAO, OrderElementDAO orderElementDAO, OrderInfoMapper orderInfoMapper, CartElementMapper cartElementMapper, CartService cartService, CustomerService customerService, CustomerMapper customerMapper) {
         this.orderDAO = orderDAO;
-        this.customerDAO = customerDAO;
         this.cartElementDAO = cartElementDAO;
         this.orderElementDAO = orderElementDAO;
-        this.cartDAO = cartDAO;
         this.orderInfoMapper = orderInfoMapper;
         this.cartElementMapper = cartElementMapper;
         this.cartService = cartService;
         this.customerService = customerService;
+        this.customerMapper = customerMapper;
     }
 
     @Override
@@ -77,15 +73,16 @@ public class OrderServiceImpl implements OrderService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OrderInfo orderInfo = orderInfoMapper.orderInfoDTOToOrderInfo(orderInfoDTO);
         orderDAO.add(orderInfo);
-        Customer customer = customerDAO.getByUsername(authentication.getName());
+        CustomerDTO customerDTO = customerService.getByUsername(authentication.getName());
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         createOrderElement(orderInfo);
         Cart customerCart = customer.getCart();
         customerCart.setElementsInCart(0);
         customerCart.setCartTotal(0.0);
-        cartDAO.updateCart(customerCart);
+        cartService.updateCart(customerCart);
     }
-    @Transactional
-    public void createOrderElement(OrderInfo orderInfo){
+
+    private void createOrderElement(OrderInfo orderInfo) {
         List<CartElementDTO> cartElementList = cartService.getCartElements();
         for (CartElementDTO cartElementDTO : cartElementList) {
             CartElement cartElement = cartElementMapper.cartElementDTOToCartElement(cartElementDTO);

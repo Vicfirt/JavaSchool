@@ -12,11 +12,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class CartController {
     }
 
     @PostMapping("/confirmation")
-    public String confirmCart(Model model, OrderInfoDTO orderInfo){
+    public String confirmCart(Model model, OrderInfoDTO orderInfo) {
         CustomerDTO customer = customerService.getCustomer();
         model.addAttribute("address", customer.getCustomerAddress());
         model.addAttribute("customer", customer);

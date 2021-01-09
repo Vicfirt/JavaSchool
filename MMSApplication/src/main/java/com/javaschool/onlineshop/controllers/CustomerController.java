@@ -5,8 +5,6 @@ import com.javaschool.onlineshop.model.dto.CustomerAddressDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.service.CustomerAddressService;
 import com.javaschool.onlineshop.service.CustomerService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,15 +26,6 @@ public class CustomerController {
     public CustomerController(CustomerService customerService, CustomerAddressService customerAddressService) {
         this.customerService = customerService;
         this.customerAddressService = customerAddressService;
-    }
-
-    @GetMapping("/")
-    public String handler(Authentication authentication) {
-        if (authentication == null || authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
-            return "forward:/home";
-        } else {
-            return "forward:/product/employee/new";
-        }
     }
 
     @GetMapping("/login")
@@ -122,6 +111,27 @@ public class CustomerController {
         }
         CustomerDTO customer = customerService.getCustomer();
         customerAddressService.addCustomerAddress(customerAddress, customer);
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/profile/address/edition")
+    public String showEditAddressForm(Model model) {
+        CustomerDTO customer = customerService.getCustomer();
+        CustomerAddressDTO address = customer.getCustomerAddress();
+        model.addAttribute("customer", customer);
+        model.addAttribute("address", address);
+        return "edit_address";
+    }
+
+    @PostMapping("/profile/address/edition")
+    public String editAddress(@Valid @ModelAttribute("address") CustomerAddressDTO customerAddress,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("address", customerAddress);
+            return "/edit_address";
+        }
+        customerAddressService.updateCustomerAddress(customerAddress);
         return "redirect:/profile";
     }
 }

@@ -44,8 +44,8 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void deleteProduct(Product product) {
-        product.setActive(false);
-        this.updateProduct(product);
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(product);
     }
 
     @Override
@@ -54,6 +54,14 @@ public class ProductDAOImpl implements ProductDAO {
         String query = "FROM Product WHERE isActive = :active";
         return session.createQuery(query, Product.class)
                 .setParameter("active", true)
+                .getResultList();
+    }
+
+    public List<Product> findAllActiveProductsByPrice(Double price) {
+        Session session = sessionFactory.getCurrentSession();
+        String query = "FROM Product WHERE productPrice <=:price";
+        return session.createQuery(query, Product.class)
+                .setParameter("price", price)
                 .getResultList();
     }
 
@@ -76,17 +84,11 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public List<Product> findAllActiveProductsByBrandOrCategory(String brandName, Integer categoryId) {
-        Session session = sessionFactory.getCurrentSession();
-        String query = "FROM Product WHERE productBrand =:brandName and categoryId =:categoryId";
-        return session.createQuery(query,Product.class)
-                .setParameter("brandName", brandName)
-                .setParameter("categoryId", categoryId)
-                .getResultList();
-    }
-
-    @Override
     public List<Product> findAllActiveProductsByName(String productName) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        String query = "FROM Product WHERE productName =:productName";
+        return session.createQuery(query, Product.class)
+                .setParameter("productName", productName)
+                .getResultList();
     }
 }

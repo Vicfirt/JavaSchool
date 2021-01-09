@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.config;
+package com.javaschool.onlineshop.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;

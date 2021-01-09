@@ -28,7 +28,7 @@
                 <td class="align-middle">${item.getProduct().getProductName()}</td>
                 <td class="align-middle">$${item.getElementPrice()}</td>
                 <td class="align-middle">
-                    <a href="/cart/change?element_Id=${item.getId()}&quantity=${item.getProductCount()-1}"><i
+                    <a href="/cart/modification?element_Id=${item.getId()}&quantity=${item.getProductCount()-1}"><i
                                 class="fas fa-minus"></i></a>
                     <input min="1" id="${item.getProduct().getProductId()}"
                            max="${item.getProduct().getAmountInStock()!"1"}" type="text" size="5" value="${item.getProductCount()}"
@@ -73,6 +73,7 @@
         function change(element)
         {   clearTimeout(timeout);
             let quantity = element.value;
+            if (quantity === 0) quantity = 1;
             let id = element.id;
             let theUrl = "" + id + "" + quantity;
             timeout = setTimeout(function(){location.href = theUrl} , 1000);

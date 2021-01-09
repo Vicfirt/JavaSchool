@@ -22,7 +22,6 @@ public class CustomerAddressDAOImpl implements CustomerAddressDAO {
     @Override
     public void updateAddress(CustomerAddress customerAddress) {
         sessionFactory.getCurrentSession().update(customerAddress);
-
     }
 
     @Override

@@ -10,12 +10,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -61,7 +63,7 @@ public class ProductController {
         product.setActive(productStatus);
         product.setCategoryId(categoryId);
         productService.addProduct(product);
-        return "redirect:/catalog";
+        return "redirect:/";
     }
 
     @GetMapping("/employee/new")
@@ -69,6 +71,37 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("customer", customerService.getCustomer());
         return "product_createform";
+    }
+
+    @GetMapping("/employee/edition/{id}")
+    public String getProductEditForm(@PathVariable("id") Long productId, Model model) {
+        ProductDTO product = productService.getProductById(productId);
+        model.addAttribute("product", product);
+        return "product_editform";
+    }
+
+    @PostMapping("/employee/edition/{id}")
+    public String editProduct(@PathVariable("id") Long productId,
+                              @RequestParam("categoryId") Integer categoryId,
+                              @RequestParam("status") Boolean productStatus,
+                              @Valid @ModelAttribute("product") ProductDTO product,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("product", product);
+            return "product/employee/edition" + productId;
+        }
+        product.setCategoryId(categoryId);
+        product.setActive(productStatus);
+        productService.updateProduct(product);
+        return "redirect:/catalog";
+    }
+
+    @GetMapping("/employee/deletion/{id}")
+    public String deleteProduct(@PathVariable("id") Long productId) {
+        ProductDTO productDTO = productService.getProductById(productId);
+        productService.deleteProduct(productDTO);
+        return "redirect:/catalog";
     }
 }
 

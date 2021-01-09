@@ -1,4 +1,4 @@
-package com.javaschool.onlineshop.config;
+package com.javaschool.onlineshop.security;
 
 import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.entity.Customer;

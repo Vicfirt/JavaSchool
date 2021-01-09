@@ -28,10 +28,10 @@
                     </li>
 
                 </ul>
-                <form class="form-inline" style="margin-right: 150px">
+                <form method="get" action="/catalog/name/" class="form-inline" style="margin-right: 150px">
 
                     <div class="md-form my-0">
-                        <input type="text" class="form-control mr-sm-2" placeholder="Search"
+                        <input type="text" name="productName" class="form-control mr-sm-2" placeholder="Search"
                         aria-label="Search">
                     </div>
                 </form>
@@ -49,17 +49,17 @@
                             <a href="/product/employee/new" class="nav-link waves-effect">Add product</a>
                         </li>
                     </ul>
-                    <form class="form-inline" style="margin-right: 150px">
+                    <form method="get" action="/catalog/name/" class="form-inline" style="margin-right: 150px">
 
                         <div class="md-form my-0">
-                            <input type="text" class="form-control mr-sm-2" placeholder="Search"
+                            <input type="text" name="productName" class="form-control mr-sm-2" placeholder="Search"
                                    aria-label="Search">
                         </div>
                     </form>
                     <ul class="navbar-nav nav-flex-icons">
 
                         <li class="nav-item">
-                            <a href="/profile" class="nav-link waves-effect">${customer.getCustomerFirstName()}</a>
+                            <a href="/profile" class="nav-link waves-effect"><i class="fa fa-user" aria-hidden="true"></i></a>
                         </li>
                         <li class="nav-item">
                             <a href="/logout" class="nav-link waves-effect">Log out</a>
@@ -75,13 +75,13 @@
                                 <a href="/orders/all" class="nav-link waves-effect">My Orders</a>
                             </li>
                         </ul>
-                        <form class="form-inline" style="margin-right: 150px">
+                    <form method="get" action="/catalog/name/" class="form-inline" style="margin-right: 150px">
 
-                            <div class="md-form my-0">
-                                <input type="text" class="form-control mr-sm-2" placeholder="Search"
-                                       aria-label="Search">
-                            </div>
-                        </form>
+                        <div class="md-form my-0">
+                            <input type="text" name="productName" class="form-control mr-sm-2" placeholder="Search"
+                                   aria-label="Search">
+                        </div>
+                    </form>
                         <ul class="navbar-nav nav-flex-icons">
                             <li class="nav-item">
                                 <a href="/cart" class="nav-link waves-effect">
@@ -92,7 +92,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="/profile" class="nav-link waves-effect">${customer.getCustomerEmailAddress()}</a>
+                                <a href="/profile" class="nav-link waves-effect"><i class="fa fa-user" aria-hidden="true"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a href="/logout" class="nav-link waves-effect">Log out</a>

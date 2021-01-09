@@ -9,7 +9,6 @@
 
         <div class="container dark-grey-text mt-5">
             <div class="row wow fadeIn">
-                <#if !customer??>
 
                 <div class="col-md-6 mb-4 ">
                     <img src="${product.productImage}" alt="Iphone" class="img-fluid">
@@ -18,7 +17,15 @@
                     <div class="p-4">
                         <div class="mb-3">
                             <a href="">
-                                <span class="badge purple mr-1">Category</span>
+                                <span class="badge purple mr-1">
+                                    <#if product.categoryId == 0>
+                                        Books
+                                        <#elseif product.categoryId == 1>
+                                        Electronics
+                                            <#else >
+                                        Clothes
+                                    </#if>
+                                </span>
                             </a>
                             <a href="">
                                 <span class="badge blue mr-1">New</span>
@@ -35,14 +42,16 @@
                         </p>
                         <p class="lead font-weight-bold">Description</p>
                         <p>${product.productDescription}</p>
-                        <#else >
+
+                        <#if customer?? && customer.role == "CUSTOMER">
                         <form action="../cart/add/product/${product.productId}" class="d-flex justify-content-left">
                             <button type="submit" class="btn btn-primary btn-md my-0 p">
                                 Add to cart <i class="fa fa-shopping-cart ml-1"></i> </button>
                         </form>
+                        </#if>
                     </div>
 
-                    </#if>
+
             </div>
         </div>
     </div>

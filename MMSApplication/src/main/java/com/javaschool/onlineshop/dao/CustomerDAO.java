@@ -11,7 +11,7 @@ public interface CustomerDAO {
 
     Customer getByUsername(String username);
 
-    void delete(Customer customer);
+    void delete(Long customerId);
 
     void update(Customer customer);
 }

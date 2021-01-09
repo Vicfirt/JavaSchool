@@ -20,17 +20,6 @@ public class OrderElementDAOImpl implements OrderElementDAO {
     @Override
     public void add(OrderElement orderElement) {
         sessionFactory.getCurrentSession().persist(orderElement);
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
-
-    @Override
-    public void update(OrderElement orderElement) {
-
     }
 
     @Override

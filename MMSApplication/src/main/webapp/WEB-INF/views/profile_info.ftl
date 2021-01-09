@@ -1,49 +1,52 @@
 <#import "common_home.ftl" as home>
 <@home.home>
-    <div class="row">
+    <#include "header.ftl">
+    <div class="row" style="margin-top: 120px">
 
-                    <div class="col-sm-6">
-                        <div class="card">
-                        <h2>${customer.getCustomerFirstName()} ${customer.getCustomerLastName()}</h2>
-                        <p><strong>Date of birth: </strong>  </p>
-                        <p><strong>Email address</strong> ${customer.getCustomerEmailAddress()}</p>
-                        <p><strong>Phone number</strong> ${customer.getPhoneNumber()}</p>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">${customer.getCustomerFirstName()} ${customer.getCustomerLastName()}</h2>
+                <p class="card-text"><strong>Date of birth: </strong>${customer.getCustomerDateOfBirth()}</p>
+                <p class="card-text"><strong>Email address: </strong> ${customer.getCustomerEmailAddress()}</p>
+                <p class="card-text"><strong>Phone number: </strong> ${customer.getPhoneNumber()}</p>
 
-                        <form action="/profile/edition" method="get">
-                            <button type="submit" class="btn btn-primary btn-block">Edit profile</button>
-                        </form>
-                        </div>
+                <form action="/profile/edition" method="get">
+                    <button type="submit" class="btn btn-primary btn-block">Edit profile <i
+                                class="fas fa-edit"></i></button>
+                </form>
+            </div>
+        </div>
 
-                    </div>
+    </div>
 
-
-
-    <#if address?has_content>
+    <#if address.country??>
     <div class="col sm-6">
         <div class="card">
-            <h2>My address</h2>
-            <p><strong>Country: </strong>${address.getCountry()}</p>
-            <p><strong>City:</strong>${address.getCity()}</p>
-            <p><strong>Street:</strong>${address.getStreet()}</p>
-            <p><strong>Building:</strong>${customer.getCustomerAddress().getBuilding()}</p>
-            <p><strong>Room:</strong>${customer.getCustomerAddress().getRoom()}</p>
-            <p><strong>Postcode:</strong> ${customer.getCustomerAddress().getPostcode()}</p>
-        <button class="btn btn-primary btn-block"><span class="fa fa-refresh-circle" style="size:200px"></span>Update Address</button>
+            <div class="card-body">
+            <h2 class="card-title">My address</h2>
+            <p class="card-text"><strong>Country: </strong>${address.getCountry()}</p>
+            <p class="card-text"><strong>City: </strong>${address.getCity()}</p>
+            <p class="card-text"><strong>Street: </strong>${address.getStreet()}</p>
+            <p class="card-text"><strong>Building: </strong>${customer.getCustomerAddress().getBuilding()}</p>
+                <p class="card-text"><strong>Room: </strong>${customer.getCustomerAddress().getRoom()}</p>
+                <p class="card-text"><strong>Postcode:</strong> ${customer.getCustomerAddress().getPostcode()}</p>
+                <form action="profile/address/edition">
+                    <button class="btn btn-primary btn-block">Update Address
+                        <i class="fas fa-redo"></i></button>
+                </form>
+                <#else>
+                    <p class="card-text"><strong>Add your address please</strong></p>
+                    <form action="/profile/address/new" method="get">
+                        <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Add address
+                        </button>
+                    </form>
+
+                </#if>
+            </div>
         </div>
-        </div>
-        </div>
-
-
-    <#else >
-        <div class="row">
-
-            <form action="/profile/address/new" method="get">
-            <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Add address</button>
-            </form>
-        </div>
-
-    </#if>
-
-
+    </div>
+    </div>
+    <#include "footer.ftl">
 
 </@home.home>

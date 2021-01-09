@@ -34,21 +34,21 @@
                 <div class="form-group">
                     <label>Building *</label>
                     <@spring.bind "address.building"/>
-                    <input value="" type="text" class="form-control form-control-lg" id="building" name="building" required="true">
+                    <input value="" type="number" class="form-control form-control-lg" id="building" name="building" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <div class="form-group">
                     <label>Room *</label>
                     <@spring.bind "address.room"/>
-                    <input value="" type="text" class="form-control form-control-lg" id="room" name="room" required="true">
+                    <input value="" type="number" class="form-control form-control-lg" id="room" name="room" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <div class="form-group">
                     <label>Postcode *</label>
                     <@spring.bind "address.postcode"/>
-                    <input value="" type="text" class="form-control form-control-lg" id="postcode" name="postcode" required="true">
+                    <input value="" type="number" class="form-control form-control-lg" id="postcode" name="postcode" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 

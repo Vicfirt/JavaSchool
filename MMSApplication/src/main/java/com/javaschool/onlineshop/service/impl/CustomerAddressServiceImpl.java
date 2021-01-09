@@ -33,4 +33,11 @@ public class CustomerAddressServiceImpl implements CustomerAddressService {
         customerAddressDAO.updateAddress(customerAddressMapper
                 .customerAddressDTOToCustomerAddress(address));
     }
+
+    @Override
+    @Transactional
+    public void updateCustomerAddress(CustomerAddressDTO customerAddressDTO) {
+        customerAddressDAO.updateAddress(customerAddressMapper
+                .customerAddressDTOToCustomerAddress(customerAddressDTO));
+    }
 }

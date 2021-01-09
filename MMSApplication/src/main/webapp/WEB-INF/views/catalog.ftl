@@ -25,9 +25,9 @@
                         Category
                     </button>
                     <div class="dropdown-menu">
-                        <a href="/catalog/1">Electronics</a>
-                        <a href="/catalog/0">Books</a>
-                        <a href="/catalog/2">Clothes</a>
+                        <a href="/catalog/category/1">Electronics</a>
+                        <a href="/catalog/category/0">Books</a>
+                        <a href="/catalog/category/2">Clothes</a>
                     </div>
                 </div>
 
@@ -37,10 +37,10 @@
                         Brand
                     </button>
                     <div class="dropdown-menu">
-                        <form class="form-inline" action="/catalog/text">
+                        <form class="form-inline" action="/catalog/brand/">
 
                             <div class="md-form my-0">
-                                <input type="text" class="form-control mr-sm-2" placeholder="Search"
+                                <input type="text" class="form-control mr-sm-2" placeholder="Search" name="brandName" id="brandName"
                                        aria-label="Search">
                             </div>
                         </form>
@@ -53,13 +53,13 @@
                 </div>
 
                 <div data-role="main" class="ui-content">
-                    <form method="post" action="/action_page_post.php">
+                    <form method="get" action="/catalog/">
                         <div data-role="rangeslider">
                             <label for="price-min">0</label>
-                            <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+                            <input type="range" name="price" id="price-min" value="500.0" min="0" max="5000.0">
                             <label for="price-max">5000$</label>
                         </div>
-                        <input type="submit" data-inline="true" value="Set">
+                        <input type="submit" data-inline="true" value="Range">
 
                     </form>
                 </div>
@@ -68,11 +68,11 @@
 
         <div class="col-lg-9">
             <div class="row wow fadeIn">
-                <#if !productsByCategory?has_content>
+                <#if (products)??>
                     <#list products as product>
-                        <div class="col col-md-2 lg-4 md-4">
+                        <div class="col col-sm-3">
 
-                        <div class="card" style="width: 160px">
+                        <div class="card" style="width: 180px">
                             <div class="view overlay">
                                 <img class="card-img-top" src="${product.productImage}" alt="Iphone" >
                                 <a href="/product/${product.productId}">
@@ -87,16 +87,24 @@
                                 <h5 class="font-weight-bold blue-text">
                                     <strong>${product.productPrice} $</strong>
                                 </h5>
-                                <#if customer??>
+                                <#if customer?? && customer.role == "CUSTOMER">
                                 <a href="cart/product/${product.productId}" class="card-link btn btn-primary" >
                                     <i class="fa fa-shopping-cart ml-1"></i></a>
-                            </#if>
+                                    <#elseif customer?? && customer.role == "EMPLOYEE">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a type="button" href="product/employee/edition/${product.productId}"
+                                               class="card-link btn btn-success"><i class="fas fa-edit"></i></a>
+                                            <a type="button" href="product/employee/deletion/${product.productId}"
+                                               class="card-link btn btn-danger"><i class="fa fa-trash"
+                                                                                   aria-hidden="true"></i></a>
+                                        </div>
+                                </#if>
                             </div>
                         </div>
                         </div>
                     </#list>
-                    <#elseif productsByCategory?has_content>
-                        <#list productsByCategory as product>
+                    <#else>
+                        <#list filteredProducts as product>
                             <div class="col col-md-2 lg-4 md-4">
 
                                 <div class="card" style="width: 160px">

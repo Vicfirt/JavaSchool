@@ -23,7 +23,7 @@ public interface ProductDAO {
 
     List<Product> findAllActiveProductsByBrand(String brandName);
 
-    List<Product> findAllActiveProductsByBrandOrCategory(String brandName, Integer categoryId);
-
     List<Product> findAllActiveProductsByName(String productName);
+
+    List<Product> findAllActiveProductsByPrice(Double price);
 }

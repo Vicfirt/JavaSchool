@@ -1,16 +1,16 @@
 <#import "common_home.ftl" as home>
 
-    <#import "spring.ftl" as spring>
+<#import "spring.ftl" as spring>
 <@home.home>
 
     <#include "header.ftl">
 
-    <div class="container ">
+    <div class="container" style="margin-top: 100px">
 
-        <h1 align="center" class="display-4 mb-5">Create Product</h1>
+        <h1 align="center" class="display-4 mb-5">Edit Product</h1>
 
         <div style="width:40%; margin: 25px auto">
-            <form action="/product/employee/new" method="post">
+            <form action="/product/employee/edition/${product.getProductId()}" method="post">
                 <@spring.bind "product"/>
 
                 <#--Photo-->
@@ -123,8 +123,10 @@
                     </select>
                 </div>
 
+                <input hidden type="text" name="productId" value="${product.productId}">
+
                 <div class="form-group">
-                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Save product"/>
+                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Save Changes"/>
                 </div>
             </form>
 

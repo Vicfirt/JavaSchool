@@ -51,15 +51,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void updateProduct(Product product) {
-        productDAO.updateProduct(product);
+    public void updateProduct(ProductDTO productDTO) {
+        productDAO.updateProduct(productMapper.productDTOToProduct(productDTO));
     }
 
     @Override
     @Transactional
-    public void deleteProduct(Product product) {
-        productDAO.deleteProduct(product);
-
+    public void deleteProduct(ProductDTO productDTO) {
+        productDAO.deleteProduct(productMapper.productDTOToProduct(productDTO));
     }
 
     @Override
@@ -85,6 +84,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public List<ProductDTO> findAllActiveProductByBrand(String brandName) {
         List<Product> productList = productDAO.findAllActiveProductsByBrand(brandName);
         List<ProductDTO> productDTOList = new ArrayList<>();
@@ -95,18 +95,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> findAllActiveProductsByBrandOrCategory(Integer categoryId, String brandName) {
-      List<Product> productList = productDAO.findAllActiveProductsByBrandOrCategory(brandName, categoryId);
-      List<ProductDTO> productDTOList = new ArrayList<>();
-      for (Product product : productList){
-          productDTOList.add(productMapper.productToProductDTO(product));
-      }
-      return productDTOList;
+    @Transactional
+    public List<ProductDTO> findAllActiveProductsByPrice(Double price) {
+        List<Product> productList = productDAO.findAllActiveProductsByPrice(price);
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Product product : productList){
+            productDTOList.add(productMapper.productToProductDTO(product));
+        }
+        return productDTOList;
     }
 
     @Override
-    public List<Product> findAllActiveProductsByName(String productName) {
-        //TO DO
-        return null;
+    @Transactional
+    public List<ProductDTO> findAllActiveProductsByName(String productName) {
+        List<Product> productList = productDAO.findAllActiveProductsByName(productName);
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Product product : productList){
+            productDTOList.add(productMapper.productToProductDTO(product));
+        }
+        return productDTOList;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -35,13 +36,14 @@ public class HomeController {
     /**
      * This method will display a catalog of all products on the home page.
      */
-    @GetMapping("/home")
+    @GetMapping
     public String homePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null)
             return "home_page";
 
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))
+                || authentication.getAuthorities().contains(new SimpleGrantedAuthority("EMPLOYEE"))) {
             CustomerDTO customer = customerService.getByUsername(authentication.getName());
             model.addAttribute("customer", customer);
         }
@@ -49,46 +51,65 @@ public class HomeController {
     }
 
     @GetMapping("/catalog")
-    public String catalog(Model model) {
+    public String catalog(Model model,
+                          @RequestParam(name = "price", required = false) Double price) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<ProductDTO> allProducts = productService.findAll();
+        List<ProductDTO> allProducts;
+        if (price != null) {
+            allProducts = productService.findAllActiveProductsByPrice(price);
+        } else {
+            allProducts = productService.findAll();
+        }
         model.addAttribute("products", allProducts);
         if (authentication == null)
             return "catalog";
 
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))
+                || authentication.getAuthorities().contains(new SimpleGrantedAuthority("EMPLOYEE"))) {
             CustomerDTO customer = customerService.getByUsername(authentication.getName());
             model.addAttribute("customer", customer);
         }
         return "catalog";
     }
 
-    @GetMapping(value = {"/catalog/{categoryId}", "/catalog/{brandName}"})
+    @GetMapping(value = {"/catalog/category/{categoryId}"})
     public String catalogByCategory(@PathVariable(value = "categoryId", required = false) Integer categoryId,
-                                    @PathVariable(value = "brandName", required = false) String brandName,
                                     Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))
+                || authentication.getAuthorities().contains(new SimpleGrantedAuthority("EMPLOYEE"))) {
             CustomerDTO customer = customerService.getCustomer();
             model.addAttribute("customer", customer);
         }
-        if (categoryId != null && brandName != null) {
-            List<ProductDTO> productDTOList = productService.findAllActiveProductsByBrandOrCategory(categoryId, brandName);
-            model.addAttribute("filtredProducts", productDTOList);
-            return "catalog";
-        }
+        List<ProductDTO> productDTOList = productService.findAllActiveProductsByCategory(categoryId);
+        model.addAttribute("filteredProducts", productDTOList);
 
-        if (categoryId != null) {
-            List<ProductDTO> productDTOList = productService.findAllActiveProductsByCategory(categoryId);
-            model.addAttribute("filtredProducts", productDTOList);
-            return "catalog";
-        }
+        return "catalog";
+    }
 
-        if (brandName != null) {
-            List<ProductDTO> productDTOList = productService.findAllActiveProductByBrand(brandName);
-            model.addAttribute("filtredProducts", productDTOList);
-            return "catalog";
+    @GetMapping("catalog/brand/")
+    public String catalogByBrand(Model model, @RequestParam(name = "brandName") String brandName) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))
+                || authentication.getAuthorities().contains(new SimpleGrantedAuthority("EMPLOYEE"))) {
+            CustomerDTO customer = customerService.getCustomer();
+            model.addAttribute("customer", customer);
         }
+        List<ProductDTO> productDTOList = productService.findAllActiveProductByBrand(brandName);
+        model.addAttribute("filteredProducts", productDTOList);
+        return "catalog";
+    }
+
+    @GetMapping("catalog/name/")
+    public String catalogByName(Model model, @RequestParam(name = "productName") String productName) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))
+                || authentication.getAuthorities().contains(new SimpleGrantedAuthority("EMPLOYEE"))) {
+            CustomerDTO customer = customerService.getCustomer();
+            model.addAttribute("customer", customer);
+        }
+        List<ProductDTO> productDTOList = productService.findAllActiveProductsByName(productName);
+        model.addAttribute("filteredProducts", productDTOList);
         return "catalog";
     }
 }

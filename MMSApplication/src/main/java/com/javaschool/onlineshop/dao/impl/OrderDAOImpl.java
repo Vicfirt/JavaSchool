@@ -37,13 +37,11 @@ public class OrderDAOImpl implements OrderDAO {
     public void delete(Long id) {
         OrderInfo orderInfo = sessionFactory.getCurrentSession().get(OrderInfo.class, id);
         sessionFactory.getCurrentSession().delete(orderInfo);
-
     }
 
     @Override
     public void update(OrderInfo orderInfo) {
         sessionFactory.getCurrentSession().update(orderInfo);
-
     }
 
     @Override

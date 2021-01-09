@@ -1,10 +1,8 @@
 package com.javaschool.onlineshop.service;
 
 import com.javaschool.onlineshop.model.dto.ProductDTO;
-import com.javaschool.onlineshop.model.entity.Product;
 
 import java.util.List;
-
 
 public interface ProductService {
 
@@ -14,9 +12,9 @@ public interface ProductService {
 
     void addProduct(ProductDTO product);
 
-    void updateProduct(Product product);
+    void updateProduct(ProductDTO product);
 
-    void deleteProduct(Product product);
+    void deleteProduct(ProductDTO product);
 
     List<ProductDTO> findAllActiveProducts();
 
@@ -24,7 +22,7 @@ public interface ProductService {
 
     List<ProductDTO> findAllActiveProductByBrand(String brandName);
 
-    List<ProductDTO> findAllActiveProductsByBrandOrCategory(Integer categoryId, String brandName);
+    List<ProductDTO> findAllActiveProductsByName(String productName);
 
-    List<Product> findAllActiveProductsByName(String productName);
+    List<ProductDTO> findAllActiveProductsByPrice(Double price);
 }

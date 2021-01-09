@@ -37,15 +37,14 @@ public class OrderController {
      * If the url address points to an order, then a list of orders for
      * further work will be transferred to the display page.
      */
-    @GetMapping("/all") //Еще добавятся методы для управления заказами, поэтому имена понадобятся
+    @GetMapping("/all")
     public String getAllOrders(Model model) {
-        CustomerDTO customer = customerService.getCustomer();//Не убрал так как требутеся отдельный кастомер для отрисовки хэдыра
-        List<OrderInfoDTO> orderInfoList = orderService.findAllOrders();//Тут спрятал вызов кастомера в сервис
+        CustomerDTO customer = customerService.getCustomer();
+        List<OrderInfoDTO> orderInfoList = orderService.findAllOrders();
         model.addAttribute("orders", orderInfoList);
         model.addAttribute("customer", customer);
         return "order_info";
     }
-
 
     @PostMapping("/order/new")
     public String createOrder(@RequestParam("paymentMethodId") Integer paymentMethodId,

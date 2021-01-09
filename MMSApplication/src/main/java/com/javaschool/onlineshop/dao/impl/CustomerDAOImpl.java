@@ -5,24 +5,20 @@ import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
 
     private final SessionFactory sessionFactory;
 
-    private final BCryptPasswordEncoder passwordEncoder;
-
-    public CustomerDAOImpl(SessionFactory sessionFactory, BCryptPasswordEncoder passwordEncoder) {
+    public CustomerDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void addCustomer(Customer customer) {
-        customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
         sessionFactory.getCurrentSession().persist(customer);
     }
 
@@ -43,6 +39,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
+    @Transactional
     public Customer getByUsername(String username) {
         try {
             String query = "FROM Customer WHERE customerEmailAddress = :username";
@@ -56,13 +53,13 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void delete(Customer customer) {
-            sessionFactory.getCurrentSession().delete(customer);
+    public void delete(Long customerId) {
+        Customer customer = sessionFactory.getCurrentSession().get(Customer.class, customerId);
+        sessionFactory.getCurrentSession().delete(customer);
     }
 
     @Override
     public void update(Customer customer) {
-            customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
             sessionFactory.getCurrentSession().update(customer);
     }
 }

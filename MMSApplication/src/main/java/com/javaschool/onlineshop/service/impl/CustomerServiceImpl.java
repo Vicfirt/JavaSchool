@@ -9,8 +9,11 @@ import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.entity.CustomerAddress;
 import com.javaschool.onlineshop.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +29,10 @@ public class CustomerServiceImpl implements CustomerService {
     private final CartDAO cartDAO;
 
     private final CustomerAddressDAO customerAddressDAO;
+
+    @Autowired
+    @Qualifier(value = "passwordEncoder")
+    private BCryptPasswordEncoder passwordEncoder;
 
     public CustomerServiceImpl(CustomerDAO customerDAO, CustomerMapper customerMapper, CartDAO cartDAO, CustomerAddressDAO customerAddressDAO) {
         this.customerDAO = customerDAO;
@@ -52,6 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
         cart.setElementsInCart(0);
         customer.setCart(cart);
         customer.setCustomerAddress(customerAddress);
+        customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
         customerAddressDAO.addAddress(customerAddress);
         cartDAO.addCart(cart);
         customerDAO.addCustomer(customer);
@@ -73,13 +81,13 @@ public class CustomerServiceImpl implements CustomerService {
         oldCustomer.setCustomerLastName(customerDTO.getCustomerLastName());
         oldCustomer.setCustomerEmailAddress(customerDTO.getCustomerEmailAddress());
         oldCustomer.setCustomerPassword(customerDTO.getCustomerPassword());
+        oldCustomer.setCustomerPassword(passwordEncoder.encode(customerDTO.getCustomerPassword()));
         customerDAO.addCustomer(oldCustomer);
     }
 
     @Override
     @Transactional
-    public void delete(CustomerDTO customerDTO) {
-        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
-        customerDAO.delete(customer);
+    public void delete(Long customerId) {
+        customerDAO.delete(customerId);
     }
 }

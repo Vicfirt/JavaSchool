@@ -3,7 +3,6 @@ package com.javaschool.onlineshop.model.entity;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
@@ -34,7 +33,7 @@ public class Customer {
     private String customerLastName;
 
     @Column(name = "customer_date_of_birth")
-    @DateTimeFormat
+    @NotEmpty
     private String customerDateOfBirth;
 
     @Column(name = "customer_email_address")
