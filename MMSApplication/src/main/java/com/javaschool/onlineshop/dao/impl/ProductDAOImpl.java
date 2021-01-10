@@ -43,8 +43,9 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public void deleteProduct(Product product) {
+    public void deleteProduct(Long id) {
         Session session = sessionFactory.getCurrentSession();
+        Product product = session.get(Product.class, id);
         session.delete(product);
     }
 
@@ -57,11 +58,12 @@ public class ProductDAOImpl implements ProductDAO {
                 .getResultList();
     }
 
-    public List<Product> findAllActiveProductsByPrice(Double price) {
+    public List<Product> findAllActiveProductsByPrice(Double minPrice, Double maxPrice) {
         Session session = sessionFactory.getCurrentSession();
-        String query = "FROM Product WHERE productPrice <=:price";
+        String query = "FROM Product WHERE productPrice >= :minPrice and productPrice <= :maxPrice";
         return session.createQuery(query, Product.class)
-                .setParameter("price", price)
+                .setParameter("minPrice", minPrice)
+                .setParameter("maxPrice", maxPrice)
                 .getResultList();
     }
 

@@ -15,7 +15,7 @@ public interface ProductDAO {
 
     void updateProduct(Product product);
 
-    void deleteProduct(Product product);
+    void deleteProduct(Long id);
 
     List<Product> findAllActiveProducts();
 
@@ -25,5 +25,5 @@ public interface ProductDAO {
 
     List<Product> findAllActiveProductsByName(String productName);
 
-    List<Product> findAllActiveProductsByPrice(Double price);
+    List<Product> findAllActiveProductsByPrice(Double minPrice, Double maxPrice);
 }

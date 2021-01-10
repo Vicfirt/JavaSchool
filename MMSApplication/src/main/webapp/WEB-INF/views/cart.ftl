@@ -23,13 +23,18 @@
         <#list cartItems as item>
             <tr>
                 <th class="align-middle" scope="row">
-                    <img height="100px" src="">
+                    <img height="100px" src="${item.getProduct().getProductImage()}">
                 </th>
                 <td class="align-middle">${item.getProduct().getProductName()}</td>
                 <td class="align-middle">$${item.getElementPrice()}</td>
                 <td class="align-middle">
-                    <a href="/cart/modification?element_Id=${item.getId()}&quantity=${item.getProductCount()-1}"><i
-                                class="fas fa-minus"></i></a>
+                    <a <#if item.productCount == 1>
+                            href="/cart/deletion?element_Id=${item.getId()}"
+                            <#else >
+                            href="/cart/modification?element_Id=${item.getId()}&quantity=${item.getProductCount()-1}">
+                        </#if>
+                            <i class="fas fa-minus"></i></a>
+
                     <input min="1" id="${item.getProduct().getProductId()}"
                            max="${item.getProduct().getAmountInStock()!"1"}" type="text" size="5" value="${item.getProductCount()}"
                            name='count' onkeyup="change(this)">

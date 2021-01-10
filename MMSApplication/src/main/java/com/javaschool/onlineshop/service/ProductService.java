@@ -14,7 +14,7 @@ public interface ProductService {
 
     void updateProduct(ProductDTO product);
 
-    void deleteProduct(ProductDTO product);
+    void deleteProduct(Long id);
 
     List<ProductDTO> findAllActiveProducts();
 
@@ -24,5 +24,5 @@ public interface ProductService {
 
     List<ProductDTO> findAllActiveProductsByName(String productName);
 
-    List<ProductDTO> findAllActiveProductsByPrice(Double price);
+    List<ProductDTO> findAllActiveProductsByPrice(Double minPrice, Double maxPrice);
 }

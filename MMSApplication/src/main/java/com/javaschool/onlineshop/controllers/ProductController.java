@@ -99,8 +99,7 @@ public class ProductController {
 
     @GetMapping("/employee/deletion/{id}")
     public String deleteProduct(@PathVariable("id") Long productId) {
-        ProductDTO productDTO = productService.getProductById(productId);
-        productService.deleteProduct(productDTO);
+        productService.deleteProduct(productId);
         return "redirect:/catalog";
     }
 }

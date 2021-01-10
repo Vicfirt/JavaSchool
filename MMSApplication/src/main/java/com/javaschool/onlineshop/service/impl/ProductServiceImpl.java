@@ -57,8 +57,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void deleteProduct(ProductDTO productDTO) {
-        productDAO.deleteProduct(productMapper.productDTOToProduct(productDTO));
+    public void deleteProduct(Long id) {
+        productDAO.deleteProduct(id);
     }
 
     @Override
@@ -96,13 +96,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<ProductDTO> findAllActiveProductsByPrice(Double price) {
-        List<Product> productList = productDAO.findAllActiveProductsByPrice(price);
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productList){
-            productDTOList.add(productMapper.productToProductDTO(product));
+    public List<ProductDTO> findAllActiveProductsByPrice(Double minPrice, Double maxPrice) {
+        List<Product> productList;
+        if (minPrice != null && maxPrice != null) {
+            productList = productDAO.findAllActiveProductsByPrice(minPrice, maxPrice);
+            List<ProductDTO> productDTOList = new ArrayList<>();
+            for (Product product : productList) {
+                productDTOList.add(productMapper.productToProductDTO(product));
+            }
+            return productDTOList;
         }
-        return productDTOList;
+        else {
+            return findAll();
+        }
     }
 
     @Override

@@ -114,7 +114,7 @@ public class CustomerController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/profile/address/edition")
+    @GetMapping("/profile/address")
     public String showEditAddressForm(Model model) {
         CustomerDTO customer = customerService.getCustomer();
         CustomerAddressDTO address = customer.getCustomerAddress();
@@ -123,7 +123,7 @@ public class CustomerController {
         return "edit_address";
     }
 
-    @PostMapping("/profile/address/edition")
+    @PostMapping("/profile/address")
     public String editAddress(@Valid @ModelAttribute("address") CustomerAddressDTO customerAddress,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes) {

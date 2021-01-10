@@ -52,14 +52,10 @@ public class HomeController {
 
     @GetMapping("/catalog")
     public String catalog(Model model,
-                          @RequestParam(name = "price", required = false) Double price) {
+                          @RequestParam(name = "minValue", required = false) Double minPrice,
+                          @RequestParam(name = "maxValue", required = false) Double maxPrice) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<ProductDTO> allProducts;
-        if (price != null) {
-            allProducts = productService.findAllActiveProductsByPrice(price);
-        } else {
-            allProducts = productService.findAll();
-        }
+        List<ProductDTO> allProducts = productService.findAllActiveProductsByPrice(minPrice, maxPrice);
         model.addAttribute("products", allProducts);
         if (authentication == null)
             return "catalog";
@@ -87,7 +83,7 @@ public class HomeController {
         return "catalog";
     }
 
-    @GetMapping("catalog/brand/")
+    @GetMapping("catalog/brand")
     public String catalogByBrand(Model model, @RequestParam(name = "brandName") String brandName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))
@@ -100,7 +96,7 @@ public class HomeController {
         return "catalog";
     }
 
-    @GetMapping("catalog/name/")
+    @GetMapping("catalog/name")
     public String catalogByName(Model model, @RequestParam(name = "productName") String productName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))

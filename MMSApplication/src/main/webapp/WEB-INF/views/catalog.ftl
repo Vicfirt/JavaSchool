@@ -37,7 +37,7 @@
                         Brand
                     </button>
                     <div class="dropdown-menu">
-                        <form class="form-inline" action="/catalog/brand/">
+                        <form class="form-inline" action="/catalog/brand">
 
                             <div class="md-form my-0">
                                 <input type="text" class="form-control mr-sm-2" placeholder="Search" name="brandName" id="brandName"
@@ -52,17 +52,22 @@
                     <h3>Range by price</h3>
                 </div>
 
-                <div data-role="main" class="ui-content">
-                    <form method="get" action="/catalog/">
-                        <div data-role="rangeslider">
-                            <label for="price-min">0</label>
-                            <input type="range" name="price" id="price-min" value="500.0" min="0" max="5000.0">
-                            <label for="price-max">5000$</label>
-                        </div>
-                        <input type="submit" data-inline="true" value="Range">
 
-                    </form>
-                </div>
+
+                    <label for="amount">Price range:</label>
+
+                    <input type="text" id="amount" name = "amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+
+                    <div id="slider-range"></div>
+
+                <form action="/catalog" method="get">
+
+                    <input type="hidden" name="minValue" id="minValue" />
+                    <input type="hidden" name="maxValue" id="maxValue" />
+
+                    <input type="submit" value="Range">
+                </form>
+
             </div>
         </div>
 
@@ -138,3 +143,25 @@
     </div>
         <#include "footer.ftl">
 </@home.home>
+<script>
+    $( function() {
+        $( "#slider-range" ).slider({
+            range: true,
+            min: 0.0,
+            max: 5000.0,
+            values: [ 0.0, 5000.0 ],
+            slide: function( event, ui ) {
+                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                $( "#minValue" ).val(ui.values[0]);
+                $( "#maxValue" ).val(ui.values[1]);
+            }
+        });
+        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+            " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+        $("#minValue").val($("#slider-range").slider("values", 0));
+
+        $("#maxValue").val($("#slider-range").slider("values", 1));
+    } );
+
+</script>

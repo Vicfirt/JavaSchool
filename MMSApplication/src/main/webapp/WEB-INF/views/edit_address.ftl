@@ -8,7 +8,7 @@
 
     <h1 align="center" class="display-4 mb-5">Edit address</h1>
     <div style="width:40%; margin: 25px auto" >
-        <form action="/profile/address/edition"  method="post">
+        <form action="/profile/address"  method="post">
             <@spring.bind "address"/>
             <div class="form-group">
                 <label>Country *</label>

@@ -31,7 +31,7 @@
             <p class="card-text"><strong>Building: </strong>${customer.getCustomerAddress().getBuilding()}</p>
                 <p class="card-text"><strong>Room: </strong>${customer.getCustomerAddress().getRoom()}</p>
                 <p class="card-text"><strong>Postcode:</strong> ${customer.getCustomerAddress().getPostcode()}</p>
-                <form action="profile/address/edition">
+                <form action="profile/address">
                     <button class="btn btn-primary btn-block">Update Address
                         <i class="fas fa-redo"></i></button>
                 </form>
