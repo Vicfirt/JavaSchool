@@ -27,28 +27,28 @@
                 <div class="form-group">
                     <label>Street *</label>
                     <@spring.bind "address.street"/>
-                    <input type="" class="form-control form-control-lg" id="street" name="street"  required="true">
+                    <input type="${address.street!}" class="form-control form-control-lg" id="street" name="street"  required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <div class="form-group">
                     <label>Building *</label>
                     <@spring.bind "address.building"/>
-                    <input value="" type="number" class="form-control form-control-lg" id="building" name="building" required="true">
+                    <input value="${address.building!}" type="number" class="form-control form-control-lg" min = 1 max = 1000 id="building" name="building" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <div class="form-group">
                     <label>Room *</label>
                     <@spring.bind "address.room"/>
-                    <input value="" type="number" class="form-control form-control-lg" id="room" name="room" required="true">
+                    <input value="${address.room!}" type="number" class="form-control form-control-lg" min = 1 max = 10000  id="room" name="room" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <div class="form-group">
                     <label>Postcode *</label>
                     <@spring.bind "address.postcode"/>
-                    <input value="" type="number" class="form-control form-control-lg" id="postcode" name="postcode" required="true">
+                    <input value="${address.postcode!}" type="number" class="form-control form-control-lg" id="postcode" name="postcode" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 

@@ -1,6 +1,7 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
+import com.javaschool.onlineshop.Exception.MyException;
 import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.entity.Customer;
 import org.hibernate.Session;
@@ -19,7 +20,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void addCustomer(Customer customer) {
-        sessionFactory.getCurrentSession().persist(customer);
+        try {
+            sessionFactory.getCurrentSession().persist(customer);
+        } catch (Exception e) {
+            throw new MyException(40, "Wrong user information");
+        }
     }
 
     @Override
@@ -33,8 +38,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                     .getSingleResult();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new MyException(42, "There is no user with the given id");
         }
     }
 
@@ -47,19 +51,12 @@ public class CustomerDAOImpl implements CustomerDAO {
             return sessionFactory.getCurrentSession().createQuery(query, Customer.class)
                     .setParameter("username", username).getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new MyException(41, "There is no user with the given username");
         }
     }
 
     @Override
-    public void delete(Long customerId) {
-        Customer customer = sessionFactory.getCurrentSession().get(Customer.class, customerId);
-        sessionFactory.getCurrentSession().delete(customer);
-    }
-
-    @Override
     public void update(Customer customer) {
-            sessionFactory.getCurrentSession().update(customer);
+        sessionFactory.getCurrentSession().update(customer);
     }
 }

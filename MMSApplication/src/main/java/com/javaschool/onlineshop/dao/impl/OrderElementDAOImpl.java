@@ -6,7 +6,6 @@ import com.javaschool.onlineshop.model.entity.OrderElement;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 @Repository
 public class OrderElementDAOImpl implements OrderElementDAO {
@@ -20,15 +19,5 @@ public class OrderElementDAOImpl implements OrderElementDAO {
     @Override
     public void add(OrderElement orderElement) {
         sessionFactory.getCurrentSession().persist(orderElement);
-    }
-
-    @Override
-    public List<OrderElement> getElementsInOrder(Long orderInfo) {
-        return null;
-    }
-
-    @Override
-    public OrderElement get(Long id) {
-        return null;
     }
 }

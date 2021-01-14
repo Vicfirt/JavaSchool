@@ -36,7 +36,7 @@
                             <i class="fas fa-minus"></i></a>
 
                     <input min="1" id="${item.getProduct().getProductId()}"
-                           max="${item.getProduct().getAmountInStock()!"1"}" type="text" size="5" value="${item.getProductCount()}"
+                           max="${item.getProduct().getAmountInStock()!1}" type="number" value="${item.getProductCount()}"
                            name='count' onkeyup="change(this)">
                     <a href="/cart/modification?element_Id=${item.getId()}&quantity=${item.getProductCount()+1}">
                         <i class="fas fa-plus"></i></a>
@@ -55,7 +55,7 @@
     <#if cartItems?has_content >
         <div>
             <h5 style="display: inline;">Total: $${customer.getCart().getCartTotal()}</h5>
-            <form action ="/cart/confirmation" method="post">
+            <form action ="/cart/confirmation" method="get">
                 <button type="submit" class="btn btn-primary float-right">Confirm</button>
             </form>
         </div>
@@ -73,15 +73,16 @@
 
 
 </div>
-    <script>
-        let timeout = null;
-        function change(element)
-        {   clearTimeout(timeout);
-            let quantity = element.value;
-            if (quantity === 0) quantity = 1;
-            let id = element.id;
-            let theUrl = "" + id + "" + quantity;
-            timeout = setTimeout(function(){location.href = theUrl} , 1000);
-        }
-    </script>
+
 </@home.home>
+
+<script>
+    let timeout = null;
+    function change(element)
+    {   clearTimeout(timeout);
+        let quantity = element.value;
+        let id = element.id;
+        let theUrl = "" + id + "" + quantity;
+        timeout = setTimeout(function(){location.href = theUrl} , 1000);
+    }
+</script>

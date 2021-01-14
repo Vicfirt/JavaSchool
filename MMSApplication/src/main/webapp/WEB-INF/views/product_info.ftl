@@ -36,7 +36,7 @@
                         </div>
                         <p class="lead">
                             <span class="mr-1">
-                                ${product.productPrice}
+                                ${product.productPrice}$
                             </span>
 
                         </p>

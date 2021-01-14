@@ -23,7 +23,7 @@
     <#if address.country??>
     <div class="col sm-6">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body text-center">
             <h2 class="card-title">My address</h2>
             <p class="card-text"><strong>Country: </strong>${address.getCountry()}</p>
             <p class="card-text"><strong>City: </strong>${address.getCity()}</p>
@@ -36,11 +36,23 @@
                         <i class="fas fa-redo"></i></button>
                 </form>
                 <#else>
-                    <p class="card-text"><strong>Add your address please</strong></p>
+                <div class="col sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p class="card-text"><strong>Add your address please</strong></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
                     <form action="/profile/address/new" method="get">
                         <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Add address
                         </button>
                     </form>
+                    </div>
+                </div>
+                </div>
 
                 </#if>
             </div>

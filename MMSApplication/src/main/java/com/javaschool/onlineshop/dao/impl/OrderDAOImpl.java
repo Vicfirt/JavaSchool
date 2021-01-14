@@ -20,12 +20,18 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<OrderInfo> findAllOrders(Long customerId) {
+    public List<OrderInfo> findAllCustomerOrders(Long customerId) {
         Session session = sessionFactory.getCurrentSession();
         String myQuery = "FROM OrderInfo where customerId = :id";
-        Query query = session.createQuery(myQuery);
-        query.setParameter("id", customerId);
-        return query.getResultList();
+        return session.createQuery(myQuery, OrderInfo.class)
+                .setParameter("id", customerId)
+                .getResultList();
+    }
+
+    @Override
+    public List<OrderInfo> findAllOrders() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from OrderInfo").list();
     }
 
     @Override
@@ -47,9 +53,10 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public OrderInfo get(Long id) {
         String myQuery = "from OrderInfo WHERE id = :id";
-        Query query = sessionFactory.getCurrentSession().createQuery(myQuery);
-        query.setParameter("id", id);
-        return (OrderInfo) query.getSingleResult();
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery(myQuery, OrderInfo.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override

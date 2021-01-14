@@ -20,6 +20,7 @@ public class CartDAOImpl implements CartDAO {
         sessionFactory.getCurrentSession().update(cart);
     }
 
+    @Override
     public void addCart(Cart cart) {
         sessionFactory.getCurrentSession().persist(cart);
     }

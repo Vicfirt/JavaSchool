@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDTO> findAllActiveProductByBrand(String brandName) {
         List<Product> productList = productDAO.findAllActiveProductsByBrand(brandName);
         List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productList){
+        for (Product product : productList) {
             productDTOList.add(productMapper.productToProductDTO(product));
         }
         return productDTOList;
@@ -97,16 +97,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public List<ProductDTO> findAllActiveProductsByPrice(Double minPrice, Double maxPrice) {
-        List<Product> productList;
+
         if (minPrice != null && maxPrice != null) {
-            productList = productDAO.findAllActiveProductsByPrice(minPrice, maxPrice);
+            List<Product> productList = productDAO.findAllActiveProductsByPrice(minPrice, maxPrice);
             List<ProductDTO> productDTOList = new ArrayList<>();
             for (Product product : productList) {
                 productDTOList.add(productMapper.productToProductDTO(product));
             }
             return productDTOList;
-        }
-        else {
+        } else {
             return findAll();
         }
     }
@@ -116,9 +115,18 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDTO> findAllActiveProductsByName(String productName) {
         List<Product> productList = productDAO.findAllActiveProductsByName(productName);
         List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Product product : productList){
+        for (Product product : productList) {
             productDTOList.add(productMapper.productToProductDTO(product));
         }
         return productDTOList;
+    }
+
+    @Override
+    @Transactional
+    public void decreaseAmount(Long productId, Integer amount) {
+        Product product = productDAO.getProductById(productId);
+        Integer newAmount = product.getAmountInStock() - amount;
+        product.setAmountInStock(newAmount);
+        productDAO.updateProduct(product);
     }
 }

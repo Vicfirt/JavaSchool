@@ -43,7 +43,7 @@
                             <a href="/catalog" class="nav-link waves-effect">Catalog</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/catalog" class="nav-link waves-effect">Manage Orders</a>
+                            <a href="/orders" class="nav-link waves-effect">Orders</a>
                         </li>
                         <li class="nav-item">
                             <a href="/product/employee/new" class="nav-link waves-effect">Add product</a>
@@ -59,7 +59,7 @@
                     <ul class="navbar-nav nav-flex-icons">
 
                         <li class="nav-item">
-                            <a href="/profile" class="nav-link waves-effect"><i class="fa fa-user" aria-hidden="true"></i></a>
+                            <a href="" class="nav-link waves-effect"><i class="fa fa-user" aria-hidden="true"></i></a>
                         </li>
                         <li class="nav-item">
                             <a href="/logout" class="nav-link waves-effect">Log out</a>
@@ -83,13 +83,17 @@
                         </div>
                     </form>
                         <ul class="navbar-nav nav-flex-icons">
+
                             <li class="nav-item">
                                 <a href="/cart" class="nav-link waves-effect">
+                                    <#if customer.cart.elementsInCart != 0>
                                     <span class="badge red z-depth-1 mr-1">${customer.getCart().getElementsInCart()}</span>
+                                    </#if>
                                     <i class="fa fa-shopping-cart"></i>
                                     <span class="clearfix d-none d-sm-inline-block">Cart</span>
                                 </a>
                             </li>
+
 
                             <li class="nav-item">
                                 <a href="/profile" class="nav-link waves-effect"><i class="fa fa-user" aria-hidden="true"></i></a>

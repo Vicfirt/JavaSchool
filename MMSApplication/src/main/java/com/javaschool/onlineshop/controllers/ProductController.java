@@ -59,11 +59,17 @@ public class ProductController {
     public String createProduct(
             @RequestParam("categoryId") Integer categoryId,
             @RequestParam("status") Boolean productStatus,
-            @Valid @ModelAttribute("product") ProductDTO product) {
+            @Valid @ModelAttribute("product") ProductDTO product,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("product", product);
+            return "product_createform";
+        }
         product.setActive(productStatus);
         product.setCategoryId(categoryId);
         productService.addProduct(product);
-        return "redirect:/";
+        return "redirect:/catalog";
     }
 
     @GetMapping("/employee/new")

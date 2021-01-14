@@ -1,6 +1,7 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
+import com.javaschool.onlineshop.Exception.MyException;
 import com.javaschool.onlineshop.dao.ProductDAO;
 import com.javaschool.onlineshop.model.entity.Product;
 import org.hibernate.Session;
@@ -25,8 +26,12 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product getProductById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Product.class, id);
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            return session.get(Product.class, id);
+        } catch (Exception e) {
+            throw new MyException(10, "Product with this id does not exist");
+        }
     }
 
     @Override
@@ -39,13 +44,13 @@ public class ProductDAOImpl implements ProductDAO {
     public void updateProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.update(product);
-
     }
 
     @Override
     public void deleteProduct(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Product product = session.get(Product.class, id);
+        if (product == null) throw new MyException(10, "Product with this id does not exist");
         session.delete(product);
     }
 
@@ -80,7 +85,7 @@ public class ProductDAOImpl implements ProductDAO {
     public List<Product> findAllActiveProductsByBrand(String brandName) {
         Session session = sessionFactory.getCurrentSession();
         String query = "FROM Product WHERE productBrand = :brandName";
-        return session.createQuery(query,Product.class)
+        return session.createQuery(query, Product.class)
                 .setParameter("brandName", brandName)
                 .getResultList();
     }

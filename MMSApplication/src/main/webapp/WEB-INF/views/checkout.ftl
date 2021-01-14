@@ -47,6 +47,7 @@
                      ${customer.getCustomerFirstName()} ${customer.getCustomerLastName()}, ${customer.getPhoneNumber()}
                  </div>
 
+
                      </div>
                  </div>
              </div>
@@ -76,7 +77,7 @@
 
 
                 <form action="/orders/order/new" method="post">
-                    <@spring.bind "order"/>
+
 
                     <select class="custom-select custom-select-lg " id="paymentMethodId" name="paymentMethodId"
                             required="true">
@@ -87,14 +88,14 @@
                     </select>
                     <@spring.bind "order"/>
 
-                    <@spring.bind "order.total"/>
-                    <input hidden type="text" name="total" value="${cart.getCartTotal()}">
                     <@spring.bind "order.customerId"/>
-                    <input hidden type="text" name="customerId" value="${customer.getCustomerId()}">
+                    <input hidden type="number" name="customerId" value="${customer.getCustomerId()}">
                     <@spring.bind "order.orderCount"/>
-                    <input hidden type="text" name="orderCount" value="${cart.getElementsInCart()}">
+                    <input hidden type="number" name="orderCount" value="${cart.getElementsInCart()}">
                     <@spring.bind "order.shippingId"/>
-                    <input hidden type="text" name="shippingId" value="${address.getCustomerAddressId()}">
+                    <input hidden type="number" name="shippingId" value="${address.getCustomerAddressId()}">
+                    <@spring.bind "order.statusId"/>
+                    <input hidden type="number" name="statusId" value="0">
 
                     <button class="btn btn-success btn-block">Checkout</button>
                 </form>

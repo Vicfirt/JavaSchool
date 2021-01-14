@@ -1,6 +1,7 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
+import com.javaschool.onlineshop.Exception.MyException;
 import com.javaschool.onlineshop.dao.CartElementDAO;
 import com.javaschool.onlineshop.model.entity.CartElement;
 import org.hibernate.SessionFactory;
@@ -19,22 +20,29 @@ public class CartElementDAOImpl implements CartElementDAO {
     }
 
     public CartElement get(Long id) {
-
-        return sessionFactory.getCurrentSession().get(CartElement.class, id);
+        try {
+            return sessionFactory.getCurrentSession().get(CartElement.class, id);
+        } catch (Exception e) {
+            throw new MyException(31, "Cart element with this id does not exist");
+        }
     }
 
     public void add(CartElement cartElement) {
-            sessionFactory.getCurrentSession().persist(cartElement);
+        sessionFactory.getCurrentSession().persist(cartElement);
     }
 
     public void delete(Long id) {
+        try {
             CartElement cartElement = sessionFactory.getCurrentSession().get(CartElement.class, id);
             sessionFactory.getCurrentSession().delete(cartElement);
+        } catch (Exception e) {
+            throw new MyException(31, "Cart element with this id does not exist");
+        }
     }
 
     @Override
     public void update(CartElement cartElement) {
-            sessionFactory.getCurrentSession().update(cartElement);
+        sessionFactory.getCurrentSession().update(cartElement);
     }
 
     public List<CartElement> findAll(Long cartId) {
@@ -44,8 +52,7 @@ public class CartElementDAOImpl implements CartElementDAO {
             query.setParameter("cartId", cartId);
             return query.getResultList();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new MyException(30, "Cart with this id is empty");
         }
     }
 }

@@ -1,16 +1,22 @@
 package com.javaschool.onlineshop.model.dto;
 
 
+import javax.validation.constraints.Size;
+
 public class CustomerAddressDTO {
 
     private Long customerAddressId;
 
+    @Size(min = 2, max = 40, message = "The number of letters in the country name must be between 2 and 20")
     private String country;
 
+    @Size(min = 2, max = 20, message = "The number of letters in the city name must be between 2 and 20")
     private String city;
 
+    @Size(min = 4, max = 10, message = "The number of characters in the postcode must be be from 4 to 10")
     private String postcode;
 
+    @Size(min = 2, max = 40, message = "The number of letters in the street name must be between 2 and 40")
     private String street;
 
     private String building;

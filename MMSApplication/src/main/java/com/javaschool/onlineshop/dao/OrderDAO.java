@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface OrderDAO {
 
-    List<OrderInfo> findAllOrders(Long customerId);
+    List<OrderInfo> findAllCustomerOrders(Long customerId);
 
     void add(OrderInfo orderInfo);
 
@@ -18,6 +18,8 @@ public interface OrderDAO {
     OrderInfo get(Long id);
 
     boolean checkIfExists(Long id);
+
+    List<OrderInfo> findAllOrders();
 }
 
 

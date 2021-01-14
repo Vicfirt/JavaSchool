@@ -15,7 +15,7 @@
     <div class="row" style="margin-top: 80px;">
         <div class="col-lg-3">
             <div class="row">
-            <h2>Filter By</h2>
+            <h3 style="margin-left: 20px" >Filter By</h3>
             </div>
             <div class="row">
 
@@ -25,9 +25,9 @@
                         Category
                     </button>
                     <div class="dropdown-menu">
-                        <a href="/catalog/category/1">Electronics</a>
-                        <a href="/catalog/category/0">Books</a>
-                        <a href="/catalog/category/2">Clothes</a>
+                        <a class="dropdown-item "href="/catalog/category/1">Electronics</a>
+                        <a class="dropdown-item "href="/catalog/category/0">Books</a>
+                        <a class="dropdown-item "href="/catalog/category/2">Clothes</a>
                     </div>
                 </div>
 
@@ -47,14 +47,11 @@
                     </div>
                 </div>
             </div>
-            <div data-role="page">
+            <div data-role="page" style="margin-top: 30px">
                 <div data-role="header">
                     <h3>Range by price</h3>
                 </div>
 
-
-
-                    <label for="amount">Price range:</label>
 
                     <input type="text" id="amount" name = "amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
 
@@ -65,7 +62,7 @@
                     <input type="hidden" name="minValue" id="minValue" />
                     <input type="hidden" name="maxValue" id="maxValue" />
 
-                    <input type="submit" value="Range">
+                    <input align="center" type="submit" class="btn btn-primary" value="Range"style="margin-top: 5px">
                 </form>
 
             </div>
@@ -127,9 +124,17 @@
                                         <h5 class="font-weight-bold blue-text">
                                             <strong>${product.productPrice} $</strong>
                                         </h5>
-                                        <#if customer??>
-                                            <a href="cart/add/product/${product.productId}" class="card-link btn btn-primary" >
+                                        <#if customer?? && customer.role == "CUSTOMER">
+                                            <a href="cart/product/${product.productId}" class="card-link btn btn-primary" >
                                                 <i class="fa fa-shopping-cart ml-1"></i></a>
+                                        <#elseif customer?? && customer.role == "EMPLOYEE">
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a type="button" href="product/employee/edition/${product.productId}"
+                                                   class="card-link btn btn-success"><i class="fas fa-edit"></i></a>
+                                                <a type="button" href="product/employee/deletion/${product.productId}"
+                                                   class="card-link btn btn-danger"><i class="fa fa-trash"
+                                                                                       aria-hidden="true"></i></a>
+                                            </div>
                                         </#if>
                                     </div>
                                 </div>

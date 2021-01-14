@@ -65,7 +65,7 @@
                 <div class="form-group">
                     <label>Weight *</label>
                     <@spring.bind "product.productWeight"/>
-                    <input value="${product.productWeight!}" type="text" class="form-control form-control-lg" id="productWeight"
+                    <input value="${product.productWeight!}" type="number" class="form-control form-control-lg" id="productWeight"
                            name="productWeight" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="form-group">
                     <label>Capacity</label>
                     <@spring.bind "product.productCapacity"/>
-                    <input value="${product.productCapacity!}"  type="text" class="form-control form-control-lg" id="productCapacity"
+                    <input value="${product.productCapacity!}"  type="number" class="form-control form-control-lg" id="productCapacity"
                            name="productCapacity">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>

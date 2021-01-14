@@ -69,8 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public CustomerDTO getByUsername(String username) {
         Customer customer = customerDAO.getByUsername(username);
-        CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-        return customerDTO;
+        return customerMapper.customerToCustomerDTO(customer);
     }
 
     @Override
@@ -87,7 +86,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void delete(Long customerId) {
-        customerDAO.delete(customerId);
+    public CustomerDTO getById(Long id) {
+        Customer customer = customerDAO.get(id);
+        return customerMapper.customerToCustomerDTO(customer);
     }
 }

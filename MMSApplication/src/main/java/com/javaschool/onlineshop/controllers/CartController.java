@@ -1,10 +1,7 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.model.dto.CartElementDTO;
-import com.javaschool.onlineshop.model.dto.CustomerDTO;
-import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
-import com.javaschool.onlineshop.model.dto.ProductDTO;
+import com.javaschool.onlineshop.model.dto.*;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.CustomerService;
 import com.javaschool.onlineshop.service.ProductService;
@@ -12,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,7 +61,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @PostMapping("/confirmation")
+    @GetMapping("/confirmation")
     public String confirmCart(Model model, OrderInfoDTO orderInfo) {
         CustomerDTO customer = customerService.getCustomer();
         model.addAttribute("address", customer.getCustomerAddress());

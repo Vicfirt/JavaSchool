@@ -52,7 +52,6 @@ public class CartServiceImpl implements CartService {
     @Override
     @Transactional
     public void addCartElement(ProductDTO productDTO) {
-        Product product = productMapper.productDTOToProduct(productDTO);
         Cart cart = getCart();
         cart.setElementsInCart(cart.getElementsInCart() + 1);
         CartElement cartElement = createByProduct(productDTO);
@@ -111,7 +110,7 @@ public class CartServiceImpl implements CartService {
         cartDAO.updateCart(cart);
     }
 
-    private CartElement createByProduct(ProductDTO productDTO){
+    private CartElement createByProduct(ProductDTO productDTO) {
         Product product = productMapper.productDTOToProduct(productDTO);
         CartElement cartElement = new CartElement();
         cartElement.setProduct(product);

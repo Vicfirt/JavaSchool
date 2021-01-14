@@ -25,4 +25,6 @@ public interface ProductService {
     List<ProductDTO> findAllActiveProductsByName(String productName);
 
     List<ProductDTO> findAllActiveProductsByPrice(Double minPrice, Double maxPrice);
+
+    void decreaseAmount(Long productId, Integer amount);
 }

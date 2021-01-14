@@ -1,7 +1,6 @@
 package com.javaschool.onlineshop.model.entity;
 
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
@@ -11,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "customer")
@@ -25,36 +24,28 @@ public class Customer {
     private CustomerAddress customerAddress;
 
     @Column(name = "customer_first_name")
-    @NotEmpty
     private String customerFirstName;
 
     @Column(name = "customer_last_name")
-    @NotEmpty
     private String customerLastName;
 
     @Column(name = "customer_date_of_birth")
-    @NotEmpty
-    private String customerDateOfBirth;
+    private LocalDate customerDateOfBirth;
 
     @Column(name = "customer_email_address")
-    @NotEmpty
     private String customerEmailAddress;
 
     @Column(name = "customer_password")
-    @NotEmpty
     private String customerPassword;
 
     @Column(name = "customer_role")
-    @NotEmpty
     private String role;
 
     @Column(name = "active")
     @Type(type = "yes_no")
-    @ColumnDefault("0")
     private Boolean active;
 
     @Column(name = "customer_phoneNumber")
-    @NotEmpty
     private String phoneNumber;
 
     @OneToOne
@@ -92,11 +83,11 @@ public class Customer {
         this.customerLastName = customerLastName;
     }
 
-    public String getCustomerDateOfBirth() {
+    public LocalDate getCustomerDateOfBirth() {
         return customerDateOfBirth;
     }
 
-    public void setCustomerDateOfBirth(String customerDateOfBirth) {
+    public void setCustomerDateOfBirth(LocalDate customerDateOfBirth) {
         this.customerDateOfBirth = customerDateOfBirth;
     }
 

@@ -6,7 +6,13 @@ import java.util.List;
 
 public interface OrderService {
 
-    List<OrderInfoDTO> findAllOrders();
+    List<OrderInfoDTO> findAllCustomerOrders();
 
     void addOrder(OrderInfoDTO orderInfoDTO);
+
+    List<OrderInfoDTO> findAllOrders();
+
+    void updateOrder(OrderInfoDTO orderInfoDTO);
+
+    OrderInfoDTO get(Long orderId);
 }
