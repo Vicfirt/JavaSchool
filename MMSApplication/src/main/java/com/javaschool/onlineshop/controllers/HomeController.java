@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class implements the logic for transitions to subpages within the home page.
@@ -56,6 +57,8 @@ public class HomeController {
                           @RequestParam(name = "maxValue", required = false) Double maxPrice) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<ProductDTO> allProducts = productService.findAllActiveProductsByPrice(minPrice, maxPrice);
+        Set<String> brands = productService.getAllAvailableBrands();
+        model.addAttribute("brands", brands);
         model.addAttribute("products", allProducts);
         if (authentication == null)
             return "catalog";
@@ -78,13 +81,14 @@ public class HomeController {
             model.addAttribute("customer", customer);
         }
         List<ProductDTO> productDTOList = productService.findAllActiveProductsByCategory(categoryId);
+        Set<String> brands = productService.getBrandNames(productDTOList);
         model.addAttribute("filteredProducts", productDTOList);
-
+        model.addAttribute("brands", brands);
         return "catalog";
     }
 
-    @GetMapping("catalog/brand")
-    public String catalogByBrand(Model model, @RequestParam(name = "brandName") String brandName) {
+    @GetMapping("catalog/brand/{brandName}")
+    public String catalogByBrand(Model model, @PathVariable(value = "brandName") String brandName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))
                 || authentication.getAuthorities().contains(new SimpleGrantedAuthority("EMPLOYEE"))) {
@@ -92,7 +96,9 @@ public class HomeController {
             model.addAttribute("customer", customer);
         }
         List<ProductDTO> productDTOList = productService.findAllActiveProductByBrand(brandName);
+        Set<String> brands = productService.getAllAvailableBrands();
         model.addAttribute("filteredProducts", productDTOList);
+        model.addAttribute("brands", brands);
         return "catalog";
     }
 
@@ -105,7 +111,9 @@ public class HomeController {
             model.addAttribute("customer", customer);
         }
         List<ProductDTO> productDTOList = productService.findAllActiveProductsByName(productName);
+        Set<String> brands = productService.getAllAvailableBrands();
         model.addAttribute("filteredProducts", productDTOList);
+        model.addAttribute("brands", brands);
         return "catalog";
     }
 }

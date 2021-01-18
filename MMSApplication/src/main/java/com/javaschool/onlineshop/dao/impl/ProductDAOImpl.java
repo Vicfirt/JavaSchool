@@ -26,18 +26,16 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product getProductById(Long id) {
-        try {
-            Session session = sessionFactory.getCurrentSession();
-            return session.get(Product.class, id);
-        } catch (Exception e) {
-            throw new MyException(10, "Product with this id does not exist");
-        }
+        Session session = sessionFactory.getCurrentSession();
+        Product product = session.get(Product.class, id);
+        if (product == null) throw new MyException(10, "Product with this id does not exist");
+        return product;
     }
 
     @Override
-    public void addProduct(Product product) {
+    public Long addProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(product);
+        return (Long) session.save(product);
     }
 
     @Override

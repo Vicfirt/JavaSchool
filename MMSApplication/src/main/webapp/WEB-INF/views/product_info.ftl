@@ -1,6 +1,5 @@
 <#import "common_home.ftl" as home>
-<#import "header.ftl" as header>
-    <#import "footer.ftl" as footer>
+
 <@home.home>
 
     <#include "header.ftl">
@@ -11,7 +10,16 @@
             <div class="row wow fadeIn">
 
                 <div class="col-md-6 mb-4 ">
-                    <img src="${product.productImage}" alt="Iphone" class="img-fluid">
+                    <img
+                             <#if product.productImage != "">
+
+                            src="${product.productImage}"
+
+                            <#else>
+                                     src="/images/Product_${product.getProductId()}.jpg"
+                                     </#if>
+
+                            alt="Iphone" class="img-fluid">
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="p-4">

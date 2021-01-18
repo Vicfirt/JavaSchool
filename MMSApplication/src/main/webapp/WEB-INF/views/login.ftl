@@ -44,7 +44,9 @@
         </div>
     </form>
 
+    <div class="footer fixed-bottom">
     <#include "footer.ftl">
+    </div>
 
 
 

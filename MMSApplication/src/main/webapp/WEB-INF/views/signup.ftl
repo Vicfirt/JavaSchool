@@ -3,7 +3,7 @@
 
 <@home.home>
 
-
+<#include "header.ftl">
 
 <div class="container ">
 

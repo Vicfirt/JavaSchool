@@ -68,11 +68,11 @@
 
 
 </div>
-    <#include "footer.ftl">
 
+    <div class="footer fixed-bottom">
+        <#include "footer.ftl">
+    </div>
 
-
-</div>
 
 </@home.home>
 

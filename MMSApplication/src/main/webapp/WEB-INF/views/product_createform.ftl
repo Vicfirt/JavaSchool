@@ -1,6 +1,7 @@
 <#import "common_home.ftl" as home>
 
     <#import "spring.ftl" as spring>
+
 <@home.home>
 
     <#include "header.ftl">
@@ -10,10 +11,16 @@
         <h1 align="center" class="display-4 mb-5">Create Product</h1>
 
         <div style="width:40%; margin: 25px auto">
-            <form action="/product/employee/new" method="post">
+
+            <form action="<@spring.url'/product/employee/new'/>" method="post" enctype="multipart/form-data">
                 <@spring.bind "product"/>
 
                 <#--Photo-->
+
+                <div class="form-group">
+                    <label>Upload product photo</label>
+                    <input type="file" name="file" id="file">
+                </div>
                 <div class="form-group">
                     <label>Photo Link</label>
                     <@spring.bind "product.productImage"/>
@@ -34,7 +41,8 @@
                 <#--Category-->
                 <div class="form-group">
                     <label>Category *</label>
-                    <select class="custom-select custom-select-lg " id="categoryId" name="categoryId"
+                    <@spring.bind "product.categoryId"/>
+                    <select class="custom-select custom-select-lg" id="categoryId" name="categoryId"
                             required="true">
                         <option value="0">Books</option>
                         <option value="1">Electronics</option>
@@ -117,6 +125,7 @@
                 <#--Status-->
                 <div class="form-group">
                     <label>Status</label>
+
                     <select class="custom-select custom-select-lg " id="status" name="status" required="true">
                         <option value="true">Available</option>
                         <option value="false">Unavailable</option>

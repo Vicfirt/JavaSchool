@@ -37,13 +37,9 @@
                         Brand
                     </button>
                     <div class="dropdown-menu">
-                        <form class="form-inline" action="/catalog/brand">
-
-                            <div class="md-form my-0">
-                                <input type="text" class="form-control mr-sm-2" placeholder="Search" name="brandName" id="brandName"
-                                       aria-label="Search">
-                            </div>
-                        </form>
+                        <#list brands as brand>
+                        <a class="dropdown-item "href="/catalog/brand/${brand}">${brand}</a>
+                        </#list>
                     </div>
                 </div>
             </div>
@@ -74,9 +70,20 @@
                     <#list products as product>
                         <div class="col col-sm-3">
 
-                        <div class="card" style="width: 180px">
+                        <div class="card mb-4" style="width: 180px">
                             <div class="view overlay">
-                                <img class="card-img-top" src="${product.productImage}" alt="Iphone" >
+                                <img class="card-img-top"
+                                     <#if product.productImage != "">
+
+                                     src="${product.getProductImage()}"
+
+                                     <#else>
+
+                                     src="images/Product_${product.getProductId()}.jpg"
+                                     </#if>
+
+                                      alt="Image" >
+
                                 <a href="/product/${product.productId}">
                                     <div class="mask rgba-white-slight"></div>
                                 </a>
@@ -107,9 +114,9 @@
                     </#list>
                     <#else>
                         <#list filteredProducts as product>
-                            <div class="col col-md-2 lg-4 md-4">
+                            <div class="col col-sm-3">
 
-                                <div class="card" style="width: 160px">
+                                <div class="card mb-4" style="width: 160px">
                                     <div class="view overlay">
                                         <img class="card-img-top" src="${product.productImage}" alt="Iphone" >
                                         <a href="/product/${product.productId}">

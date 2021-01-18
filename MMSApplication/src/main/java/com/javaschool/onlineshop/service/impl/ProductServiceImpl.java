@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -44,9 +46,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void addProduct(ProductDTO product) {
+    public Long addProduct(ProductDTO product) {
         Product mappedProduct = productMapper.productDTOToProduct(product);
-        productDAO.addProduct(mappedProduct);
+        return productDAO.addProduct(mappedProduct);
     }
 
     @Override
@@ -128,5 +130,20 @@ public class ProductServiceImpl implements ProductService {
         Integer newAmount = product.getAmountInStock() - amount;
         product.setAmountInStock(newAmount);
         productDAO.updateProduct(product);
+    }
+
+    @Override
+    public Set<String> getBrandNames(List<ProductDTO> products) {
+        Set<String> brandNames = new TreeSet<>();
+        for (ProductDTO product : products) {
+            brandNames.add(product.getProductBrand());
+        }
+        return brandNames;
+    }
+
+    @Override
+    @Transactional
+    public Set<String> getAllAvailableBrands() {
+        return getBrandNames(findAll());
     }
 }

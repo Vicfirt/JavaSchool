@@ -10,10 +10,15 @@
         <h1 align="center" class="display-4 mb-5">Edit Product</h1>
 
         <div style="width:40%; margin: 25px auto">
-            <form action="/product/employee/edition/${product.getProductId()}" method="post">
+            <form action="/product/employee/edition/${product.getProductId()}" method="post" enctype="multipart/form-data">
                 <@spring.bind "product"/>
 
                 <#--Photo-->
+
+                <div class="form-group">
+                    <label>Upload product photo</label>
+                    <input type="file" name="file" id="file">
+                </div>
                 <div class="form-group">
                     <label>Photo Link</label>
                     <@spring.bind "product.productImage"/>
@@ -34,8 +39,18 @@
                 <#--Category-->
                 <div class="form-group">
                     <label>Category *</label>
+                    <@spring.bind "product.categoryId"/>
                     <select class="custom-select custom-select-lg " id="categoryId" name="categoryId"
                             required="true">
+                        <option value="" disabled selected>
+                            <#if product.productCategoryId = 0>
+                                Books
+                                <#elseif product.productCategoryId = 1>
+                                Electronics
+                                <#else>
+                                Clothes
+                            </#if>
+                        </option>
                         <option value="0">Books</option>
                         <option value="1">Electronics</option>
                         <option value="2">Clothes</option>

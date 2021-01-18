@@ -1,7 +1,10 @@
 package com.javaschool.onlineshop.controllers;
 
 
-import com.javaschool.onlineshop.model.dto.*;
+import com.javaschool.onlineshop.model.dto.CustomerDTO;
+import com.javaschool.onlineshop.model.dto.CartElementDTO;
+import com.javaschool.onlineshop.model.dto.ProductDTO;
+import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
 import com.javaschool.onlineshop.service.CartService;
 import com.javaschool.onlineshop.service.CustomerService;
 import com.javaschool.onlineshop.service.ProductService;

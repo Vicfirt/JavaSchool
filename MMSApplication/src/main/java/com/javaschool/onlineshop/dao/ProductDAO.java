@@ -11,7 +11,7 @@ public interface ProductDAO {
 
     Product getProductById(Long id);
 
-    void addProduct(Product product);
+    Long addProduct(Product product);
 
     void updateProduct(Product product);
 

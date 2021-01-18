@@ -12,7 +12,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarContent">
 
-                <#if !customer??>
+                <#if !customer?? || !customer.role??>
 
                 <ul class="navbar-nav mr-auto">
 

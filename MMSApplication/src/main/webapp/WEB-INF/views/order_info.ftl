@@ -111,5 +111,8 @@
 
     </div>
 
+    <div class="footer fixed-bottom">
+    <#include "footer.ftl">
+    </div>
 
 </@home.home>
