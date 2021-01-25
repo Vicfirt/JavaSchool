@@ -9,11 +9,10 @@ import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.entity.CustomerAddress;
 import com.javaschool.onlineshop.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,15 +29,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerAddressDAO customerAddressDAO;
 
-    @Autowired
-    @Qualifier(value = "passwordEncoder")
-    private BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public CustomerServiceImpl(CustomerDAO customerDAO, CustomerMapper customerMapper, CartDAO cartDAO, CustomerAddressDAO customerAddressDAO) {
+    public CustomerServiceImpl(CustomerDAO customerDAO, CustomerMapper customerMapper, CartDAO cartDAO, CustomerAddressDAO customerAddressDAO, BCryptPasswordEncoder passwordEncoder) {
         this.customerDAO = customerDAO;
         this.customerMapper = customerMapper;
         this.cartDAO = cartDAO;
         this.customerAddressDAO = customerAddressDAO;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -51,7 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void addCustomer(CustomerDTO customerDTO) {
+    public CustomerDTO addCustomer(CustomerDTO customerDTO) {
         Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
         Cart cart = new Cart();
         CustomerAddress customerAddress = new CustomerAddress();
@@ -63,6 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerAddressDAO.addAddress(customerAddress);
         cartDAO.addCart(cart);
         customerDAO.addCustomer(customer);
+        return customerDTO;
     }
 
     @Override
@@ -74,14 +73,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void update(CustomerDTO customerDTO, Principal principal) {
-        Customer oldCustomer = customerDAO.getByUsername(principal.getName());
-        oldCustomer.setCustomerFirstName(customerDTO.getCustomerFirstName());
-        oldCustomer.setCustomerLastName(customerDTO.getCustomerLastName());
-        oldCustomer.setCustomerEmailAddress(customerDTO.getCustomerEmailAddress());
-        oldCustomer.setCustomerPassword(customerDTO.getCustomerPassword());
-        oldCustomer.setCustomerPassword(passwordEncoder.encode(customerDTO.getCustomerPassword()));
-        customerDAO.addCustomer(oldCustomer);
+    public void updateCustomer(CustomerDTO customerDTO, Principal principal) {
+        Customer customer = customerDAO.getByUsername(principal.getName());
+        customer.setCustomerFirstName(customerDTO.getCustomerFirstName());
+        customer.setCustomerLastName(customerDTO.getCustomerLastName());
+        customer.setCustomerEmailAddress(customerDTO.getCustomerEmailAddress());
+        customer.setCustomerPassword(customerDTO.getCustomerPassword());
+        customer.setCustomerPassword(passwordEncoder.encode(customerDTO.getCustomerPassword()));
+        customerDAO.addCustomer(customer);
     }
 
     @Override

@@ -12,10 +12,10 @@
             <thead>
             <tr>
                 <th scope="col">Order #</th>
-                <th scope="col">Customer First Name</th>
-                <th scope="col">Customer Last Name</th>
-                <th scope="col">Customer Email</th>
-                <th scope="col">Customer phone</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email address</th>
+                <th scope="col">Phone number</th>
                 <th scope="col">Total</th>
                 <th scope="col">Status</th>
                 <#if customer.role == "EMPLOYEE">
@@ -41,10 +41,18 @@
                             In process
                                 <#elseif order.statusId == 1>
                                 During delivery
-                                    <#else>
+                                    <#elseif order.statusId == 2>
                                 Delivered
+                                <#else>
+                                Rejected
+
                             </#if>
                      </td>
+                <td class="align-middle">
+                    <a href="/orders/receipt/${order.orderId}" type="button" class="btn btn-success">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                    </a>
+                </td>
             </tr>
 
                          </#list>
@@ -62,7 +70,6 @@
                 <td class="align-middle">${order.getTotal()}</td>
             <form action="/orders/status" method="get">
                 <td class="align-middle">
-
 
                     <select class="custom-select custom-select-lg" id="statusId" name="statusId" >
                         <option value="" disabled selected>
@@ -95,11 +102,19 @@
 
                 </td>
             </form>
+                    <td class="align-middle">
+                        <a href="/orders/receipt/${order.orderId}" type="button" class="btn btn-success">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    <td class="align-middle">
+                        <a href="/orders/deletion/${order.orderId}" type="button" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
                     </tr>
                 </#list>
             </#if>
-
-            </tbody>
 
             <#if orders?has_content>
             <#else>
@@ -109,10 +124,15 @@
 
             </#if>
 
+            </tbody>
+        </table>
+
+
     </div>
 
-    <div class="footer fixed-bottom">
     <#include "footer.ftl">
-    </div>
+
+
+
 
 </@home.home>

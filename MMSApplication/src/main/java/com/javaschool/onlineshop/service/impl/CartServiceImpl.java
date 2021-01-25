@@ -42,6 +42,7 @@ public class CartServiceImpl implements CartService {
         this.productMapper = productMapper;
     }
 
+    @Override
     @Transactional
     public Cart getCart() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -69,7 +70,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public void delete(Long cartElementId) {
+    public void deleteCartElement(Long cartElementId) {
         Cart cart = getCart();
         cart.setElementsInCart(cart.getElementsInCart() - 1);
         cartElementDAO.delete(cartElementId);
@@ -77,6 +78,7 @@ public class CartServiceImpl implements CartService {
         cartDAO.updateCart(cart);
     }
 
+    @Override
     @Transactional
     public Double countTotal() {
         List<CartElementDTO> cartElementsDTOList = getCartElements();
@@ -88,6 +90,7 @@ public class CartServiceImpl implements CartService {
         return total;
     }
 
+    @Override
     @Transactional
     public List<CartElementDTO> getCartElements() {
         List<CartElementDTO> cartElementDTOList = new ArrayList<>();
@@ -99,6 +102,7 @@ public class CartServiceImpl implements CartService {
         return cartElementDTOList;
     }
 
+    @Override
     @Transactional
     public void updateCartElement(Long cartElementId, Integer quantity) {
         CartElement cartElement = cartElementDAO.get(cartElementId);
@@ -110,7 +114,7 @@ public class CartServiceImpl implements CartService {
         cartDAO.updateCart(cart);
     }
 
-    private CartElement createByProduct(ProductDTO productDTO) {
+    public CartElement createByProduct(ProductDTO productDTO) {
         Product product = productMapper.productDTOToProduct(productDTO);
         CartElement cartElement = new CartElement();
         cartElement.setProduct(product);

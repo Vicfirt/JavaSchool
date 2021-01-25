@@ -53,10 +53,10 @@
 
                 <#--Model-->
                 <div class="form-group">
-                    <label>Model *</label>
+                    <label>Model</label>
                     <@spring.bind "product.productModel"/>
                     <input value="${product.productModel!}"  type="text" class="form-control form-control-lg" id="productModel"
-                           name="productModel" required="true">
+                           name="productModel">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 

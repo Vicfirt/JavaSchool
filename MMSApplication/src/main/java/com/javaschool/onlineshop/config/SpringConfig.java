@@ -1,13 +1,10 @@
 package com.javaschool.onlineshop.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.web.filter.CommonsRequestLoggingFilter;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -19,6 +16,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 @Configuration
 @ComponentScan(basePackages = "com.javaschool.onlineshop")
 @EnableWebMvc
+@PropertySource(value = "classpath:application.properties")
 public class SpringConfig implements WebMvcConfigurer {
 
     @Bean
@@ -54,20 +52,4 @@ public class SpringConfig implements WebMvcConfigurer {
                 .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
     }
 
-    @Bean
-    @Scope("prototype")
-    public Logger produceLogger(InjectionPoint injectionPoint) {
-        Class<?> classOnWired = injectionPoint.getMember().getDeclaringClass();
-        return LoggerFactory.getLogger(classOnWired);
-    }
-
-    @Bean
-    public CommonsRequestLoggingFilter requestLoggingFilter() {
-        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
-        loggingFilter.setIncludeClientInfo(true);
-        loggingFilter.setIncludeQueryString(true);
-        loggingFilter.setIncludePayload(true);
-        loggingFilter.setMaxPayloadLength(64000);
-        return loggingFilter;
-    }
 }

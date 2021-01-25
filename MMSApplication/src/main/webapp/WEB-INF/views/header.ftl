@@ -12,7 +12,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarContent">
 
-                <#if !customer?? || !customer.role??>
+                <#if !customer?? || !customer.customerId??>
 
                 <ul class="navbar-nav mr-auto">
 
@@ -86,7 +86,7 @@
 
                             <li class="nav-item">
                                 <a href="/cart" class="nav-link waves-effect">
-                                    <#if customer.cart.elementsInCart != 0>
+                                    <#if customer.cart??>
                                     <span class="badge red z-depth-1 mr-1">${customer.getCart().getElementsInCart()}</span>
                                     </#if>
                                     <i class="fa fa-shopping-cart"></i>

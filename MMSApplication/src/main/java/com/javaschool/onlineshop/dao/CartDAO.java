@@ -5,7 +5,7 @@ import com.javaschool.onlineshop.model.entity.Cart;
 
 public interface CartDAO {
 
-    void updateCart(Cart cart);
+    Cart updateCart(Cart cart);
 
-    void addCart(Cart cart);
+    Cart addCart(Cart cart);
 }

@@ -17,8 +17,6 @@ public interface OrderDAO {
 
     OrderInfo get(Long id);
 
-    boolean checkIfExists(Long id);
-
     List<OrderInfo> findAllOrders();
 }
 

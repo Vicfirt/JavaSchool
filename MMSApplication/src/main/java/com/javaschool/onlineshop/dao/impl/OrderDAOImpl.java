@@ -1,15 +1,18 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
+import com.javaschool.onlineshop.exception.DataNotFoundException;
 import com.javaschool.onlineshop.dao.OrderDAO;
 import com.javaschool.onlineshop.model.entity.OrderInfo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * This class is responsible for getting data from order info database entity.
+ */
 @Repository
 public class OrderDAOImpl implements OrderDAO {
 
@@ -31,7 +34,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public List<OrderInfo> findAllOrders() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from OrderInfo").list();
+        return session.createQuery("FROM OrderInfo").list();
     }
 
     @Override
@@ -42,6 +45,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public void delete(Long id) {
         OrderInfo orderInfo = sessionFactory.getCurrentSession().get(OrderInfo.class, id);
+        if (orderInfo == null) throw new DataNotFoundException("There is no order with specified id");
         sessionFactory.getCurrentSession().delete(orderInfo);
     }
 
@@ -52,18 +56,12 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public OrderInfo get(Long id) {
-        String myQuery = "from OrderInfo WHERE id = :id";
+        String myQuery = "FROM OrderInfo WHERE id = :id";
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery(myQuery, OrderInfo.class)
+        OrderInfo orderInfo = session.createQuery(myQuery, OrderInfo.class)
                 .setParameter("id", id)
                 .getSingleResult();
-    }
-
-    @Override
-    public boolean checkIfExists(Long id) {
-        String myQuery = "FROM OrderInfo WHERE id = :id";
-        Query query = sessionFactory.getCurrentSession().createQuery(myQuery);
-        query.setParameter("id", id);
-        return query.getSingleResult() != null;
+        if (orderInfo == null) throw new DataNotFoundException("There is not order with the given ID");
+        return orderInfo;
     }
 }

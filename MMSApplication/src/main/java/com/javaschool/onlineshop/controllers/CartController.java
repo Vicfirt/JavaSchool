@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * This class is responsible for handling user actions with the shopping cart.
+ */
 @Controller
 @RequestMapping("/cart")
 public class CartController {
@@ -35,6 +38,12 @@ public class CartController {
         this.customerService = customerService;
     }
 
+    /**
+     * The method is used to return all items added to the cart
+     *
+     * @param model             will be sent to the view
+     * @return cart view
+     */
     @GetMapping
     public String getAllItemsInCart(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -45,6 +54,12 @@ public class CartController {
         return "cart";
     }
 
+    /**
+     * Method for adding a product with the specified id to the cart
+     *
+     * @param id            identifier of product to be sent to the cart
+     * @return redirect to catalog view
+     */
     @GetMapping("/product/{id}")
     public String addCartElement(@PathVariable("id") Long id) {
         ProductDTO product = productService.getProductById(id);
@@ -52,18 +67,38 @@ public class CartController {
         return "redirect:/catalog";
     }
 
+    /**
+     * Method for decreasing the amount of a specific product in the cart.
+     *
+     * @param id            identifier of the product to be decreased
+     * @return redirect to cart view
+     */
     @GetMapping("/deletion")
     public String removeCartElement(@RequestParam("element_Id") Long id) {
-        cartService.delete(id);
+        cartService.deleteCartElement(id);
         return "redirect:/cart";
     }
 
+    /**
+     * Method for increasing the quantity of a specific product in the shopping cart.
+     *
+     * @param id            identifier of the product to be increased
+     * @param quantity      updated quantity of product in the cart
+     * @return redirect to cart view
+     */
     @GetMapping("/modification")
     public String increaseCartElementsAmount(@RequestParam("element_Id") Long id, @RequestParam("quantity") Integer quantity) {
         cartService.updateCartElement(id, quantity);
         return "redirect:/cart";
     }
 
+    /**
+     * Method for sending user-entered information to the confirmation page.
+     *
+     * @param model             will be sent to the checkout view
+     * @param orderInfo         order information to be filled in on the checkout page
+     * @return checkout view
+     */
     @GetMapping("/confirmation")
     public String confirmCart(Model model, OrderInfoDTO orderInfo) {
         CustomerDTO customer = customerService.getCustomer();

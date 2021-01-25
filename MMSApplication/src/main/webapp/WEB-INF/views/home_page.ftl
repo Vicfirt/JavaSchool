@@ -44,6 +44,42 @@
     </div>
 
 </div>
+<div class="row wow fadeIn" style="margin-top: 50px">
+    <#list products as product>
+
+    <div class="col col-sm-3">
+
+        <div class="card mb-4" style="height: 250px">
+            <div class="view overlay">
+                <img class="card-img-top" style="height: 150px; width: 150px; margin-left: 50px"
+                        <#if product.productImage != "">
+
+                            src="${product.getProductImage()}"
+
+                        <#else>
+
+                            src="images/Product_${product.getProductId()}.jpg"
+                        </#if>
+
+                     alt="Image" >
+
+                <a href="/product/${product.productId}">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+            <div class="card-body text-center">
+                <a href="/product/${product.productId}" class="grey-text">
+                    <h6>${product.productBrand} ${product.productName}</h6>
+                </a>
+                <h6 class="font-weight-bold blue-text">
+                    <strong>${product.productPrice} $</strong>
+                </h6>
+            </div>
+
+        </div>
+    </div>
+    </#list>
+</div>
 
     <#include "footer.ftl">
 </@home.home>

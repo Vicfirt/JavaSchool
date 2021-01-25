@@ -1,7 +1,7 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
-import com.javaschool.onlineshop.Exception.MyException;
+import com.javaschool.onlineshop.exception.DataNotFoundException;
 import com.javaschool.onlineshop.dao.CartElementDAO;
 import com.javaschool.onlineshop.model.entity.CartElement;
 import org.hibernate.SessionFactory;
@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * This class is responsible for getting data from cart element database entity.
+ */
 @Repository
 public class CartElementDAOImpl implements CartElementDAO {
 
@@ -19,40 +22,38 @@ public class CartElementDAOImpl implements CartElementDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
     public CartElement get(Long id) {
-        try {
-            return sessionFactory.getCurrentSession().get(CartElement.class, id);
-        } catch (Exception e) {
-            throw new MyException(31, "Cart element with this id does not exist");
-        }
-    }
-
-    public void add(CartElement cartElement) {
-        sessionFactory.getCurrentSession().persist(cartElement);
-    }
-
-    public void delete(Long id) {
-        try {
             CartElement cartElement = sessionFactory.getCurrentSession().get(CartElement.class, id);
-            sessionFactory.getCurrentSession().delete(cartElement);
-        } catch (Exception e) {
-            throw new MyException(31, "Cart element with this id does not exist");
-        }
+            if(cartElement == null) throw new DataNotFoundException("Cart element with this id does not exist");
+            return cartElement;
     }
 
     @Override
-    public void update(CartElement cartElement) {
-        sessionFactory.getCurrentSession().update(cartElement);
+    public CartElement add(CartElement cartElement) {
+        sessionFactory.getCurrentSession().persist(cartElement);
+        return cartElement;
     }
 
+    @Override
+    public CartElement delete(Long id) {
+            CartElement cartElement = sessionFactory.getCurrentSession().get(CartElement.class, id);
+            if(cartElement == null) throw new DataNotFoundException("Cart element with this id does not exist");
+            sessionFactory.getCurrentSession().delete(cartElement);
+            return cartElement;
+    }
+
+    @Override
+    public CartElement update(CartElement cartElement) {
+        sessionFactory.getCurrentSession().update(cartElement);
+        return cartElement;
+    }
+
+    @Override
     public List<CartElement> findAll(Long cartId) {
-        try {
             String elements = "FROM CartElement where cartId = :cartId";
             Query query = sessionFactory.getCurrentSession().createQuery(elements);
             query.setParameter("cartId", cartId);
             return query.getResultList();
-        } catch (Exception e) {
-            throw new MyException(30, "Cart with this id is empty");
-        }
     }
 }

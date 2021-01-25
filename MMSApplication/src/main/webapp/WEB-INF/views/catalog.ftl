@@ -58,7 +58,7 @@
                     <input type="hidden" name="minValue" id="minValue" />
                     <input type="hidden" name="maxValue" id="maxValue" />
 
-                    <input align="center" type="submit" class="btn btn-primary" value="Range"style="margin-top: 5px">
+                    <input align="center" type="submit" class="btn btn-primary" value="Range"style="margin-top: 10px">
                 </form>
 
             </div>
@@ -70,9 +70,9 @@
                     <#list products as product>
                         <div class="col col-sm-3">
 
-                        <div class="card mb-4" style="width: 180px">
+                        <div class="card mb-4  ${product.getActive()?then("","text-white bg-warning")}" style="width: 180px; height: 250px">
                             <div class="view overlay">
-                                <img class="card-img-top"
+                                <img class="card-img-top" style="width: 125px; height: 140px; margin-left: 28px"
                                      <#if product.productImage != "">
 
                                      src="${product.getProductImage()}"
@@ -92,10 +92,12 @@
                                 <a href="/product/${product.productId}" class="grey-text">
                                     <h6>${product.productBrand} ${product.productName}</h6>
                                 </a>
-
-                                <h5 class="font-weight-bold blue-text">
+                                <h6 class="font-weight-bold blue-text">
                                     <strong>${product.productPrice} $</strong>
-                                </h5>
+                                </h6>
+                            </div>
+
+
                                 <#if customer?? && customer.role == "CUSTOMER">
                                 <a href="cart/product/${product.productId}" class="card-link btn btn-primary" >
                                     <i class="fa fa-shopping-cart ml-1"></i></a>
@@ -108,17 +110,30 @@
                                                                                    aria-hidden="true"></i></a>
                                         </div>
                                 </#if>
-                            </div>
+
+
                         </div>
                         </div>
                     </#list>
-                    <#else>
+                    <#elseif filteredProducts?has_content>
                         <#list filteredProducts as product>
                             <div class="col col-sm-3">
 
-                                <div class="card mb-4" style="width: 160px">
-                                    <div class="view overlay">
-                                        <img class="card-img-top" src="${product.productImage}" alt="Iphone" >
+                                <div class="card mb-4" style="width: 180px; height: 250px">
+                                    <div class="view overlay text-center">
+
+                                        <img class="card-img-top" style="width: 125px; height: 140px; margin-left: 28px"
+                                                <#if product.productImage != "">
+
+                                                    src="${product.getProductImage()}"
+
+                                                <#else>
+
+                                                    src="/images/Product_${product.getProductId()}.jpg"
+                                                </#if>
+
+                                             alt="Image" >
+
                                         <a href="/product/${product.productId}">
                                             <div class="mask rgba-white-slight"></div>
                                         </a>
@@ -128,9 +143,12 @@
                                             <h6>${product.productBrand} ${product.productName}</h6>
                                         </a>
 
-                                        <h5 class="font-weight-bold blue-text">
+
+                                        <h6 class="font-weight-bold blue-text">
                                             <strong>${product.productPrice} $</strong>
-                                        </h5>
+                                        </h6>
+
+                                    </div>
                                         <#if customer?? && customer.role == "CUSTOMER">
                                             <a href="cart/product/${product.productId}" class="card-link btn btn-primary" >
                                                 <i class="fa fa-shopping-cart ml-1"></i></a>
@@ -143,10 +161,15 @@
                                                                                        aria-hidden="true"></i></a>
                                             </div>
                                         </#if>
-                                    </div>
+
                                 </div>
                             </div>
                         </#list>
+                    <#else>
+
+                    <div style="margin-top: 100px">
+                        <h4 class="text-muted text-center">No results were found for your search.</h4>
+                    </div>
 
                 </#if>
             </div>

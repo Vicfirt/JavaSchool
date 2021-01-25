@@ -1,5 +1,6 @@
 package com.javaschool.onlineshop.service;
 
+import com.javaschool.onlineshop.model.dto.OrderElementDTO;
 import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
 
 import java.util.List;
@@ -15,4 +16,8 @@ public interface OrderService {
     void updateOrder(OrderInfoDTO orderInfoDTO);
 
     OrderInfoDTO get(Long orderId);
+
+    List<OrderElementDTO> getAllOrderElements(Long orderId);
+
+    void deleteOrder(Long orderId);
 }

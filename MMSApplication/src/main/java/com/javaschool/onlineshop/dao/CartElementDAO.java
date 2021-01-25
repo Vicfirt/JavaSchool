@@ -9,11 +9,11 @@ public interface CartElementDAO {
 
     CartElement get(Long id);
 
-    void add(CartElement cartElement);
+    CartElement add(CartElement cartElement);
 
-    void update(CartElement cartElement);
+    CartElement update(CartElement cartElement);
 
-    void delete(Long id);
+    CartElement delete(Long id);
 
     List<CartElement> findAll(Long cartId);
 }

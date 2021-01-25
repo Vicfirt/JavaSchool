@@ -6,8 +6,10 @@ import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.mappers.ProductMapper;
 import com.javaschool.onlineshop.model.entity.Product;
 import com.javaschool.onlineshop.service.ProductService;
+import com.javaschool.onlineshop.utility.FileUploader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<ProductDTO> findAll() {
-        List<Product> productList = productDAO.findAll();
+    public List<ProductDTO> findAllProductsByPrice(Double minPrice, Double maxPrice) {
+        if (minPrice != null && maxPrice != null) {
+            List<Product> productList = productDAO.findAllProductsByPrice(minPrice, maxPrice);
+            List<ProductDTO> productDTOList = new ArrayList<>();
+            for (Product product : productList) {
+                productDTOList.add(productMapper.productToProductDTO(product));
+            }
+            return productDTOList;
+        } else {
+            return findAllProducts();
+        }
+    }
+
+    @Override
+    public List<ProductDTO> findAllProducts() {
+        List<Product> productList = productDAO.findAllProducts();
         List<ProductDTO> productDTOList = new ArrayList<>();
         for (Product product : productList) {
             productDTOList.add(productMapper.productToProductDTO(product));
@@ -46,14 +62,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Long addProduct(ProductDTO product) {
-        Product mappedProduct = productMapper.productDTOToProduct(product);
-        return productDAO.addProduct(mappedProduct);
+    public void addProduct(ProductDTO productDTO, MultipartFile file) {
+        Product product = productMapper.productDTOToProduct(productDTO);
+        Long savedProductId = productDAO.addProduct(product);
+        if (file != null) {
+            FileUploader.uploadFile(file, "Product_" + savedProductId);
+        }
     }
 
     @Override
     @Transactional
-    public void updateProduct(ProductDTO productDTO) {
+    public void updateProduct(ProductDTO productDTO, MultipartFile file) {
+        if (file != null) {
+            FileUploader.uploadFile(file, "Product_" + productDTO.getProductId());
+        }
         productDAO.updateProduct(productMapper.productDTOToProduct(productDTO));
     }
 
@@ -99,7 +121,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public List<ProductDTO> findAllActiveProductsByPrice(Double minPrice, Double maxPrice) {
-
         if (minPrice != null && maxPrice != null) {
             List<Product> productList = productDAO.findAllActiveProductsByPrice(minPrice, maxPrice);
             List<ProductDTO> productDTOList = new ArrayList<>();
@@ -108,7 +129,7 @@ public class ProductServiceImpl implements ProductService {
             }
             return productDTOList;
         } else {
-            return findAll();
+            return findAllActiveProducts();
         }
     }
 
@@ -129,6 +150,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = productDAO.getProductById(productId);
         Integer newAmount = product.getAmountInStock() - amount;
         product.setAmountInStock(newAmount);
+        if (newAmount == 0) product.setActive(false);
         productDAO.updateProduct(product);
     }
 
@@ -144,6 +166,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Set<String> getAllAvailableBrands() {
-        return getBrandNames(findAll());
+        List<ProductDTO> productDTOList = findAllActiveProducts();
+        return getBrandNames(productDTOList);
+    }
+
+    @Override
+    @Transactional
+    public List<ProductDTO> findSaleProducts() {
+        List<Product> productList = productDAO.findSaleProducts();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Product product : productList) {
+            productDTOList.add(productMapper.productToProductDTO(product));
+        }
+        return productDTOList;
     }
 }

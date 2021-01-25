@@ -5,6 +5,9 @@ import com.javaschool.onlineshop.model.entity.CustomerAddress;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+/**
+ * This class is responsible for getting data from customer address database entity.
+ */
 @Repository
 public class CustomerAddressDAOImpl implements CustomerAddressDAO {
 
@@ -15,17 +18,14 @@ public class CustomerAddressDAOImpl implements CustomerAddressDAO {
     }
 
     @Override
-    public void addAddress(CustomerAddress customerAddress) {
+    public CustomerAddress addAddress(CustomerAddress customerAddress) {
         sessionFactory.getCurrentSession().persist(customerAddress);
+        return customerAddress;
     }
 
     @Override
-    public void updateAddress(CustomerAddress customerAddress) {
+    public CustomerAddress updateAddress(CustomerAddress customerAddress) {
         sessionFactory.getCurrentSession().update(customerAddress);
-    }
-
-    @Override
-    public void deleteAddress(CustomerAddress customerAddress) {
-        sessionFactory.getCurrentSession().delete(customerAddress);
+        return customerAddress;
     }
 }

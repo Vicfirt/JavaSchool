@@ -9,11 +9,11 @@ public interface CustomerService {
 
     CustomerDTO getCustomer();
 
-    void addCustomer(CustomerDTO customer);
+    CustomerDTO addCustomer(CustomerDTO customer);
 
     CustomerDTO getByUsername(String username);
 
-    void update(CustomerDTO customerDTO, Principal principal);
+    void updateCustomer(CustomerDTO customerDTO, Principal principal);
 
     CustomerDTO getById(Long id);
 }

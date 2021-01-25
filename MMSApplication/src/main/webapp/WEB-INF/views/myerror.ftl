@@ -5,7 +5,7 @@
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="alert alert-dismissable alert-danger">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
                 <h4> Error!</h4>
                 <strong>${message!""}</strong>
                 <a href="${url!"/"}" class="alert-link float-right"><u>Back</u></a>

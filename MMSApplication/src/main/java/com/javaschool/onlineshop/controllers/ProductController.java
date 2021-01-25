@@ -5,7 +5,6 @@ import com.javaschool.onlineshop.model.dto.CustomerDTO;
 import com.javaschool.onlineshop.model.dto.ProductDTO;
 import com.javaschool.onlineshop.service.CustomerService;
 import com.javaschool.onlineshop.service.ProductService;
-import com.javaschool.onlineshop.utility.FileUploader;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,8 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 /**
- * This class implements the logic of transition to a specific page
- * * associated with products in accordance with the received URL.
+ * This class is responsible for the actions with products.
  */
 @Controller
 @RequestMapping("/product")
@@ -42,7 +40,6 @@ public class ProductController {
 
     /**
      * The method moves to a page with detailed information about a specific product.
-     * Product according to the specified ID will also be sent for presentation for further use.
      */
     @GetMapping("/{productId}")
     public String getProductInfoPage(@PathVariable("productId") Long productId, Model model) {
@@ -59,6 +56,15 @@ public class ProductController {
         return "product_info";
     }
 
+    /**
+     * This method is responsible for creating a new product.
+     * @param file                     image file obtained from the form
+     * @param productStatus            status to be set to the product
+     * @param product                  product to be created
+     * @param bindingResult            used for form validation
+     * @param redirectAttributes       these attributes will be returned to the previous form in case of validation error
+     * @return
+     */
     @PostMapping(value = "/employee/new", headers = "content-type=multipart/*")
     public String createProduct(
             @RequestParam(value = "file", required = false) MultipartFile file,
@@ -71,13 +77,16 @@ public class ProductController {
             return "product_createform";
         }
         product.setActive(productStatus);
-        Long savedProductId = productService.addProduct(product);
-        if (file != null) {
-            FileUploader.UploadFile(file, "Product_" + savedProductId);
-        }
+        productService.addProduct(product, file);
         return "redirect:/catalog";
     }
 
+    /**
+     * This method returns form to create product.
+     * @param product               creating product
+     * @param model                 this will be sent to the view
+     * @return  product create form view
+     */
     @GetMapping("/employee/new")
     public String createForm(ProductDTO product, Model model) {
         model.addAttribute("product", product);
@@ -85,6 +94,12 @@ public class ProductController {
         return "product_createform";
     }
 
+    /**
+     * This method returns form to edit product information.
+     * @param productId             specifies product to be created
+     * @param model                 this will be sent to the view
+     * @return product edit form view
+     */
     @GetMapping("/employee/edition/{id}")
     public String getProductEditForm(@PathVariable("id") Long productId, Model model) {
         ProductDTO product = productService.getProductById(productId);
@@ -92,6 +107,16 @@ public class ProductController {
         return "product_editform";
     }
 
+    /**
+     * This method is responsible for editing product information.
+     * @param productId              specifies product to be edited
+     * @param file                   image file obtained from the form
+     * @param productStatus          status to be set to the product
+     * @param product                product to be edited
+     * @param bindingResult          used for form validation
+     * @param redirectAttributes     these attributes will be returned to the previous form in case of validation error
+     * @return redirect to catalog view
+     */
     @PostMapping(value = "/employee/edition/{id}", headers = "content-type=multipart/*")
     public String editProduct(@PathVariable("id") Long productId,
                               @RequestParam(value = "file", required = false) MultipartFile file,
@@ -101,16 +126,18 @@ public class ProductController {
                               RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("product", product);
-            return "redirect: /employee/edition/" + productId;
+            return "product/employee/edition/" + productId;
         }
         product.setActive(productStatus);
-        if (file != null) {
-            FileUploader.UploadFile(file, "Product_" + productId);
-        }
-        productService.updateProduct(product);
+        productService.updateProduct(product, file);
         return "redirect:/catalog";
     }
 
+    /**
+     * This method is responsible for deleting the specified product.
+     * @param productId             specifies product to be deleted
+     * @return  redirect to catalog view
+     */
     @GetMapping("/employee/deletion/{id}")
     public String deleteProduct(@PathVariable("id") Long productId) {
         productService.deleteProduct(productId);

@@ -6,6 +6,9 @@ import com.javaschool.onlineshop.model.entity.Cart;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+/**
+ * This class is responsible for getting data from cart database entity.
+ */
 @Repository
 public class CartDAOImpl implements CartDAO {
 
@@ -16,12 +19,14 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public void updateCart(Cart cart) {
+    public Cart updateCart(Cart cart) {
         sessionFactory.getCurrentSession().update(cart);
+        return cart;
     }
 
     @Override
-    public void addCart(Cart cart) {
+    public Cart addCart(Cart cart) {
         sessionFactory.getCurrentSession().persist(cart);
+        return cart;
     }
 }

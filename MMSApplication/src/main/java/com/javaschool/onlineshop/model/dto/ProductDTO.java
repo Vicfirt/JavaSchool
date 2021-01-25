@@ -9,7 +9,7 @@ public class ProductDTO {
 
     private Long productId;
 
-    @Size(min = 3, max = 14, message = "Product name must contain 2 to 16 characters.")
+    @Size(min = 2, max = 40, message = "Product name must contain 2 to 40 characters.")
     private String productName;
 
     @Min(value = 1, message = "The price cannot be less than 1")
@@ -18,10 +18,10 @@ public class ProductDTO {
 
     private Integer categoryId;
 
-    @Size(min = 3, max = 14, message = "Brand name must contain 2 to 16 characters.")
+    @Size(min = 2, max = 25, message = "Brand name must contain 2 to 25 characters.")
     private String productBrand;
 
-    @Size(min = 1, max = 14, message = "Model name must contain 2 to 16 characters.")
+    @Size( max = 30, message = "Model name must contain 2 to 30 characters.")
     private String productModel;
 
     @Min(value = 1, message = "Weight cannot be less than 1")
@@ -41,6 +41,7 @@ public class ProductDTO {
 
     private Boolean isActive;
 
+    @Size( max = 255, message = "The number of characters in the product image URL cannot be more than 255")
     private String productImage;
 
     public Long getProductId() {

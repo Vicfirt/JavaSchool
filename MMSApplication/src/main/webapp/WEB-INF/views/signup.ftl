@@ -7,15 +7,15 @@
 
 <div class="container ">
 
-    <h1 align="center" class="display-4 mb-5">Sign Up</h1>
-    <div style="width:40%; margin: 25px auto" >
+
+    <div style="width:40%; margin: 25px auto; margin-top: 80px" >
         <form action="/signup"  method="post">
             <@spring.bind "customer"/>
 
             <div class="form-group">
                 <label>Email address *</label>
                 <@spring.bind "customer.customerEmailAddress"/>
-                <input value="${customer.EmailAddress!}" type="email" class="form-control form-control-lg" id="customerEmailAddress" name="customerEmailAddress"  required="true" autofocus="true">
+                <input value="${customer.customerEmailAddress!}" type="email" class="form-control form-control-lg" id="customerEmailAddress" name="customerEmailAddress"  required="true" autofocus="true">
                 <span class="text-danger"><@spring.showErrors ""/></span>
             </div>
 
@@ -43,14 +43,14 @@
             <div class="form-group">
                 <label>Password *</label>
                 <@spring.bind "customer.customerPassword"/>
-                <input type="text" class="form-control form-control-lg" id="customerPassword" name="customerPassword"  required="true">
+                <input value="${customer.customerPassword!}" type="text" class="form-control form-control-lg" id="customerPassword" name="customerPassword"  required="true">
                 <span class="text-danger"><@spring.showErrors ""/></span>
             </div>
 
             <div class="form-group">
                 <label>Phone *</label>
                 <@spring.bind "customer.phoneNumber"/>
-                <input value="" type="number" class="form-control form-control-lg" id="phoneNumber" name="phoneNumber"  required="true">
+                <input value="${customer.phoneNumber!}" type="number" class="form-control form-control-lg" id="phoneNumber" name="phoneNumber"  required="true">
                 <span class="text-danger"><@spring.showErrors ""/></span>
             </div>
 

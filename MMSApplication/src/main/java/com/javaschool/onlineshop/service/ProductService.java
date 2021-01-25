@@ -1,19 +1,22 @@
 package com.javaschool.onlineshop.service;
 
 import com.javaschool.onlineshop.model.dto.ProductDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
 
 public interface ProductService {
 
-    List<ProductDTO> findAll();
+    List<ProductDTO> findAllProducts();
+
+    List<ProductDTO> findAllProductsByPrice(Double minPrice, Double maxPrice);
 
     ProductDTO getProductById(Long id);
 
-    Long addProduct(ProductDTO product);
+    void addProduct(ProductDTO productDTO, MultipartFile file);
 
-    void updateProduct(ProductDTO product);
+    void updateProduct(ProductDTO productDTO, MultipartFile file);
 
     void deleteProduct(Long id);
 
@@ -32,4 +35,6 @@ public interface ProductService {
     Set<String> getBrandNames(List<ProductDTO> products);
 
     Set<String> getAllAvailableBrands();
+
+    List<ProductDTO> findSaleProducts();
 }

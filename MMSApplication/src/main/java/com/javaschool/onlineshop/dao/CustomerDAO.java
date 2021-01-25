@@ -5,7 +5,7 @@ import com.javaschool.onlineshop.model.entity.Customer;
 
 public interface CustomerDAO {
 
-    void addCustomer(Customer customer);
+    Customer addCustomer(Customer customer);
 
     Customer get(Long id);
 

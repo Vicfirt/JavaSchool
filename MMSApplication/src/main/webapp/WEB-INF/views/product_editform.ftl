@@ -43,9 +43,9 @@
                     <select class="custom-select custom-select-lg " id="categoryId" name="categoryId"
                             required="true">
                         <option value="" disabled selected>
-                            <#if product.productCategoryId = 0>
+                            <#if product.categoryId = 0>
                                 Books
-                                <#elseif product.productCategoryId = 1>
+                                <#elseif product.categoryId = 1>
                                 Electronics
                                 <#else>
                                 Clothes
@@ -60,10 +60,10 @@
 
                 <#--Model-->
                 <div class="form-group">
-                    <label>Model *</label>
+                    <label>Model</label>
                     <@spring.bind "product.productModel"/>
                     <input value="${product.productModel!}"  type="text" class="form-control form-control-lg" id="productModel"
-                           name="productModel" required="true">
+                           name="productModel">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 

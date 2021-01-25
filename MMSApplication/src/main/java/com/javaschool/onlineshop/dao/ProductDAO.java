@@ -7,13 +7,15 @@ import java.util.List;
 
 public interface ProductDAO {
 
-    List<Product> findAll();
+    List<Product> findAllProducts();
+
+    List<Product> findAllProductsByPrice(Double minPrice, Double maxPrice);
 
     Product getProductById(Long id);
 
     Long addProduct(Product product);
 
-    void updateProduct(Product product);
+    Product updateProduct(Product product);
 
     void deleteProduct(Long id);
 
@@ -26,4 +28,6 @@ public interface ProductDAO {
     List<Product> findAllActiveProductsByName(String productName);
 
     List<Product> findAllActiveProductsByPrice(Double minPrice, Double maxPrice);
+
+    List<Product> findSaleProducts();
 }

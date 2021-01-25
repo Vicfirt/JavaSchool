@@ -4,9 +4,7 @@ import com.javaschool.onlineshop.model.entity.CustomerAddress;
 
 public interface CustomerAddressDAO {
 
-    void addAddress(CustomerAddress customerAddress);
+    CustomerAddress addAddress(CustomerAddress customerAddress);
 
-    void updateAddress(CustomerAddress customerAddress);
-
-    void deleteAddress(CustomerAddress customerAddress);
+    CustomerAddress updateAddress(CustomerAddress customerAddress);
 }

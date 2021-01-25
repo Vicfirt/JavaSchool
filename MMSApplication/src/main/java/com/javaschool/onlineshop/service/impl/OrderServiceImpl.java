@@ -4,8 +4,10 @@ import com.javaschool.onlineshop.dao.OrderDAO;
 import com.javaschool.onlineshop.dao.CartElementDAO;
 import com.javaschool.onlineshop.dao.OrderElementDAO;
 import com.javaschool.onlineshop.dao.CustomerDAO;
+import com.javaschool.onlineshop.mappers.OrderElementMapper;
 import com.javaschool.onlineshop.model.dto.CartElementDTO;
 import com.javaschool.onlineshop.model.dto.CustomerDTO;
+import com.javaschool.onlineshop.model.dto.OrderElementDTO;
 import com.javaschool.onlineshop.model.dto.OrderInfoDTO;
 import com.javaschool.onlineshop.mappers.CartElementMapper;
 import com.javaschool.onlineshop.mappers.OrderInfoMapper;
@@ -47,7 +49,9 @@ public class OrderServiceImpl implements OrderService {
 
     private final ProductService productService;
 
-    public OrderServiceImpl(OrderDAO orderDAO, CartElementDAO cartElementDAO, OrderElementDAO orderElementDAO, OrderInfoMapper orderInfoMapper, CartElementMapper cartElementMapper, CartService cartService, CustomerDAO customerDAO, CustomerService customerService, ProductService productService) {
+    private final OrderElementMapper orderElementMapper;
+
+    public OrderServiceImpl(OrderDAO orderDAO, CartElementDAO cartElementDAO, OrderElementDAO orderElementDAO, OrderInfoMapper orderInfoMapper, CartElementMapper cartElementMapper, CartService cartService, CustomerDAO customerDAO, CustomerService customerService, ProductService productService, OrderElementMapper orderElementMapper) {
         this.orderDAO = orderDAO;
         this.cartElementDAO = cartElementDAO;
         this.orderElementDAO = orderElementDAO;
@@ -57,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
         this.customerDAO = customerDAO;
         this.customerService = customerService;
         this.productService = productService;
+        this.orderElementMapper = orderElementMapper;
     }
 
     @Override
@@ -127,5 +132,23 @@ public class OrderServiceImpl implements OrderService {
     public OrderInfoDTO get(Long orderId) {
         OrderInfo orderInfo = orderDAO.get(orderId);
         return orderInfoMapper.orderInfoToOrderInfoDTO(orderInfo);
+    }
+
+    @Override
+    @Transactional
+    public List<OrderElementDTO> getAllOrderElements(Long orderId) {
+        List<OrderElement> orderElementList = orderElementDAO.getAllOrderElements(orderId);
+        List<OrderElementDTO> orderElementDTOList = new ArrayList<>();
+        for (OrderElement orderElement : orderElementList){
+            orderElementDTOList.add(orderElementMapper.orderElementToOrderElementDTO(orderElement));
+        }
+        return orderElementDTOList;
+    }
+
+    @Override
+    @Transactional
+    public void deleteOrder(Long orderId){
+        orderDAO.delete(orderId);
+        orderElementDAO.deleteOrderElementsByOrder(orderId);
     }
 }
