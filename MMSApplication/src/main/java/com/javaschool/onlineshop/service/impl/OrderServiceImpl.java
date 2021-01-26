@@ -28,6 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for processing data received from order DAO as well as preparing it for sending to the UI.
+ */
 @Service
 public class OrderServiceImpl implements OrderService {
 
@@ -64,6 +67,10 @@ public class OrderServiceImpl implements OrderService {
         this.orderElementMapper = orderElementMapper;
     }
 
+    /**
+     * This method returns all orders of authorized customer.
+     * @return  list of orders
+     */
     @Override
     @Transactional
     public List<OrderInfoDTO> findAllCustomerOrders() {
@@ -76,6 +83,10 @@ public class OrderServiceImpl implements OrderService {
         return ordersDTOList;
     }
 
+    /**
+     * This method returns the list of all orders in shop.
+     * @return  list of all orders
+     */
     @Override
     @Transactional
     public List<OrderInfoDTO> findAllOrders() {
@@ -87,6 +98,11 @@ public class OrderServiceImpl implements OrderService {
         return orderInfoDTOList;
     }
 
+    /**
+     * Method is used to add new order to customer profile.
+     * It persists new order in database as well as resets cart state.
+     * @param orderInfoDTO                  order to be created
+     */
     @Override
     @Transactional
     public void addOrder(OrderInfoDTO orderInfoDTO) {
@@ -102,6 +118,11 @@ public class OrderServiceImpl implements OrderService {
         cartService.updateCart(customerCart);
     }
 
+    /**
+     * This method creates a new list of order elements based on cart elements.
+     * Also it decreases amount of buying product by 1
+     * @param orderInfo                 order to be associated with order element
+     */
     private void createOrderElement(OrderInfo orderInfo) {
         List<CartElementDTO> cartElementList = cartService.getCartElements();
         for (CartElementDTO cartElementDTO : cartElementList) {
@@ -134,6 +155,11 @@ public class OrderServiceImpl implements OrderService {
         return orderInfoMapper.orderInfoToOrderInfoDTO(orderInfo);
     }
 
+    /**
+     * This method returns list of elements in specified order.
+     * @param orderId                   specifies order
+     * @return                          list of elements
+     */
     @Override
     @Transactional
     public List<OrderElementDTO> getAllOrderElements(Long orderId) {

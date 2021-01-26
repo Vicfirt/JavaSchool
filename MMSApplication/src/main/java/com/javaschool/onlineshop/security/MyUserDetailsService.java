@@ -19,7 +19,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         Customer customer = customerDAO.getByUsername(username);
-        if (customer == null){
+        if (customer == null) {
             throw new UsernameNotFoundException(username);
         }
         return new MyUserPrincipal(customer);

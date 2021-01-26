@@ -42,7 +42,7 @@ public class ProductDAOImpl implements ProductDAO {
     public Product getProductById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Product product = session.get(Product.class, id);
-        if (product == null) throw new DataNotFoundException("Product with this id does not exist");
+        if (product == null) throw new DataNotFoundException("Product with id: " + id + " does not exist");
         return product;
     }
 
@@ -63,7 +63,7 @@ public class ProductDAOImpl implements ProductDAO {
     public void deleteProduct(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Product product = session.get(Product.class, id);
-        if (product == null) throw new DataNotFoundException("Product with this id does not exist");
+        if (product == null) throw new DataNotFoundException("Product with id: " + id + " does not exist");
         session.delete(product);
     }
 

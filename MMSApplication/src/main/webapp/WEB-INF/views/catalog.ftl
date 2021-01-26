@@ -1,6 +1,5 @@
 <#import "common_home.ftl" as home>
-
-
+<#import "spring.ftl" as spring>
 <@home.home>
 
     <div class="row">
@@ -68,18 +67,29 @@
             <div class="row wow fadeIn">
                 <#if (products)??>
                     <#list products as product>
-                        <div class="col col-sm-3">
+                        <div class="col col-lg-3 col-md-6">
 
                         <div class="card mb-4  ${product.getActive()?then("","text-white bg-warning")}" style="width: 180px; height: 250px">
-                            <div class="view overlay">
-                                <img class="card-img-top" style="width: 125px; height: 140px; margin-left: 28px"
+
+                            <div class="view overlay"
+                                  <#if (customer?? && customer.role == "CUSTOMER") || (customer?? && customer.role == "EMPLOYEE") >
+
+                                 style="width: 125px; height: 125px; margin-left: 26px"
+
+                                <#else>
+
+                                 style="width: 180px; height: 180px"
+
+                            </#if>
+                            >
+                                <img class="card-img-top"
                                      <#if product.productImage != "">
 
                                      src="${product.getProductImage()}"
 
                                      <#else>
 
-                                     src="images/Product_${product.getProductId()}.jpg"
+                                     src="/media/Product_${product.getProductId()}.jpg"
                                      </#if>
 
                                       alt="Image" >
@@ -120,16 +130,25 @@
                             <div class="col col-sm-3">
 
                                 <div class="card mb-4" style="width: 180px; height: 250px">
-                                    <div class="view overlay text-center">
+                                    <div class="view overlay text-center"
+                                            <#if (customer?? && customer.role == "CUSTOMER") || (customer?? && customer.role == "EMPLOYEE") >
 
-                                        <img class="card-img-top" style="width: 125px; height: 140px; margin-left: 28px"
+                                                style="width: 125px; height: 125px; margin-left: 26px"
+
+                                            <#else>
+
+                                                style="width: 180px; height: 180px"
+
+                                            </#if>
+                                    >
+                                        <img class="card-img-top"
                                                 <#if product.productImage != "">
 
                                                     src="${product.getProductImage()}"
 
                                                 <#else>
 
-                                                    src="/images/Product_${product.getProductId()}.jpg"
+                                                    src="/media/Product_${product.getProductId()}.jpg"
                                                 </#if>
 
                                              alt="Image" >
@@ -167,7 +186,7 @@
                         </#list>
                     <#else>
 
-                    <div style="margin-top: 100px">
+                    <div style="margin-top: 100px; margin-left: 50px">
                         <h4 class="text-muted text-center">No results were found for your search.</h4>
                     </div>
 

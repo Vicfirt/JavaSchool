@@ -30,7 +30,7 @@
                                 src="${item.getProduct().getProductImage()}"
 
                             <#else>
-                                src="/images/Product_${item.getProduct().getProductId()}.jpg"
+                                src="/media/Product_${product.getProductId()}.jpg"
                             </#if>
 
                          alt="Iphone">
@@ -68,7 +68,7 @@
         <div>
             <h5 style="display: inline;">Total: $${customer.getCart().getCartTotal()}</h5>
 
-            <#if !customer.customerAddress??>
+            <#if !customer.customerAddress.country??>
 
                 <h4 class="text-muted text-center">Your profile has no address. Please add an address.</h4>
 
@@ -90,6 +90,7 @@
 
 
 </div>
-
+<div style="margin-top: 100px">
         <#include "footer.ftl">
+</div>
 </@home.home>

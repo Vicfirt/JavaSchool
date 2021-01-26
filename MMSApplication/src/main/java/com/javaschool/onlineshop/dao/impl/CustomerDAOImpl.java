@@ -36,7 +36,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             Customer customer =  session.createQuery(selectQuery, Customer.class)
                     .setParameter("id", id)
                     .getSingleResult();
-            if (customer == null) throw new DataNotFoundException("The user with the given id does not exist");
+            if (customer == null) throw new DataNotFoundException("The user with "+ id +" id does not exist");
             return customer;
     }
 

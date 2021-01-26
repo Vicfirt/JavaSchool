@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label>Email address *</label>
                     <@spring.bind "customer.customerEmailAddress"/>
-                    <input value="${customerEmailAddress!}" type="email" class="form-control form-control-lg" id="customerEmailAddress" name="customerEmailAddress"  required="true" autofocus="true">
+                    <input value="${customer.customerEmailAddress!}" type="email" class="form-control form-control-lg" id="customerEmailAddress" name="customerEmailAddress"  required="true" autofocus="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
@@ -33,16 +33,23 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Date of Birth *</label>
+                    <@spring.bind "customer.customerDateOfBirth"/>
+                    <input value="${customer.customerDateOfBirth!}" type="date" min="1900-01-01" max="2021-01-01"class="form-control form-control-lg" id="customerDateOfBirth" name="customerDateOfBirth"  required="true">
+                    <span class="text-danger"><@spring.showErrors ""/></span>
+                </div>
+
+                <div class="form-group">
                     <label>Password *</label>
                     <@spring.bind "customer.customerPassword"/>
-                    <input type="" class="form-control form-control-lg" id="customerPassword" name="customerPassword"  required="true">
+                    <input class="form-control form-control-lg" id="customerPassword" name="customerPassword"  required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
                 <div class="form-group">
                     <label>Phone *</label>
                     <@spring.bind "customer.phoneNumber"/>
-                    <input value="" type="text" class="form-control form-control-lg" id="phoneNumber" name="phoneNumber" placeholder="phone" required="true">
+                    <input value="${customer.phoneNumber!}" type="text" class="form-control form-control-lg" id="phoneNumber" name="phoneNumber" placeholder="phone" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -57,7 +58,7 @@ public class ContentController {
      *
      * @param model                 will be sent to the view
      * @param minPrice              minimum price for filtration
-     * @param maxPrice              minimum price for filtration
+     * @param maxPrice              maximum price for filtration
      * @return catalog view
      */
     @GetMapping("/catalog")
@@ -65,7 +66,7 @@ public class ContentController {
                           @RequestParam(name = "minValue", required = false) Double minPrice,
                           @RequestParam(name = "maxValue", required = false) Double maxPrice) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<ProductDTO> allProducts;
+        List<ProductDTO> allProducts = new ArrayList<>();
         Set<String> brands = productService.getAllAvailableBrands();
         model.addAttribute("brands", brands);
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {

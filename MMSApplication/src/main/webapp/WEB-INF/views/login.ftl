@@ -7,8 +7,7 @@
     <body>
 <div class="container">
 
-    <h1 align="center" class="display-4 mb-5">Sign In</h1>
-    <div style="width:40%; margin: 25px auto" >
+    <div style="width:40%; margin: 25px auto; margin-top: 120px" >
     <#if (RequestParameters.error)??>
         <div class="alert alert-danger">
             Invalid username and password.

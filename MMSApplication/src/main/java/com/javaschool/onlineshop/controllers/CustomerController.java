@@ -74,7 +74,8 @@ public class CustomerController {
                          BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         CustomerDTO customerExists = customerService.getByUsername(customer.getCustomerEmailAddress());
         if (customerExists != null) {
-            bindingResult.rejectValue("customerEmailAddress", "", "This email is already in use");
+            bindingResult.rejectValue("customerEmailAddress", "", "email "
+                    + customerExists.getCustomerEmailAddress() + " is already in use");
         }
 
         if (bindingResult.hasErrors()) {
@@ -95,7 +96,7 @@ public class CustomerController {
     public String accessDeny(Model model) {
         LOGGER.info("Current user does not have permission for this action");
         model.addAttribute("message", "Access denied!");
-        return "/myerror";
+        return "custom_error";
     }
 
     /**
@@ -108,7 +109,7 @@ public class CustomerController {
     public String loginError(Model model) {
         LOGGER.info("User entered incorrect login information");
         model.addAttribute("message", "Wrong password or username");
-        return "/myerror";
+        return "custom_error";
     }
 
     /**
@@ -150,6 +151,10 @@ public class CustomerController {
     @PostMapping("/profile/edition")
     public String editProfile(@Valid @ModelAttribute("customer") CustomerDTO customer, BindingResult bindingResult,
                               RedirectAttributes redirectAttributes, Principal principal) {
+        CustomerDTO customerExists = customerService.getByUsername(customer.getCustomerEmailAddress());
+        if (customerExists != null) {
+            bindingResult.rejectValue("customerEmailAddress", "", "This email is already in use");
+        }
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("customer", customer);
             return "/edit_profile";

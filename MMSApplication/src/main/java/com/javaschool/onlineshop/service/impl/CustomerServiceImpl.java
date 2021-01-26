@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 
+/**
+ * This class is responsible for processing data received from customer DAO as well as preparing it for sending to the UI.
+ */
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -39,6 +42,10 @@ public class CustomerServiceImpl implements CustomerService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * This method returns authenticated customer
+     * @return                      customer data transfer object
+     */
     @Override
     @Transactional
     public CustomerDTO getCustomer() {
@@ -47,6 +54,12 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.customerToCustomerDTO(customer);
     }
 
+    /**
+     *
+     This method creates a new customer, assigns him an empty cart and address.
+     * @param customerDTO               customer to be saved in database
+     * @return                          saved customer
+     */
     @Override
     @Transactional
     public CustomerDTO addCustomer(CustomerDTO customerDTO) {
@@ -64,6 +77,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDTO;
     }
 
+
     @Override
     @Transactional
     public CustomerDTO getByUsername(String username) {
@@ -71,6 +85,11 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.customerToCustomerDTO(customer);
     }
 
+    /**
+     * This method updates customer's profile information and saves updated customer to the database.
+     * @param customerDTO           customer to be updated
+     * @param principal             is used to get email of the currently logged in user
+     */
     @Override
     @Transactional
     public void updateCustomer(CustomerDTO customerDTO, Principal principal) {

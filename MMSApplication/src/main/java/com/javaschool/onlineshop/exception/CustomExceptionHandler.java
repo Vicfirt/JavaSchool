@@ -18,13 +18,13 @@ public class CustomExceptionHandler {
     public String userErrorHandler(DataNotFoundException exception, Model model) {
         LOGGER.error(exception.getMessage(), exception);
         model.addAttribute("message", exception.getMessage());
-        return "myerror";
+        return "custom_error";
     }
 
-    @ExceptionHandler(FileUploadException.class)
-    public String notFoundHandler(FileUploadException exception, Model model) {
+    @ExceptionHandler(FileTransferException.class)
+    public String notFoundHandler(FileTransferException exception, Model model) {
         LOGGER.error(exception.getMessage(), exception);
         model.addAttribute("message", exception.getMessage());
-        return "myerror";
+        return "custome_error";
     }
 }

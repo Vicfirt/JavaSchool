@@ -28,12 +28,15 @@
                     </li>
 
                 </ul>
-                <form method="get" action="/catalog/name/" class="form-inline" style="margin-right: 150px">
+                <form class="form-inline my-2 my-lg-0" method="get" action="/catalog/name/" style="margin-right: 150px">
 
-                    <div class="md-form my-0">
+
                         <input type="text" name="productName" class="form-control mr-sm-2" placeholder="Search"
                         aria-label="Search">
-                    </div>
+
+                    <button type="submit" class="btn btn-sm btn-outline-primary my-2 my-sm-0">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </form>
 
                 <#elseif customer.getRole() == "EMPLOYEE">
@@ -49,12 +52,15 @@
                             <a href="/product/employee/new" class="nav-link waves-effect">Add product</a>
                         </li>
                     </ul>
-                    <form method="get" action="/catalog/name/" class="form-inline" style="margin-right: 150px">
+                    <form class="form-inline my-2 my-lg-0" method="get" action="/catalog/name/" style="margin-right: 150px">
 
-                        <div class="md-form my-0">
-                            <input type="text" name="productName" class="form-control mr-sm-2" placeholder="Search"
-                                   aria-label="Search">
-                        </div>
+
+                        <input type="text" name="productName" class="form-control mr-sm-2" placeholder="Search"
+                               aria-label="Search">
+
+                        <button type="submit" class="btn btn-sm btn-outline-primary my-2 my-sm-0">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </form>
                     <ul class="navbar-nav nav-flex-icons">
 
@@ -75,18 +81,21 @@
                                 <a href="/orders/all" class="nav-link waves-effect">My Orders</a>
                             </li>
                         </ul>
-                    <form method="get" action="/catalog/name/" class="form-inline" style="margin-right: 150px">
+                    <form class="form-inline my-2 my-lg-0" method="get" action="/catalog/name/" style="margin-right: 150px">
 
-                        <div class="md-form my-0">
-                            <input type="text" name="productName" class="form-control mr-sm-2" placeholder="Search"
-                                   aria-label="Search">
-                        </div>
+
+                        <input type="text" name="productName" class="form-control mr-sm-2" placeholder="Search"
+                               aria-label="Search">
+
+                        <button type="submit" class="btn btn-sm btn-outline-primary my-2 my-sm-0">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </form>
                         <ul class="navbar-nav nav-flex-icons">
 
                             <li class="nav-item">
                                 <a href="/cart" class="nav-link waves-effect">
-                                    <#if customer.cart??>
+                                    <#if customer.cart?? && customer.cart.elementsInCart != 0>
                                     <span class="badge red z-depth-1 mr-1">${customer.getCart().getElementsInCart()}</span>
                                     </#if>
                                     <i class="fa fa-shopping-cart"></i>

@@ -4,8 +4,8 @@ package com.javaschool.onlineshop.dao.impl;
 import com.javaschool.onlineshop.exception.DataNotFoundException;
 import com.javaschool.onlineshop.dao.CartElementDAO;
 import com.javaschool.onlineshop.model.entity.CartElement;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class CartElementDAOImpl implements CartElementDAO {
     @Override
     public CartElement get(Long id) {
             CartElement cartElement = sessionFactory.getCurrentSession().get(CartElement.class, id);
-            if(cartElement == null) throw new DataNotFoundException("Cart element with this id does not exist");
+            if(cartElement == null) throw new DataNotFoundException("Cart element with id: "+ id + " does not exist");
             return cartElement;
     }
 
@@ -38,7 +38,7 @@ public class CartElementDAOImpl implements CartElementDAO {
     @Override
     public CartElement delete(Long id) {
             CartElement cartElement = sessionFactory.getCurrentSession().get(CartElement.class, id);
-            if(cartElement == null) throw new DataNotFoundException("Cart element with this id does not exist");
+            if(cartElement == null) throw new DataNotFoundException("Cart element with id: "+ id + " does not exist");
             sessionFactory.getCurrentSession().delete(cartElement);
             return cartElement;
     }
@@ -51,9 +51,10 @@ public class CartElementDAOImpl implements CartElementDAO {
 
     @Override
     public List<CartElement> findAll(Long cartId) {
-            String elements = "FROM CartElement where cartId = :cartId";
-            Query query = sessionFactory.getCurrentSession().createQuery(elements);
-            query.setParameter("cartId", cartId);
-            return query.getResultList();
+            String query = "FROM CartElement where cartId = :cartId";
+            Session session  = sessionFactory.getCurrentSession();
+            return session.createQuery(query, CartElement.class)
+                    .setParameter("cartId", cartId)
+                    .getResultList();
     }
 }

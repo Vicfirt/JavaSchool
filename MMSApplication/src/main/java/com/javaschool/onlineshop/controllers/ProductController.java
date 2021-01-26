@@ -126,7 +126,7 @@ public class ProductController {
                               RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("product", product);
-            return "product/employee/edition/" + productId;
+            return "redirect: /product/employee/edition/" + productId;
         }
         product.setActive(productStatus);
         productService.updateProduct(product, file);

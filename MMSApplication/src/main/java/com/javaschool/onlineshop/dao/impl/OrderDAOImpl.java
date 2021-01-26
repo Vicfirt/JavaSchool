@@ -45,7 +45,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public void delete(Long id) {
         OrderInfo orderInfo = sessionFactory.getCurrentSession().get(OrderInfo.class, id);
-        if (orderInfo == null) throw new DataNotFoundException("There is no order with specified id");
+        if (orderInfo == null) throw new DataNotFoundException("There is no order with id: " + id);
         sessionFactory.getCurrentSession().delete(orderInfo);
     }
 
@@ -61,7 +61,7 @@ public class OrderDAOImpl implements OrderDAO {
         OrderInfo orderInfo = session.createQuery(myQuery, OrderInfo.class)
                 .setParameter("id", id)
                 .getSingleResult();
-        if (orderInfo == null) throw new DataNotFoundException("There is not order with the given ID");
+        if (orderInfo == null) throw new DataNotFoundException("There is not order with id " + id);
         return orderInfo;
     }
 }

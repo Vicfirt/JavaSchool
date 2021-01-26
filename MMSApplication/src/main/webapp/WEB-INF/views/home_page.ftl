@@ -58,7 +58,7 @@
 
                         <#else>
 
-                            src="images/Product_${product.getProductId()}.jpg"
+                            src="/media/Product_${product.getProductId()}.jpg"
                         </#if>
 
                      alt="Image" >
@@ -74,6 +74,9 @@
                 <h6 class="font-weight-bold blue-text">
                     <strong>${product.productPrice} $</strong>
                 </h6>
+
+                    <span class="badge blue mr-1">New</span>
+
             </div>
 
         </div>

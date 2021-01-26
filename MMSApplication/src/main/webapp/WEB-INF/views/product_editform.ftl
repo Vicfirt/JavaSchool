@@ -80,7 +80,7 @@
                 <div class="form-group">
                     <label>Weight *</label>
                     <@spring.bind "product.productWeight"/>
-                    <input value="${product.productWeight!}" type="text" class="form-control form-control-lg" id="productWeight"
+                    <input  type="text" class="form-control form-control-lg" id="productWeight"
                            name="productWeight" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>

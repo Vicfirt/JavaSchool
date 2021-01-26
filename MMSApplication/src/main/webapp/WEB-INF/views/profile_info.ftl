@@ -42,20 +42,23 @@
         </div>
                 <#else>
                 <div class="col sm-6">
-                <div class="card">
+                <div class="card"  style="height: 22rem">
                     <div class="card-body">
                         <p></p>
                         <p></p>
                         <p></p>
-                        <p class="card-text"><strong>Add your address please</strong></p>
+                        <p class="card-text text-center text-muted">Add your address please</p>
                         <p></p>
                         <p></p>
                         <p></p>
+                    </div>
+                    <div class="card-footer">
                     <form action="/profile/address/new" method="get">
                         <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Add address
                         </button>
                     </form>
                     </div>
+
                 </div>
                 </div>
 

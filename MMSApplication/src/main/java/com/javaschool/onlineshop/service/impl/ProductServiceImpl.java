@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * This class is responsible for processing data received from product DAO as well as preparing it for sending to the UI.
+ */
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -28,6 +31,13 @@ public class ProductServiceImpl implements ProductService {
         this.productMapper = productMapper;
     }
 
+    /**
+     * This method calls DAO method to get list of all products which satisfy the range.
+     *
+     * @param minPrice minimum price of range
+     * @param maxPrice maximum price of range
+     * @return if price range is present it returns filtered by price list of products. Otherwise it returns all products
+     */
     @Override
     @Transactional
     public List<ProductDTO> findAllProductsByPrice(Double minPrice, Double maxPrice) {
@@ -43,6 +53,11 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * This method returns list of all products present in store. It returns even inactive products.
+     *
+     * @return list of products
+     */
     @Override
     public List<ProductDTO> findAllProducts() {
         List<Product> productList = productDAO.findAllProducts();
@@ -85,6 +100,11 @@ public class ProductServiceImpl implements ProductService {
         productDAO.deleteProduct(id);
     }
 
+    /**
+     * This method returns list of all active products present in store.
+     *
+     * @return list of active products
+     */
     @Override
     @Transactional
     public List<ProductDTO> findAllActiveProducts() {
@@ -96,6 +116,12 @@ public class ProductServiceImpl implements ProductService {
         return productDTOList;
     }
 
+    /**
+     * This method is used to return active products filtered by category
+     *
+     * @param categoryId specifies category id
+     * @return list of products
+     */
     @Override
     @Transactional
     public List<ProductDTO> findAllActiveProductsByCategory(Integer categoryId) {
@@ -107,6 +133,12 @@ public class ProductServiceImpl implements ProductService {
         return productDTOList;
     }
 
+    /**
+     * This method is used to return active products filtered by brand name.
+     *
+     * @param brandName requested brand name
+     * @return list of products
+     */
     @Override
     @Transactional
     public List<ProductDTO> findAllActiveProductByBrand(String brandName) {
@@ -118,6 +150,14 @@ public class ProductServiceImpl implements ProductService {
         return productDTOList;
     }
 
+    /**
+     * This method calls DAO method to get list of all active products which satisfy the range.
+     *
+     * @param minPrice minimum price of range
+     * @param maxPrice maximum price of range
+     * @return if price range is present it returns filtered by price list of active products.
+     * Otherwise it returns all active products
+     */
     @Override
     @Transactional
     public List<ProductDTO> findAllActiveProductsByPrice(Double minPrice, Double maxPrice) {
@@ -133,6 +173,12 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * This method is used to return filtered list of active products in accordance with the requested product name
+     *
+     * @param productName name to filter by
+     * @return list of products
+     */
     @Override
     @Transactional
     public List<ProductDTO> findAllActiveProductsByName(String productName) {
@@ -144,6 +190,12 @@ public class ProductServiceImpl implements ProductService {
         return productDTOList;
     }
 
+    /**
+     * This method decreases amount of specified product in stock.
+     *
+     * @param productId specifies product to decrease amount
+     * @param amount    amount to be decreased by
+     */
     @Override
     @Transactional
     public void decreaseAmount(Long productId, Integer amount) {
@@ -154,6 +206,12 @@ public class ProductServiceImpl implements ProductService {
         productDAO.updateProduct(product);
     }
 
+    /**
+     * This method is used to return sorted set of brand names.
+     *
+     * @param products products whose brand names will be used
+     * @return names of the product brands
+     */
     @Override
     public Set<String> getBrandNames(List<ProductDTO> products) {
         Set<String> brandNames = new TreeSet<>();
@@ -163,6 +221,11 @@ public class ProductServiceImpl implements ProductService {
         return brandNames;
     }
 
+    /**
+     * This method returns all available brand names
+     *
+     * @return brand names of available products
+     */
     @Override
     @Transactional
     public Set<String> getAllAvailableBrands() {
@@ -170,6 +233,11 @@ public class ProductServiceImpl implements ProductService {
         return getBrandNames(productDTOList);
     }
 
+    /**
+     * This method returns products to provide home page advertisement
+     *
+     * @return products list
+     */
     @Override
     @Transactional
     public List<ProductDTO> findSaleProducts() {

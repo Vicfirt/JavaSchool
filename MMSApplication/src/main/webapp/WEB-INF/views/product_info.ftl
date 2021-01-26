@@ -16,7 +16,7 @@
                             src="${product.productImage}"
 
                             <#else>
-                                     src="/images/Product_${product.getProductId()}.jpg"
+                                src="/media/Product_${product.getProductId()}.jpg"
                                      </#if>
 
                             alt="Iphone" class="img-fluid">
@@ -35,9 +35,7 @@
                                     </#if>
                                 </span>
                             </a>
-                            <a href="">
-                                <span class="badge blue mr-1">New</span>
-                            </a>
+
                             <a href="/catalog/brand/${product.getProductBrand()}">
                                 <span class="badge red mr-1">${product.getProductBrand()}</span>
                             </a>
@@ -56,8 +54,10 @@
                         </#if>
                         </p>
 
+                         <#if product.productDescription??>
                         <p class="lead font-weight-bold">Description</p>
                         <p>${product.productDescription}</p>
+                         </#if>
 
                         <#if product.productWeight??>
                             <p class="lead font-weight-bold">Weight</p>

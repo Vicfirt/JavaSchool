@@ -31,9 +31,7 @@ public class HibernateConfig {
     }
 
     /**
-     *
-     Method for setting hibernate configuration parameters.
-
+     * Method for setting hibernate configuration parameters.
      * @return required parameters
      */
     private Properties hibernateProperties() {

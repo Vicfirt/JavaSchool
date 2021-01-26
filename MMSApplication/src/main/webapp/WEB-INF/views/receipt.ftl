@@ -28,7 +28,7 @@
                             src="${order.getProduct().getProductImage()}"
 
                         <#else>
-                            src="/images/Product_${order.getProduct().getProductId()}.jpg"
+                            src="/media/Product_${product.getProductId()}.jpg"
                         </#if>
 
                      alt="Iphone">
