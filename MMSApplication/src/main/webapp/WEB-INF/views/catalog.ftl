@@ -1,6 +1,5 @@
 <#import "common_home.ftl" as home>
-
-
+<#import "spring.ftl" as spring>
 <@home.home>
 
     <div class="row">
@@ -15,7 +14,7 @@
     <div class="row" style="margin-top: 80px;">
         <div class="col-lg-3">
             <div class="row">
-            <h2>Filter By</h2>
+            <h3 style="margin-left: 20px" >Filter By</h3>
             </div>
             <div class="row">
 
@@ -25,8 +24,9 @@
                         Category
                     </button>
                     <div class="dropdown-menu">
-                        <a href="#">Somelink</a>
-                        <a href="#">Somelink</a>
+                        <a class="dropdown-item "href="/catalog/category/1">Electronics</a>
+                        <a class="dropdown-item "href="/catalog/category/0">Books</a>
+                        <a class="dropdown-item "href="/catalog/category/2">Clothes</a>
                     </div>
                 </div>
 
@@ -36,38 +36,64 @@
                         Brand
                     </button>
                     <div class="dropdown-menu">
-                        <a href="#">Somelink</a>
-                        <a href="#">Somelink</a>
+                        <#list brands as brand>
+                        <a class="dropdown-item "href="/catalog/brand/${brand}">${brand}</a>
+                        </#list>
                     </div>
                 </div>
             </div>
-            <div data-role="page">
+            <div data-role="page" style="margin-top: 30px">
                 <div data-role="header">
                     <h3>Range by price</h3>
                 </div>
 
-                <div data-role="main" class="ui-content">
-                    <form method="post" action="/action_page_post.php">
-                        <div data-role="rangeslider">
-                            <label for="price-min">0</label>
-                            <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
-                            <label for="price-max">5000$</label>
-                        </div>
-                        <input type="submit" data-inline="true" value="Set">
 
-                    </form>
-                </div>
+                    <input type="text" id="amount" name = "amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+
+                    <div id="slider-range"></div>
+
+                <form action="/catalog" method="get">
+
+                    <input type="hidden" name="minValue" id="minValue" />
+                    <input type="hidden" name="maxValue" id="maxValue" />
+
+                    <input align="center" type="submit" class="btn btn-primary" value="Range"style="margin-top: 10px">
+                </form>
+
             </div>
         </div>
 
         <div class="col-lg-9">
             <div class="row wow fadeIn">
+                <#if (products)??>
                     <#list products as product>
-                        <div class="col col-md-2 lg-4 md-4">
+                        <div class="col col-lg-3 col-md-6">
 
-                        <div class="card" style="width: 160px">
-                            <div class="view overlay">
-                                <img class="card-img-top" src="${product.productImage}" alt="Iphone" >
+                        <div class="card mb-4  ${product.getActive()?then("","text-white bg-warning")}" style="width: 180px; height: 250px">
+
+                            <div class="view overlay"
+                                  <#if (customer?? && customer.role == "CUSTOMER") || (customer?? && customer.role == "EMPLOYEE") >
+
+                                 style="width: 125px; height: 125px; margin-left: 26px"
+
+                                <#else>
+
+                                 style="width: 180px; height: 180px"
+
+                            </#if>
+                            >
+                                <img class="card-img-top"
+                                     <#if product.productImage != "">
+
+                                     src="${product.getProductImage()}"
+
+                                     <#else>
+
+                                     src="/media/Product_${product.getProductId()}.jpg"
+                                     </#if>
+
+                                      alt="Image" >
+
                                 <a href="/product/${product.productId}">
                                     <div class="mask rgba-white-slight"></div>
                                 </a>
@@ -76,21 +102,120 @@
                                 <a href="/product/${product.productId}" class="grey-text">
                                     <h6>${product.productBrand} ${product.productName}</h6>
                                 </a>
-
-                                <h5 class="font-weight-bold blue-text">
+                                <h6 class="font-weight-bold blue-text">
                                     <strong>${product.productPrice} $</strong>
-                                </h5>
-                                <#if customer??>
-                                <a href="cart/add/product/${product.productId}" class="card-link btn btn-primary" >
-                                    <i class="fa fa-shopping-cart ml-1"></i></a>
-                            </#if>
+                                </h6>
                             </div>
+
+
+                                <#if customer?? && customer.role == "CUSTOMER">
+                                <a type="button" href="cart/product/${product.productId}" class="card-link btn btn-primary btn-sm" >
+                                    <i class="fa fa-shopping-cart ml-1"></i></a>
+                                    <#elseif customer?? && customer.role == "EMPLOYEE">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a type="button" href="product/employee/edition/${product.productId}"
+                                               class="card-link btn btn-success"><i class="fas fa-edit"></i></a>
+                                            <a type="button" href="product/employee/deletion/${product.productId}"
+                                               class="card-link btn btn-danger"><i class="fa fa-trash"
+                                                                                   aria-hidden="true"></i></a>
+                                        </div>
+                                </#if>
+
+
                         </div>
                         </div>
                     </#list>
+                    <#elseif filteredProducts?has_content>
+                        <#list filteredProducts as product>
+                            <div class="col col-lg-3 col-md-6">
+
+                                <div class="card mb-4" style="width: 180px; height: 250px">
+                                    <div class="view overlay text-center"
+                                            <#if (customer?? && customer.role == "CUSTOMER") || (customer?? && customer.role == "EMPLOYEE") >
+
+                                                style="width: 125px; height: 125px; margin-left: 26px"
+
+                                            <#else>
+
+                                                style="width: 180px; height: 180px"
+
+                                            </#if>
+                                    >
+                                        <img class="card-img-top"
+                                                <#if product.productImage != "">
+
+                                                    src="${product.getProductImage()}"
+
+                                                <#else>
+
+                                                    src="/media/Product_${product.getProductId()}.jpg"
+                                                </#if>
+
+                                             alt="Image" >
+
+                                        <a href="/product/${product.productId}">
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <a href="/product/${product.productId}" class="grey-text">
+                                            <h6>${product.productBrand} ${product.productName}</h6>
+                                        </a>
+
+
+                                        <h6 class="font-weight-bold blue-text">
+                                            <strong>${product.productPrice} $</strong>
+                                        </h6>
+
+                                    </div>
+                                        <#if customer?? && customer.role == "CUSTOMER">
+                                            <a type="button" href="cart/product/${product.productId}" class="card-link btn btn-sm btn-primary" >
+                                                <i class="fa fa-shopping-cart ml-1"></i></a>
+                                        <#elseif customer?? && customer.role == "EMPLOYEE">
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a type="button" href="product/employee/edition/${product.productId}"
+                                                   class="card-link btn btn-success"><i class="fas fa-edit"></i></a>
+                                                <a type="button" href="product/employee/deletion/${product.productId}"
+                                                   class="card-link btn btn-danger"><i class="fa fa-trash"
+                                                                                       aria-hidden="true"></i></a>
+                                            </div>
+                                        </#if>
+
+                                </div>
+                            </div>
+                        </#list>
+                    <#else>
+
+                    <div style="margin-top: 100px; margin-left: 50px">
+                        <h4 class="text-muted text-center">No results were found for your search.</h4>
+                    </div>
+
+                </#if>
             </div>
 
         </div>
     </div>
         <#include "footer.ftl">
 </@home.home>
+<script>
+    $( function() {
+        $( "#slider-range" ).slider({
+            range: true,
+            min: 0.0,
+            max: 2000.0,
+            values: [ 0.0, 2000.0 ],
+            slide: function( event, ui ) {
+                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                $( "#minValue" ).val(ui.values[0]);
+                $( "#maxValue" ).val(ui.values[1]);
+            }
+        });
+        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+            " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+        $("#minValue").val($("#slider-range").slider("values", 0));
+
+        $("#maxValue").val($("#slider-range").slider("values", 1));
+    } );
+
+</script>

@@ -1,6 +1,7 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
+import com.javaschool.onlineshop.exception.DataNotFoundException;
 import com.javaschool.onlineshop.dao.ProductDAO;
 import com.javaschool.onlineshop.model.entity.Product;
 import org.hibernate.Session;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * This class is responsible for getting data from product database entity.
+ */
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
@@ -18,34 +22,49 @@ public class ProductDAOImpl implements ProductDAO {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<Product> findAll() {
+    @Override
+    public List<Product> findAllProductsByPrice(Double minPrice, Double maxPrice) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Product ").list();
+        String query = "FROM Product WHERE productPrice >= :minPrice and productPrice <= :maxPrice";
+        return session.createQuery(query, Product.class)
+                .setParameter("minPrice", minPrice)
+                .setParameter("maxPrice", maxPrice)
+                .getResultList();
+    }
+
+    @Override
+    public List<Product> findAllProducts() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Product ").list();
     }
 
     @Override
     public Product getProductById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Product.class, id);
+        Product product = session.get(Product.class, id);
+        if (product == null) throw new DataNotFoundException("Product with id: " + id + " does not exist");
+        return product;
     }
 
     @Override
-    public void addProduct(Product product) {
+    public Long addProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
-        session.persist(product);
+        return (Long) session.save(product);
     }
 
     @Override
-    public void updateProduct(Product product) {
+    public Product updateProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.update(product);
-
+        return product;
     }
 
     @Override
-    public void deleteProduct(Product product) {
-        product.setActive(false);
-        this.updateProduct(product);
+    public void deleteProduct(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Product product = session.get(Product.class, id);
+        if (product == null) throw new DataNotFoundException("Product with id: " + id + " does not exist");
+        session.delete(product);
     }
 
     @Override
@@ -53,27 +72,57 @@ public class ProductDAOImpl implements ProductDAO {
         Session session = sessionFactory.getCurrentSession();
         String query = "FROM Product WHERE isActive = :active";
         return session.createQuery(query, Product.class)
-                .setParameter("active", true)
+                .setParameter("active", "Y")
                 .getResultList();
     }
 
-    @Override
-    public List<Product> findAllActiveProductsByCategory(int categoryId) {
+    public List<Product> findAllActiveProductsByPrice(Double minPrice, Double maxPrice) {
         Session session = sessionFactory.getCurrentSession();
-        String query = "FROM Product WHERE isActive = :active AND categoryId = :categoryId";
+        String query = "FROM Product WHERE productPrice >= :minPrice and productPrice <= :maxPrice and isActive =: active";
         return session.createQuery(query, Product.class)
-                .setParameter("active", true)
-                .setParameter("categoryId", categoryId)
+                .setParameter("minPrice", minPrice)
+                .setParameter("maxPrice", maxPrice)
+                .setParameter("active", "Y")
                 .getResultList();
     }
 
     @Override
-    public List<Product> findAllActiveProductsByBrandOrModel(String brand, String category) {
-        return null;
+    public List<Product> findAllActiveProductsByCategory(Integer categoryId) {
+        Session session = sessionFactory.getCurrentSession();
+        String query = "FROM Product WHERE  categoryId = :categoryId and isActive =: active";
+        return session.createQuery(query, Product.class)
+                .setParameter("categoryId", categoryId)
+                .setParameter("active", "Y")
+                .getResultList();
+    }
+
+    @Override
+    public List<Product> findAllActiveProductsByBrand(String brandName) {
+        Session session = sessionFactory.getCurrentSession();
+        String query = "FROM Product WHERE productBrand = :brandName and isActive =: active";
+        return session.createQuery(query, Product.class)
+                .setParameter("brandName", brandName)
+                .setParameter("active", "Y")
+                .getResultList();
     }
 
     @Override
     public List<Product> findAllActiveProductsByName(String productName) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        String query = "FROM Product WHERE productName =: productName and isActive =: active";
+        return session.createQuery(query, Product.class)
+                .setParameter("productName", productName)
+                .setParameter("active", "Y")
+                .getResultList();
+    }
+
+    @Override
+    public List<Product> findSaleProducts() {
+        Session session = sessionFactory.getCurrentSession();
+        String query = "FROM Product WHERE isActive =: active order by rand(productId)";
+        return session.createQuery(query, Product.class)
+                .setParameter("active", "Y")
+                .setMaxResults(6)
+                .getResultList();
     }
 }

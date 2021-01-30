@@ -1,19 +1,26 @@
 <#import "common_home.ftl" as home>
 
     <#import "spring.ftl" as spring>
+
 <@home.home>
 
     <#include "header.ftl">
 
     <div class="container ">
 
-        <h1 align="center" class="display-4 mb-5">Edit Product</h1>
+        <h1 align="center" class="display-4 mb-5">Create Product</h1>
 
         <div style="width:40%; margin: 25px auto">
-            <form action="/product/employee/new" method="post">
+
+            <form action="<@spring.url'/product/employee/new'/>" method="post" enctype="multipart/form-data">
                 <@spring.bind "product"/>
 
                 <#--Photo-->
+
+                <div class="form-group">
+                    <label>Upload product photo</label>
+                    <input type="file" name="file" id="file">
+                </div>
                 <div class="form-group">
                     <label>Photo Link</label>
                     <@spring.bind "product.productImage"/>
@@ -34,7 +41,8 @@
                 <#--Category-->
                 <div class="form-group">
                     <label>Category *</label>
-                    <select class="custom-select custom-select-lg " id="categoryId" name="categoryId"
+                    <@spring.bind "product.categoryId"/>
+                    <select class="custom-select custom-select-lg" id="categoryId" name="categoryId"
                             required="true">
                         <option value="0">Books</option>
                         <option value="1">Electronics</option>
@@ -45,10 +53,10 @@
 
                 <#--Model-->
                 <div class="form-group">
-                    <label>Model *</label>
+                    <label>Model</label>
                     <@spring.bind "product.productModel"/>
                     <input value="${product.productModel!}"  type="text" class="form-control form-control-lg" id="productModel"
-                           name="productModel" required="true">
+                           name="productModel">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
@@ -65,7 +73,7 @@
                 <div class="form-group">
                     <label>Weight *</label>
                     <@spring.bind "product.productWeight"/>
-                    <input value="${product.productWeight!}" type="text" class="form-control form-control-lg" id="productWeight"
+                    <input value="${product.productWeight!}" type="number" class="form-control form-control-lg" id="productWeight"
                            name="productWeight" required="true">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
@@ -74,7 +82,7 @@
                 <div class="form-group">
                     <label>Capacity</label>
                     <@spring.bind "product.productCapacity"/>
-                    <input value="${product.productCapacity!}"  type="text" class="form-control form-control-lg" id="productCapacity"
+                    <input value="${product.productCapacity!}"  type="number" class="form-control form-control-lg" id="productCapacity"
                            name="productCapacity">
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
@@ -117,6 +125,7 @@
                 <#--Status-->
                 <div class="form-group">
                     <label>Status</label>
+
                     <select class="custom-select custom-select-lg " id="status" name="status" required="true">
                         <option value="true">Available</option>
                         <option value="false">Unavailable</option>
@@ -124,7 +133,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"/>
+                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Save product"/>
                 </div>
             </form>
 

@@ -12,27 +12,24 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
-        <div class="carousel-inner" style="height: 250px">
+        <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block w-100" src="https://images.pexels.com/photos/705164/computer-laptop-work-place-camera-705164.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="First slide">
+                <img class="d-block w-100" src="https://cdn.shopify.com/s/files/1/2728/6638/files/dickies-banner_1024x1024.png?v=1565769455">
                 <a href="/catalog"></a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Welcome</h5>
-                    <p></p>
+
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="https://images.pexels.com/photos/3608311/pexels-photo-3608311.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Second slide">
+                <img class="d-block w-100" src="https://7ns3u38klvh1d264d2i1jx3d-wpengine.netdna-ssl.com/wp-content/uploads/2019/07/Untitled-design-73.jpg" alt="Second slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Buy something</h5>
-                    <p>please</p>
+
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="https://images.pexels.com/photos/3608311/pexels-photo-3608311.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Third slide">
+                <img class="d-block w-100" src="https://s3.amazonaws.com/paradigmpress-uploads/wp-content/uploads/2020/08/shutterstock_image-87.jpg" alt="Third slide">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Best offer</h5>
-                    <p>really</p>
+
                 </div>
             </div>
         </div>
@@ -46,6 +43,45 @@
         </a>
     </div>
 
+</div>
+<div class="row wow fadeIn" style="margin-top: 50px">
+    <#list products as product>
+
+    <div class="col col-sm-3">
+
+        <div class="card mb-4" style="height: 250px">
+            <div class="view overlay">
+                <img class="card-img-top" style="height: 150px; width: 150px; margin-left: 50px"
+                        <#if product.productImage != "">
+
+                            src="${product.getProductImage()}"
+
+                        <#else>
+
+                            src="/media/Product_${product.getProductId()}.jpg"
+                        </#if>
+
+                     alt="Image" >
+
+                <a href="/product/${product.productId}">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+            <div class="card-body text-center">
+                <a href="/product/${product.productId}" class="grey-text">
+                    <h6>${product.productBrand} ${product.productName}</h6>
+                </a>
+                <h6 class="font-weight-bold blue-text">
+                    <strong>${product.productPrice} $</strong>
+                </h6>
+
+                    <span class="badge blue mr-1">New</span>
+
+            </div>
+
+        </div>
+    </div>
+    </#list>
 </div>
 
     <#include "footer.ftl">

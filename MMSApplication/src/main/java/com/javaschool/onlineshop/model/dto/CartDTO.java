@@ -6,10 +6,7 @@ public class CartDTO {
     private Long cartId;
 
     private Double cartTotal;
-/*
-    private CustomerDTO customer;
 
- */
     private Integer elementsInCart;
 
     public Long getCartId() {

@@ -1,81 +1,61 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
+import com.javaschool.onlineshop.exception.DataNotFoundException;
 import com.javaschool.onlineshop.dao.CustomerDAO;
 import com.javaschool.onlineshop.model.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
+
+/**
+ * This class is responsible for getting data from customer database entity.
+ */
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
 
     private final SessionFactory sessionFactory;
 
-    private final BCryptPasswordEncoder passwordEncoder;
-
-    public CustomerDAOImpl(SessionFactory sessionFactory, BCryptPasswordEncoder passwordEncoder) {
+    public CustomerDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public boolean addCustomer(Customer customer) {
-        customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
-        sessionFactory.getCurrentSession().persist(customer);
-        return true;
+    public Customer addCustomer(Customer customer) {
+            sessionFactory.getCurrentSession().persist(customer);
+            return customer;
     }
 
     @Override
     public Customer get(Long id) {
-
         String selectQuery = "FROM Customer WHERE customerId = :id";
-        try {
             Session session = sessionFactory.getCurrentSession();
-            return session.createQuery(selectQuery, Customer.class)
+            Customer customer =  session.createQuery(selectQuery, Customer.class)
                     .setParameter("id", id)
                     .getSingleResult();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+            if (customer == null) throw new DataNotFoundException("The user with "+ id +" id does not exist");
+            return customer;
     }
 
     @Override
-    public Customer getByEmail(String email) {
-        try {
-            String query = "FROM Customer WHERE customerEmailAddress = :email";
-
-            return sessionFactory.getCurrentSession().createQuery(query, Customer.class)
-                    .setParameter("email", email).getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    @Transactional
+    public Customer getByUsername(String username) {
+            String query = "FROM Customer WHERE customerEmailAddress = :username";
+            try {
+                Customer customer = sessionFactory.getCurrentSession().createQuery(query, Customer.class)
+                        .setParameter("username", username).getSingleResult();
+                return customer;
+            }
+            catch (NoResultException exception){
+                return null;
+            }
     }
 
     @Override
-    public boolean delete(Customer customer) {
-        try {
-            sessionFactory.getCurrentSession().delete(customer);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean update(Customer customer) {
-        try {
-            customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
-            sessionFactory.getCurrentSession().update(customer);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    public void update(Customer customer) {
+        sessionFactory.getCurrentSession().update(customer);
     }
 }

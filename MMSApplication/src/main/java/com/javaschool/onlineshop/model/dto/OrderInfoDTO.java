@@ -5,7 +5,7 @@ public class OrderInfoDTO {
 
     private Long orderId;
 
-    private Integer customerId;
+    private Long customerId;
 
     private Double total;
 
@@ -15,6 +15,8 @@ public class OrderInfoDTO {
 
     private Integer shippingId;
 
+    private Integer statusId;
+
     public Long getOrderId() {
         return orderId;
     }
@@ -23,11 +25,11 @@ public class OrderInfoDTO {
         this.orderId = orderId;
     }
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
@@ -61,5 +63,13 @@ public class OrderInfoDTO {
 
     public void setShippingId(Integer shippingId) {
         this.shippingId = shippingId;
+    }
+
+    public Integer getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 }

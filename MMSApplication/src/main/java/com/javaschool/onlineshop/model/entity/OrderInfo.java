@@ -31,6 +31,8 @@ public class OrderInfo {
     @Column(name = "shipping_id")
     private Integer shippingId;
 
+    @Column(name = "status_id")
+    private Integer statusId;
 
     public Long getOrderId() {
         return orderId;
@@ -78,5 +80,13 @@ public class OrderInfo {
 
     public void setShippingId(Integer shippingId) {
         this.shippingId = shippingId;
+    }
+
+    public Integer getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 }

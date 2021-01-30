@@ -6,4 +6,6 @@ import com.javaschool.onlineshop.model.dto.CustomerDTO;
 public interface CustomerAddressService {
 
     void addCustomerAddress(CustomerAddressDTO customerAddressDTO, CustomerDTO customerDTO);
+
+    void updateCustomerAddress(CustomerAddressDTO customerAddressDTO);
 }

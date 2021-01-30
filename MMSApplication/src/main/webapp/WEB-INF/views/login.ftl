@@ -7,8 +7,7 @@
     <body>
 <div class="container">
 
-    <h1 align="center" class="display-4 mb-5">Sign In</h1>
-    <div style="width:40%; margin: 25px auto" >
+    <div style="width:40%; margin: 25px auto; margin-top: 120px" >
     <#if (RequestParameters.error)??>
         <div class="alert alert-danger">
             Invalid username and password.
@@ -33,9 +32,8 @@
 
         <div class="form-group">
             <div>
-                <input type="checkbox" id="remember_me" name="remember-me">
-                <label for="remember_me" class="inline">Remember me</label>
-                <a class="float-right" href="/">Sign Up</a>
+
+                <a class="float-right" href="/signup">Sign Up</a>
             </div>
         </div>
 
@@ -44,7 +42,9 @@
         </div>
     </form>
 
+    <div class="footer fixed-bottom">
     <#include "footer.ftl">
+    </div>
 
 
 

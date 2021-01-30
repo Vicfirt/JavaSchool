@@ -2,18 +2,15 @@ package com.javaschool.onlineshop.dao;
 
 
 import com.javaschool.onlineshop.model.entity.OrderElement;
+
 import java.util.List;
 
 public interface OrderElementDAO {
 
     void add(OrderElement orderElement);
 
-    void delete(Long id);
+    List<OrderElement> getAllOrderElements(Long orderId);
 
-    void update(OrderElement orderElement);
-
-    List<OrderElement> getElementsInOrder(Long orderInfo);
-
-    OrderElement get(Long id);
+    void deleteOrderElementsByOrder(Long orderId);
 }
 

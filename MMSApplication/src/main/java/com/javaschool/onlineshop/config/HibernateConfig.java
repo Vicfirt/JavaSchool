@@ -14,6 +14,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ *
+ Configuration class for working with the database.
+ */
 @Configuration
 @ComponentScan(basePackages = "com.javaschool.onlineshop")
 @EnableTransactionManagement
@@ -26,6 +30,10 @@ public class HibernateConfig {
         this.environment = environment;
     }
 
+    /**
+     * Method for setting hibernate configuration parameters.
+     * @return required parameters
+     */
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
@@ -34,6 +42,12 @@ public class HibernateConfig {
         return properties;
     }
 
+    /**
+     *
+     Bean to get the data source by the specified parameters to connect to the database.
+
+     * @return data source
+     */
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();

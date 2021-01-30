@@ -1,49 +1,72 @@
 <#import "common_home.ftl" as home>
 <@home.home>
-    <div class="row">
+    <#include "header.ftl">
+    <div class="row" style="margin-top: 120px">
 
-                    <div class="col-sm-6">
-                        <div class="card">
-                        <h2>${customer.getCustomerFirstName()} ${customer.getCustomerLastName()}</h2>
-                        <p><strong>Date of birth: </strong>  </p>
-                        <p><strong>Email address</strong> ${customer.getCustomerEmailAddress()}</p>
-                        <p><strong>Phone number</strong> ${customer.getPhoneNumber()}</p>
+    <div class="col-sm-6">
+        <div class="card" style="height: 22rem">
+            <div class="card-body">
+                <h2 class="card-title">${customer.getCustomerFirstName()} ${customer.getCustomerLastName()}</h2>
+                <p class="card-text"><strong>Date of birth: </strong>${customer.getCustomerDateOfBirth()}</p>
+                <p class="card-text"><strong>Email address: </strong> ${customer.getCustomerEmailAddress()}</p>
+                <p class="card-text"><strong>Phone number: </strong> ${customer.getPhoneNumber()}</p>
+            </div>
+            <div class="card-footer">
+                <form action="/profile/edition" method="get">
+                    <button type="submit" class="btn btn-primary btn-block">Edit profile <i
+                                class="fas fa-edit"></i></button>
+                </form>
+            </div>
+        </div>
 
-                        <form action="/profile/edit" method="get">
-                            <button type="submit" class="btn btn-primary btn-block">Edit profile</button>
-                        </form>
-                        </div>
+    </div>
 
+    <#if address.country??>
+    <div class="col sm-6">
+        <div class="card" style="height: 22rem">
+            <div class="card-body">
+            <h2 class="card-title">My address</h2>
+            <p class="card-text"><strong>Country: </strong>${address.getCountry()}</p>
+            <p class="card-text"><strong>City: </strong>${address.getCity()}</p>
+            <p class="card-text"><strong>Street: </strong>${address.getStreet()}</p>
+            <p class="card-text"><strong>Building: </strong>${customer.getCustomerAddress().getBuilding()}</p>
+                <p class="card-text"><strong>Room: </strong>${customer.getCustomerAddress().getRoom()}</p>
+                <p class="card-text"><strong>Postcode:</strong> ${customer.getCustomerAddress().getPostcode()}</p>
+            </div>
+            <div class="card-footer">
+                <form action="profile/address">
+                    <button class="btn btn-primary btn-block">Update Address
+                        <i class="fas fa-redo"></i></button>
+                </form>
+            </div>
+        </div>
+                <#else>
+                <div class="col sm-6">
+                <div class="card"  style="height: 22rem">
+                    <div class="card-body">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p class="card-text text-center text-muted">Add your address please</p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+                    <div class="card-footer">
+                    <form action="/profile/address/new" method="get">
+                        <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Add address
+                        </button>
+                    </form>
                     </div>
 
+                </div>
+                </div>
 
-
-    <#if address?has_content>
-    <div class="col sm-6">
-        <div class="card">
-            <h2>My address</h2>
-            <p><strong>Country: </strong>${address.getCountry()}</p>
-            <p><strong>City:</strong>${address.getCity()}</p>
-            <p><strong>Street:</strong>${address.getStreet()}</p>
-            <p><strong>Building:</strong>${customer.getCustomerAddress().getBuilding()}</p>
-            <p><strong>Room:</strong>${customer.getCustomerAddress().getRoom()}</p>
-            <p><strong>Postcode:</strong> ${customer.getCustomerAddress().getPostcode()}</p>
-        <button class="btn btn-primary btn-block"><span class="fa fa-refresh-circle" style="size:200px"></span>Update Address</button>
-        </div>
-        </div>
-        </div>
-
-
-    <#else >
-        <div class="row">
-
-            <form action="/profile/address/new" method="get">
-            <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span>Add address</button>
-            </form>
-        </div>
-
-    </#if>
-
-
+                </#if>
+    </div>
+    </div>
+    <div class="footer fixed-bottom">
+        <#include "footer.ftl">
+    </div>
 
 </@home.home>

@@ -12,45 +12,127 @@
             <thead>
             <tr>
                 <th scope="col">Order #</th>
-                <th scope="col">Customer Name</th>
-                <th scope="col">Customer Email</th>
-                <th scope="col">Customer phone</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email address</th>
+                <th scope="col">Phone number</th>
                 <th scope="col">Total</th>
-                <th scope="col">Order Data</th>
                 <th scope="col">Status</th>
+                <#if customer.role == "EMPLOYEE">
                 <th scope="col">Action</th>
+                </#if>
             </tr>
             </thead>
             <tbody>
-            <#list orders as order>
-                <tr>
-                    <th class="align-middle" scope="row">
+            <tr>
+                    <#if customer.role == "CUSTOMER">
 
-                    </th>
+
+                    <#list orders as order>
+
                     <td class="align-middle">${order.getOrderId()}</td>
+                    <td class="align-middle">${customer.getCustomerFirstName()}</td>
+                    <td class="align-middle">${customer.getCustomerLastName()}</td>
                     <td class="align-middle">${customer.getCustomerEmailAddress()}</td>
                     <td class="align-middle">${customer.getPhoneNumber()}</td>
-                    <td class="align-middle"></td>
-                    <td class="align-middle">OrderTotal}</td>
-                    <td class="align-middle">Status</td>
-                    <td class="align-middle">
+                    <td class="align-middle">${order.getTotal()}</td>
+                     <td class="align-middle">
+                            <#if order.statusId == 0>
+                            In process
+                                <#elseif order.statusId == 1>
+                                During delivery
+                                    <#elseif order.statusId == 2>
+                                Delivered
+                                <#else>
+                                Rejected
 
+                            </#if>
+                     </td>
+                <td class="align-middle">
+                    <a href="/orders/receipt/${order.orderId}" type="button" class="btn btn-success">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+
+                         </#list>
+
+                <#else>
+
+                <#list orders as order>
+                <td class="align-middle">${order.getOrderId()}</td>
+
+                    <td class="align-middle">${customers[order?index].getCustomerFirstName()}</td>
+                    <td class="align-middle">${customers[order?index].getCustomerLastName()}</td>
+                    <td class="align-middle">${customers[order?index].getCustomerEmailAddress()}</td>
+                    <td class="align-middle">${customers[order?index].getPhoneNumber()}</td>
+
+                <td class="align-middle">${order.getTotal()}</td>
+            <form action="/orders/status" method="get">
+                <td class="align-middle">
+
+                    <select class="custom-select custom-select-lg" id="statusId" name="statusId" >
+                        <option value="" disabled selected>
+                            <#if order.statusId == 0>
+                                In process
+                                <#elseif order.statusId ==1>
+                                During delivery
+                                    <#elseif order.statusId ==2>
+                                Delivered
+                                <#else >
+                                Rejected
+                            </#if>
+                        </option>
+                        <option value="0">In process</option>
+                        <option value="1">During delivery</option>
+                        <option value="2">Delivered</option>
+                        <option value="3">Rejected</option>
+                    </select>
+
+                    <input hidden type="number" name="orderId" id="orderId" value="${order.getOrderId()}">
 
                     </td>
 
-                </tr>
-            </#list>
-            </tbody>
-        </table>
-        <#if orders?has_content>
+                <td class="align-middle">
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-edit"
+                               aria-hidden="true"></i>
+                        </button>
+
+                </td>
+            </form>
+                    <td class="align-middle">
+                        <a href="/orders/receipt/${order.orderId}" type="button" class="btn btn-success">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    <td class="align-middle">
+                        <a href="/orders/deletion/${order.orderId}" type="button" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    </tr>
+                </#list>
+            </#if>
+
+            <#if orders?has_content>
             <#else>
                 <div>
-                    <h4 class="text-muted text-center">You don't have any orders yet. </h4>
+                    <h4 class="text-muted text-center">Order list is empty </h4>
                 </div>
 
-        </#if>
+            </#if>
+
+            </tbody>
+        </table>
+
 
     </div>
+
+    <#include "footer.ftl">
+
+
 
 
 </@home.home>

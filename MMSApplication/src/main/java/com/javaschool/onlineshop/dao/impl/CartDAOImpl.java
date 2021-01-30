@@ -6,8 +6,9 @@ import com.javaschool.onlineshop.model.entity.Cart;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
-
+/**
+ * This class is responsible for getting data from cart database entity.
+ */
 @Repository
 public class CartDAOImpl implements CartDAO {
 
@@ -18,39 +19,14 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public Cart getCart(Long customerId) {
-        String dbQuery = "FROM Cart WHERE customer = :customerId";
-        Query query = sessionFactory.getCurrentSession().createQuery(dbQuery, Cart.class);
-        query.setParameter("customerId", customerId);
-        return (Cart) query.getSingleResult();
+    public Cart updateCart(Cart cart) {
+        sessionFactory.getCurrentSession().update(cart);
+        return cart;
     }
 
     @Override
-    public boolean updateCart(Cart cart) {
-        try {
-            sessionFactory.getCurrentSession().update(cart);
-            return true;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean addCart(Cart cart){
-        try {
-            sessionFactory.getCurrentSession().persist(cart);
-            return true;
-        }
-        catch (Exception e){
-            return false;
-        }
-    }
-
-    public Cart getCartById(Long cartId){
-        String dbQuery = "FROM Cart WHERE cartId = :cartId";
-        Query query = sessionFactory.getCurrentSession().createQuery(dbQuery, Cart.class);
-        query.setParameter("cartId", cartId);
-        return (Cart) query.getSingleResult();
+    public Cart addCart(Cart cart) {
+        sessionFactory.getCurrentSession().persist(cart);
+        return cart;
     }
 }

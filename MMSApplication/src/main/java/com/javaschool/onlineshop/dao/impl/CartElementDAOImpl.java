@@ -1,15 +1,18 @@
 package com.javaschool.onlineshop.dao.impl;
 
 
+import com.javaschool.onlineshop.exception.DataNotFoundException;
 import com.javaschool.onlineshop.dao.CartElementDAO;
 import com.javaschool.onlineshop.model.entity.CartElement;
-import com.javaschool.onlineshop.model.entity.Product;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * This class is responsible for getting data from cart element database entity.
+ */
 @Repository
 public class CartElementDAOImpl implements CartElementDAO {
 
@@ -19,63 +22,39 @@ public class CartElementDAOImpl implements CartElementDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
     public CartElement get(Long id) {
-
-        return sessionFactory.getCurrentSession().get(CartElement.class, id);
-    }
-
-    public boolean add(CartElement cartElement) {
-        try {
-
-            sessionFactory.getCurrentSession().persist(cartElement);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean delete(Long id) {
-        try {
             CartElement cartElement = sessionFactory.getCurrentSession().get(CartElement.class, id);
-            sessionFactory.getCurrentSession().delete(cartElement);
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+            if(cartElement == null) throw new DataNotFoundException("Cart element with id: "+ id + " does not exist");
+            return cartElement;
     }
 
     @Override
-    public boolean update(CartElement cartElement) {
-        try {
-            sessionFactory.getCurrentSession().update(cartElement);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+    public CartElement add(CartElement cartElement) {
+        sessionFactory.getCurrentSession().persist(cartElement);
+        return cartElement;
     }
 
+    @Override
+    public CartElement delete(Long id) {
+            CartElement cartElement = sessionFactory.getCurrentSession().get(CartElement.class, id);
+            if(cartElement == null) throw new DataNotFoundException("Cart element with id: "+ id + " does not exist");
+            sessionFactory.getCurrentSession().delete(cartElement);
+            return cartElement;
+    }
+
+    @Override
+    public CartElement update(CartElement cartElement) {
+        sessionFactory.getCurrentSession().update(cartElement);
+        return cartElement;
+    }
+
+    @Override
     public List<CartElement> findAll(Long cartId) {
-        try {
-            String elements = "FROM CartElement where cartId = :cartId";
-            Query query = sessionFactory.getCurrentSession().createQuery(elements);
-            query.setParameter("cartId", cartId);
-            return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public List<CartElement> listAvailable(Long cartId) {
-
-        return null;
-    }
-
-    public CartElement get(Long cartId, Product product) {
-        return null;
+            String query = "FROM CartElement where cartId = :cartId";
+            Session session  = sessionFactory.getCurrentSession();
+            return session.createQuery(query, CartElement.class)
+                    .setParameter("cartId", cartId)
+                    .getResultList();
     }
 }
