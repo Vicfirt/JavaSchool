@@ -11,12 +11,11 @@
         <div style="width:40%; margin: 25px auto" >
             <form action="/profile/edition"  method="post">
                 <@spring.bind "customer"/>
-                <div class="form-group">
-                    <label>Email address *</label>
-                    <@spring.bind "customer.customerEmailAddress"/>
-                    <input value="${customer.customerEmailAddress!}" type="email" class="form-control form-control-lg" id="customerEmailAddress" name="customerEmailAddress"  required="true" autofocus="true">
-                    <span class="text-danger"><@spring.showErrors ""/></span>
-                </div>
+
+
+                    <input hidden value="${customer.customerEmailAddress!}" type="email" class="form-control form-control-lg" id="customerEmailAddress" name="customerEmailAddress"  required="true" autofocus="true">
+
+
 
                 <div class="form-group">
                     <label>First Name *</label>
@@ -32,12 +31,8 @@
                     <span class="text-danger"><@spring.showErrors ""/></span>
                 </div>
 
-                <div class="form-group">
-                    <label>Date of Birth *</label>
-                    <@spring.bind "customer.customerDateOfBirth"/>
-                    <input value="${customer.customerDateOfBirth!}" type="date" min="1900-01-01" max="2021-01-01"class="form-control form-control-lg" id="customerDateOfBirth" name="customerDateOfBirth"  required="true">
-                    <span class="text-danger"><@spring.showErrors ""/></span>
-                </div>
+
+                    <input hidden value="${customer.customerDateOfBirth!}" type="date" min="1900-01-01" max="2021-01-01"class="form-control form-control-lg" id="customerDateOfBirth" name="customerDateOfBirth"  required="true">
 
                 <div class="form-group">
                     <label>Password *</label>

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -49,6 +48,7 @@ public class ContentController {
                 || authentication.getAuthorities().contains(new SimpleGrantedAuthority("EMPLOYEE"))) {
             CustomerDTO customer = customerService.getByUsername(authentication.getName());
             model.addAttribute("customer", customer);
+
         }
         return "home_page";
     }
@@ -66,7 +66,7 @@ public class ContentController {
                           @RequestParam(name = "minValue", required = false) Double minPrice,
                           @RequestParam(name = "maxValue", required = false) Double maxPrice) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<ProductDTO> allProducts = new ArrayList<>();
+        List<ProductDTO> allProducts;
         Set<String> brands = productService.getAllAvailableBrands();
         model.addAttribute("brands", brands);
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {

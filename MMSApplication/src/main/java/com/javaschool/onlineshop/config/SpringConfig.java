@@ -40,7 +40,7 @@ public class SpringConfig implements WebMvcConfigurer {
         resolver.setDefaultEncoding("utf-8");
         return resolver;
     }
-//Завтра спрячу в properites
+
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
             "classpath:/META-INF/resources/", "classpath:/resources/",
             "classpath:/static/", "classpath:/public/", "file:///C:/Users/IvaNi/IdeaProjects/TsystemsProject/JavaSchool/MMSApplication/src/main/media"};

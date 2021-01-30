@@ -6,8 +6,8 @@
 
     <div class="container ">
 
-        <h1 align="center" class="display-4 mb-5">Add address</h1>
-        <div style="width:40%; margin: 25px auto" >
+
+        <div style="width:40%; margin: 25px auto; margin-top: 80px" >
             <form action="/profile/address/new"  method="post">
                 <@spring.bind "address"/>
                 <div class="form-group">

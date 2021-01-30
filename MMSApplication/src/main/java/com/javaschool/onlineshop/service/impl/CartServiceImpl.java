@@ -68,7 +68,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = getCart();
         Long checkResult = isProductInCart(productDTO.getProductId(), cart.getCartId());
         if (checkResult > 0){
-            updateCartElement(checkResult, cart.getElementsInCart()+1);
+            updateCartElement(checkResult, cartElementDAO.get(checkResult).getProductCount() + 1);
         }
         else {
             cart.setElementsInCart(cart.getElementsInCart() + 1);
@@ -95,8 +95,8 @@ public class CartServiceImpl implements CartService {
     public void deleteCartElement(Long cartElementId) {
         Cart cart = getCart();
         cart.setElementsInCart(cart.getElementsInCart() - 1);
+        cart.setCartTotal(cart.getCartTotal() - cartElementDAO.get(cartElementId).getElementPrice());
         cartElementDAO.delete(cartElementId);
-        cart.setCartTotal(countTotal());
         cartDAO.updateCart(cart);
     }
 

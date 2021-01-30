@@ -109,7 +109,7 @@
 
 
                                 <#if customer?? && customer.role == "CUSTOMER">
-                                <a href="cart/product/${product.productId}" class="card-link btn btn-primary" >
+                                <a type="button" href="cart/product/${product.productId}" class="card-link btn btn-primary btn-sm" >
                                     <i class="fa fa-shopping-cart ml-1"></i></a>
                                     <#elseif customer?? && customer.role == "EMPLOYEE">
                                         <div class="btn-group btn-group-sm" role="group">
@@ -127,7 +127,7 @@
                     </#list>
                     <#elseif filteredProducts?has_content>
                         <#list filteredProducts as product>
-                            <div class="col col-sm-3">
+                            <div class="col col-lg-3 col-md-6">
 
                                 <div class="card mb-4" style="width: 180px; height: 250px">
                                     <div class="view overlay text-center"
@@ -169,7 +169,7 @@
 
                                     </div>
                                         <#if customer?? && customer.role == "CUSTOMER">
-                                            <a href="cart/product/${product.productId}" class="card-link btn btn-primary" >
+                                            <a type="button" href="cart/product/${product.productId}" class="card-link btn btn-sm btn-primary" >
                                                 <i class="fa fa-shopping-cart ml-1"></i></a>
                                         <#elseif customer?? && customer.role == "EMPLOYEE">
                                             <div class="btn-group btn-group-sm" role="group">
@@ -202,8 +202,8 @@
         $( "#slider-range" ).slider({
             range: true,
             min: 0.0,
-            max: 5000.0,
-            values: [ 0.0, 5000.0 ],
+            max: 2000.0,
+            values: [ 0.0, 2000.0 ],
             slide: function( event, ui ) {
                 $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
                 $( "#minValue" ).val(ui.values[0]);

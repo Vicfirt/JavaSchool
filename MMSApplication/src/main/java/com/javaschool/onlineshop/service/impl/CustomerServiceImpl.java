@@ -99,6 +99,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setCustomerEmailAddress(customerDTO.getCustomerEmailAddress());
         customer.setCustomerPassword(customerDTO.getCustomerPassword());
         customer.setCustomerPassword(passwordEncoder.encode(customerDTO.getCustomerPassword()));
+        customer.setPhoneNumber(customerDTO.getPhoneNumber());
         customerDAO.addCustomer(customer);
     }
 

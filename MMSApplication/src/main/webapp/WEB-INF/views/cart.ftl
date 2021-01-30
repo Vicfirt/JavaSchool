@@ -30,7 +30,7 @@
                                 src="${item.getProduct().getProductImage()}"
 
                             <#else>
-                                src="/media/Product_${product.getProductId()}.jpg"
+                                src="/media/Product_${item.getProduct().getProductId()}.jpg"
                             </#if>
 
                          alt="Iphone">

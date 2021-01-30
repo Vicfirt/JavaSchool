@@ -151,10 +151,7 @@ public class CustomerController {
     @PostMapping("/profile/edition")
     public String editProfile(@Valid @ModelAttribute("customer") CustomerDTO customer, BindingResult bindingResult,
                               RedirectAttributes redirectAttributes, Principal principal) {
-        CustomerDTO customerExists = customerService.getByUsername(customer.getCustomerEmailAddress());
-        if (customerExists != null) {
-            bindingResult.rejectValue("customerEmailAddress", "", "This email is already in use");
-        }
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("customer", customer);
             return "/edit_profile";
